@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root type="HBox"  xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.NavbarController">
+<fx:root type="HBox" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.NavbarController">
     <Button text="Vnd Features" onAction="#gotoVndFeaturesView"/>
     <Button text="Mnt-Features" onAction="#gotoMntFeaturesView"/>
 </fx:root>

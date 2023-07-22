@@ -7,10 +7,14 @@ public class VendingMachineButtonController {
 
     @FXML  public Label vndNameLabel;
     @FXML public Label vndTypeLabel;
+    @FXML private Label noOfSlotsLabel;
+    @FXML private Label slotCapacityLabel;
 
-    public void initialize(String vndName, String vndType) {
+    public void initialize(String vndName, String vndType, int noOfSlots, int slotCapacity) {
         vndNameLabel.setText(vndName);
-        vndTypeLabel.setText(vndType);
+        vndTypeLabel.setText(vndType + " Vending Machine");
+        noOfSlotsLabel.setText("No. of Slots: " + noOfSlots);
+        slotCapacityLabel.setText("Slot Capacity: " + slotCapacity);
     }
 
 

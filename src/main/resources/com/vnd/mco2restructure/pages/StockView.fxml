@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.StockController">
+    <top>
+        <HBox>
+            <Button text="Exit" onAction="#exit"/>
+            <Button text="Add Stock"/>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true">
+            <FlowPane fx:id="menuLayout" hgap="20" vgap="20">
+
+            </FlowPane>
+        </ScrollPane>
+    </center>
+</BorderPane>

@@ -13,9 +13,9 @@
     <VBox>
         <Label fx:id="vndNameLabel" text="Vending Machine 1"/>
         <Label fx:id="vndTypeLabel" text="Regular Vending Machine"/>
-        <HBox>
-            <Label text="No. of slots: "/>
-            <Label text="Slot Capacity: "/>
+        <HBox spacing="5">
+            <Label fx:id="noOfSlotsLabel" text="No. of slots: "/>
+            <Label fx:id="slotCapacityLabel" text="Slot Capacity: "/>
         </HBox>
     </VBox>
 </fx:root>

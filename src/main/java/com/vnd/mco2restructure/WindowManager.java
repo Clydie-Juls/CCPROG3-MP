@@ -3,10 +3,12 @@ package com.vnd.mco2restructure;
 import com.vnd.mco2restructure.controller.HomeController;
 import com.vnd.mco2restructure.controller.MainMenuController;
 import com.vnd.mco2restructure.controller.MaintenanceService;
+import com.vnd.mco2restructure.controller.StockController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -23,10 +25,14 @@ public class WindowManager {
     private HomeController homeController;
     private MainMenuController mainMenuController;
     private MaintenanceService maintenanceService;
+
+    private StockController stockController;
     private Scene homeScene;
     private Scene mainMenuScene;
-    ScrollPane vndFeaturesLayout;
-    StackPane mntFeaturesLayout;
+    private ScrollPane vndFeaturesLayout;
+    private StackPane mntFeaturesLayout;
+
+    private BorderPane stockLayout;
 
     public WindowManager(Stage window) {
         this.window = window;
@@ -58,6 +64,12 @@ public class WindowManager {
             maintenanceService = mntFeaturesView.getController();
             maintenanceService.setWindowManager(this);
 
+            //Stock View Setup
+            FXMLLoader stockView = new FXMLLoader(getClass().getResource("pages/StockView.fxml"));
+            stockLayout = stockView.load();
+            stockController = stockView.getController();
+            stockController.setWindowManager(this);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -76,6 +88,10 @@ public class WindowManager {
         window.setScene(homeScene);
     }
 
+    public void gotoMainMenuView() {
+        window.setScene(mainMenuScene);
+    }
+
     public void gotoMntFeaturesView() {
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
@@ -92,8 +108,25 @@ public class WindowManager {
         mainMenuController.getMainContent().setCenter(vndFeaturesLayout);
     }
 
+    public void gotoStockView() {
+        if (window.getScene() != mainMenuScene) {
+            window.setScene(mainMenuScene);
+        }
+
+        mainMenuController.getMainContent().setCenter(stockLayout);
+    }
+
     public VBox getCollectMoneyView() {
         FXMLLoader collectMoneyView = new FXMLLoader(getClass().getResource("pages/CollectMoneyView.fxml"));
+        try {
+            return collectMoneyView.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public VBox getCollectDenomView() {
+        FXMLLoader collectMoneyView = new FXMLLoader(getClass().getResource("pages/CollectDenomView.fxml"));
         try {
             return collectMoneyView.load();
         } catch (IOException e) {

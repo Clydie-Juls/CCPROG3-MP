@@ -9,11 +9,12 @@ import javafx.scene.layout.HBox;
 import java.io.IOException;
 
 public class VendingMachineButton extends HBox {
-    public VendingMachineButton(@NamedArg("vndName") String vndName, @NamedArg("vndType") String vndType) {
-        setView(vndName, vndType);
+    public VendingMachineButton(@NamedArg("vndName") String vndName, @NamedArg("vndType") String vndType,
+                                int noOfSlots, int slotCapacity) {
+        setView(vndName, vndType, noOfSlots, slotCapacity);
     }
 
-    private void setView(String vndName, String vndType) {
+    private void setView(String vndName, String vndType, int noOfSlots, int slotCapacity) {
         FXMLLoader view = new FXMLLoader(HelloApplication.class.getResource("components/VendingMachineButton.fxml"));
         view.setRoot(this);
 
@@ -23,6 +24,6 @@ public class VendingMachineButton extends HBox {
             throw new RuntimeException(e);
         }
         VendingMachineButtonController vendingMachineButtonController = view.getController();
-        vendingMachineButtonController.initialize(vndName, vndType);
+        vendingMachineButtonController.initialize(vndName, vndType, noOfSlots, slotCapacity);
     }
 }

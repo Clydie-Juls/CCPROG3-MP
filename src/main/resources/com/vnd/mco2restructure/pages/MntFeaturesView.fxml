@@ -29,7 +29,7 @@
                 </padding>
                 <spacing>10</spacing>
                 <!-- Vending Machine selection interface  -->
-                <HBox fx:id="stockButton" styleClass="mnt-buttons">
+                <HBox styleClass="mnt-buttons" onMouseClicked="#gotoStockView">
                     <Label text="Stock Items"/>
                 </HBox>
                 <HBox fx:id="restockButton" styleClass="mnt-buttons">
@@ -38,7 +38,7 @@
                 <HBox styleClass="mnt-buttons" onMouseClicked="#gotoCollectMoneyView">
                     <Label text="collect money"/>
                 </HBox>
-                <HBox fx:id="replenishDmButton" styleClass="mnt-buttons">
+                <HBox styleClass="mnt-buttons" onMouseClicked="#gotoCollectDenomView">
                     <Label text="replenish denomination"/>
                 </HBox>
                 <HBox fx:id="changePriceButton" styleClass="mnt-buttons">

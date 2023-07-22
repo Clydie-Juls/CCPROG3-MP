@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import com.vnd.mco2restructure.component.NumberField?>
+<VBox xmlns:fx="http://javafx.com/fxml/1">
+    <Label text="Total money : 1234"/>
+    <HBox><Label text="₱ 1000"/> <NumberField/></HBox>
+    <HBox><Label text="₱ 500"/> <NumberField/></HBox>
+    <HBox><Label text="₱ 200"/> <NumberField/></HBox>
+    <HBox><Label text="₱ 100"/> <NumberField/></HBox>
+    <HBox><Label text="₱ 50"/> <NumberField/></HBox>
+    <HBox><Label text="₱ 20"/> <NumberField/></HBox>
+    <HBox><Label text="₱ 10"/> <NumberField/></HBox>
+    <HBox><Label text="₱ 5"/> <NumberField/></HBox>
+    <HBox><Label text="₱ 1"/> <NumberField/></HBox>
+</VBox>
