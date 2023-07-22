@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.vnd.mco2restructure.component.Navbar?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.MainMenuController">
+    <center>
+        <StackPane>
+<!--            Main Content-->
+            <BorderPane fx:id="mainContent">
+
+            </BorderPane>
+        </StackPane>
+    </center>
+    <bottom>
+        <Navbar fx:id="navbar"/>
+    </bottom>
+</BorderPane>
+

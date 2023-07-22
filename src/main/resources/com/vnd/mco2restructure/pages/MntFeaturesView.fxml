@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<?import java.lang.String?>
+<?import com.vnd.mco2restructure.component.SlidePopup?>
+<StackPane  xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.MaintenanceService">
+    <BorderPane>
+        <stylesheets>
+            <String fx:value="/com/vnd/mco2restructure/pages/css/MntFeaturesView.css"/>
+        </stylesheets>
+        <top>
+            <StackPane>
+                <VBox>
+                    <Label text="Total money collected"/>
+                    <Label text="\$1234"/>
+                </VBox>
+            </StackPane>
+        </top>
+        <center>
+            <VBox>
+                <padding>
+                    <Insets top="10" bottom="10" left="10" right="10"/>
+                </padding>
+                <spacing>10</spacing>
+                <!-- Vending Machine selection interface  -->
+                <HBox fx:id="stockButton" styleClass="mnt-buttons">
+                    <Label text="Stock Items"/>
+                </HBox>
+                <HBox fx:id="restockButton" styleClass="mnt-buttons">
+                    <Label text="Restock"/>
+                </HBox>
+                <HBox styleClass="mnt-buttons" onMouseClicked="#gotoCollectMoneyView">
+                    <Label text="collect money"/>
+                </HBox>
+                <HBox fx:id="replenishDmButton" styleClass="mnt-buttons">
+                    <Label text="replenish denomination"/>
+                </HBox>
+                <HBox fx:id="changePriceButton" styleClass="mnt-buttons">
+                    <Label text="change item price"/>
+                </HBox>
+                <HBox fx:id="displayTransactionsButton" styleClass="mnt-buttons">
+                    <Label text="display transactions"/>
+                </HBox>
+            </VBox>
+        </center>
+    </BorderPane>
+<!--    Popup Layout-->
+    <BorderPane>
+        <bottom>
+            <SlidePopup fx:id="slidePopup"/>
+        </bottom>
+    </BorderPane>
+</StackPane>
+
+        <!--<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"-->
+        <!--      fx:controller="com.example.mco2gui.HelloController">-->
+        <!--    <padding>-->
+        <!--        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>-->
+        <!--    </padding>-->
+
+        <!--    <Label fx:id="welcomeText"/>-->
+        <!--    <Button text="Hello!" onAction="#onHelloButtonClick"/>-->
+        <!--</VBox>-->

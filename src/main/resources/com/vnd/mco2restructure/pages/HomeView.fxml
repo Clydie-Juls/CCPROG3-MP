@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Priority?>
+<?import com.vnd.mco2restructure.component.SlidePopup?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.ScrollPane?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.HomeController">
+    <!-- Main content at the top -->
+    <BorderPane  style="-fx-background-color: green;">
+        <top>
+            <StackPane>
+                <Button text="+" onAction="#showPopup"/>
+            </StackPane>
+        </top>
+        <center>
+            <ScrollPane style="-fx-background-color: yellow;" fitToWidth="true" >
+                <VBox fx:id="vndMachineButtonsLayout" spacing="10">
+
+                </VBox>
+            </ScrollPane>
+        </center>
+    </BorderPane>
+
+
+    <BorderPane>
+        <bottom>
+            <SlidePopup fx:id="slidePopup">
+                    <center>
+                        <VBox>
+                            <spacing>
+                                10
+                            </spacing>
+                            <Label text="Create a Vending Machine"/>
+                            <TextField fx:id="vndNameTextField" promptText="Vending Machine Name"/>
+                            <ComboBox fx:id="vndTypeChoice">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Regular" />
+                                        <String fx:value="Special" />
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                            <Button text="Add" onAction="#addVendingMachine"/>
+                        </VBox>
+                    </center>
+            </SlidePopup>
+        </bottom>
+    </BorderPane>
+
+    <!--<?xml version="1.0" encoding="UTF-8"?>-->
+
+    <!--<?import javafx.scene.layout.BorderPane?>-->
+    <!--<?import javafx.scene.layout.StackPane?>-->
+
+    <!--<?import javafx.scene.control.Button?>-->
+    <!--<?import javafx.scene.layout.VBox?>-->
+    <!--<?import javafx.scene.control.Label?>-->
+    <!--<?import javafx.geometry.Insets?>-->
+
+
+    <!--<?import javafx.scene.control.TextField?>-->
+    <!--<?import javafx.scene.control.ComboBox?>-->
+    <!--<?import javafx.collections.FXCollections?>-->
+    <!--<?import java.lang.String?>-->
+
+    <!--<?import com.vnd.mco2restructure.component.SlidePopup?>-->
+    <!--<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="layout" fx:controller="com.vnd.mco2restructure.controller.HomeController">-->
+    <!--    <BorderPane>-->
+    <!--        <top>-->
+    <!--            <StackPane>-->
+    <!--                <Button fx:id="showPopupButton" text="+"/>-->
+    <!--            </StackPane>-->
+    <!--        </top>-->
+    <!--        <center>-->
+    <!--            <VBox fx:id="buttonLayout">-->
+    <!--                <padding>-->
+    <!--                    <Insets top="10" bottom="10" left="10" right="10"/>-->
+    <!--                </padding>-->
+    <!--                <spacing>10</spacing>-->
+    <!--                &lt;!&ndash; Vending Machine selection interface  &ndash;&gt;-->
+    <!--            </VBox>-->
+    <!--        </center>-->
+    <!--        <bottom>-->
+    <!--            &lt;!&ndash;        <SlidePopup disable="true" fx:id="slidePopup">&ndash;&gt;-->
+    <!--            &lt;!&ndash;            <center>&ndash;&gt;-->
+    <!--            &lt;!&ndash;                <VBox>&ndash;&gt;-->
+    <!--            &lt;!&ndash;                    <spacing>&ndash;&gt;-->
+    <!--            &lt;!&ndash;                        10&ndash;&gt;-->
+    <!--            &lt;!&ndash;                    </spacing>&ndash;&gt;-->
+    <!--            &lt;!&ndash;                    <Label text="Create a Vending Machine"/>&ndash;&gt;-->
+    <!--            &lt;!&ndash;                    <TextField fx:id="vndNameTextField" promptText="Vending Machine Name"/>&ndash;&gt;-->
+    <!--            &lt;!&ndash;                    <ComboBox fx:id="vndTypeChoice">&ndash;&gt;-->
+    <!--            &lt;!&ndash;                        <items>&ndash;&gt;-->
+    <!--            &lt;!&ndash;                            <FXCollections fx:factory="observableArrayList">&ndash;&gt;-->
+    <!--            &lt;!&ndash;                                <String fx:value="Regular" />&ndash;&gt;-->
+    <!--            &lt;!&ndash;                                <String fx:value="Special" />&ndash;&gt;-->
+    <!--            &lt;!&ndash;                            </FXCollections>&ndash;&gt;-->
+    <!--            &lt;!&ndash;                        </items>&ndash;&gt;-->
+    <!--            &lt;!&ndash;                    </ComboBox>&ndash;&gt;-->
+    <!--            &lt;!&ndash;                    <Button fx:id="addVendingMachineButton" text="Add"/>&ndash;&gt;-->
+    <!--            &lt;!&ndash;                </VBox>&ndash;&gt;-->
+    <!--            &lt;!&ndash;            </center>&ndash;&gt;-->
+    <!--            &lt;!&ndash;        </SlidePopup>&ndash;&gt;-->
+    <!--        </bottom>-->
+    <!--    </BorderPane>-->
+    <!--    <SlidePopup>-->
+
+    <!--    </SlidePopup>-->
+    <!--</StackPane>-->
+</StackPane>
