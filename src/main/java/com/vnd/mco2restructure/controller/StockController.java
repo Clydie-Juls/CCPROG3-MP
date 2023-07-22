@@ -8,7 +8,6 @@ import com.vnd.mco2restructure.menu.IndependentItemEnum;
 import com.vnd.mco2restructure.menu.NonCustomizable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -19,7 +18,6 @@ import java.util.ResourceBundle;
 
 public class StockController implements Initializable {
     private WindowManager windowManager;
-    @FXML private Button exitButton;
     @FXML private FlowPane menuLayout;
 
     @Override
@@ -75,9 +73,7 @@ public class StockController implements Initializable {
 
     @FXML
     private void exit() {
-        exitButton.setOnAction(event -> {
-            windowManager.gotoMntFeaturesView();
-        });
+        windowManager.gotoMntFeaturesView();
     }
 
     public void setWindowManager(WindowManager windowManager) {

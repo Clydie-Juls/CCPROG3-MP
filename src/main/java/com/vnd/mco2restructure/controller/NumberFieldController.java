@@ -2,7 +2,6 @@ package com.vnd.mco2restructure.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -34,7 +33,7 @@ public class NumberFieldController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        textField.setText("1"); // Default value for the text field
+        textField.setText("0"); // Default value for the text field
         textField.setPrefColumnCount(5); // Set preferred width for the text field
     }
 }

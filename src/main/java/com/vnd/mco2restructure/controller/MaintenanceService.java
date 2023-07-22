@@ -3,7 +3,6 @@ package com.vnd.mco2restructure.controller;
 import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.SlidePopup;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
 
 public class MaintenanceService {
 
@@ -27,7 +26,23 @@ public class MaintenanceService {
         windowManager.gotoStockView();
     }
 
+
     public void setWindowManager(WindowManager windowManager) {
         this.windowManager = windowManager;
+    }
+
+    @FXML
+    private void gotoRestockView() {
+        windowManager.gotoRestockView();
+    }
+
+    @FXML
+    private void gotoChangeItemPriceView() {
+        windowManager.gotoChangeItemPriceView();
+    }
+
+    @FXML
+    private void gotoDisplayTransactionsView() {
+        windowManager.gotoDisplayTransactionsView();
     }
 }

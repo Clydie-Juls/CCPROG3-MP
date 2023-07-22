@@ -5,6 +5,8 @@ import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.NumberField;
 import com.vnd.mco2restructure.component.SlidePopup;
 import com.vnd.mco2restructure.component.VendingMachineButton;
+import com.vnd.mco2restructure.model.vendingmachine.RegularVendingMachine;
+import com.vnd.mco2restructure.model.vendingmachine.SpecialVendingMachine;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -36,8 +38,6 @@ public class HomeController {
                         (programData.getVendingMachines().size() + 1) : vndNameTextField.getText(),
                 vndTypeChoice.getValue(), noOfSlots, slotCapacity
         );
-        //TODO: CHANGE this to a new VendingMachine after putting back the VendingMachine class
-        programData.getVendingMachines().put(vendingMachineButton, "Hello");
 
         vendingMachineButton.setOnMouseClicked(event -> windowManager.gotoVndFeaturesView());
 
@@ -45,10 +45,10 @@ public class HomeController {
         vndMachineButtonsLayout.getChildren().add(vendingMachineButton);
         if (vndTypeChoice.getValue().equalsIgnoreCase("Regular")) {
             System.out.println("Add regular vending machine");
-//            VENDING_MACHINES.put(vendingMachineButton, new RegularVendingMachine());
+            programData.getVendingMachines().put(vendingMachineButton, new RegularVendingMachine(noOfSlots, slotCapacity));
         } else {
             System.out.println("Add special vending machine");
-//            VENDING_MACHINES.put(vendingMachineButton, new SpecialVendingMachine());
+            programData.getVendingMachines().put(vendingMachineButton, new SpecialVendingMachine(noOfSlots, slotCapacity));
         }
 
 

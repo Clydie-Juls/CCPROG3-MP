@@ -32,7 +32,7 @@
                 <HBox styleClass="mnt-buttons" onMouseClicked="#gotoStockView">
                     <Label text="Stock Items"/>
                 </HBox>
-                <HBox fx:id="restockButton" styleClass="mnt-buttons">
+                <HBox styleClass="mnt-buttons" onMouseClicked="#gotoRestockView">
                     <Label text="Restock"/>
                 </HBox>
                 <HBox styleClass="mnt-buttons" onMouseClicked="#gotoCollectMoneyView">
@@ -41,10 +41,10 @@
                 <HBox styleClass="mnt-buttons" onMouseClicked="#gotoCollectDenomView">
                     <Label text="replenish denomination"/>
                 </HBox>
-                <HBox fx:id="changePriceButton" styleClass="mnt-buttons">
+                <HBox styleClass="mnt-buttons" onMouseClicked="#gotoChangeItemPriceView">
                     <Label text="change item price"/>
                 </HBox>
-                <HBox fx:id="displayTransactionsButton" styleClass="mnt-buttons">
+                <HBox styleClass="mnt-buttons" onMouseClicked="#gotoDisplayTransactionsView">
                     <Label text="display transactions"/>
                 </HBox>
             </VBox>
@@ -58,12 +58,3 @@
     </BorderPane>
 </StackPane>
 
-        <!--<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"-->
-        <!--      fx:controller="com.example.mco2gui.HelloController">-->
-        <!--    <padding>-->
-        <!--        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>-->
-        <!--    </padding>-->
-
-        <!--    <Label fx:id="welcomeText"/>-->
-        <!--    <Button text="Hello!" onAction="#onHelloButtonClick"/>-->
-        <!--</VBox>-->

@@ -20,7 +20,7 @@ public class NavbarController {
 
     @FXML
     private void gotoMntFeaturesView() {
-        Platform.runLater(() -> windowManager.gotoMainMenuView());
+        Platform.runLater(() -> windowManager.gotoCurrentMntLayout());
     }
 
     public void setWindowManager(WindowManager windowManager) {

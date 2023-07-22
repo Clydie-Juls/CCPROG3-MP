@@ -9,4 +9,8 @@ module com.vnd.mco2restructure {
     opens com.vnd.mco2restructure.controller to javafx.fxml;
     exports com.vnd.mco2restructure.component;
     opens com.vnd.mco2restructure.component to javafx.fxml;
+    exports com.vnd.mco2restructure.model;
+    exports com.vnd.mco2restructure.model.vendingmachine;
+    exports com.vnd.mco2restructure.model.items;
+    exports com.vnd.mco2restructure.model.slots;
 }

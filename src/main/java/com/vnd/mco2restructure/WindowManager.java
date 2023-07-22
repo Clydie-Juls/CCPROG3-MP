@@ -1,9 +1,6 @@
 package com.vnd.mco2restructure;
 
-import com.vnd.mco2restructure.controller.HomeController;
-import com.vnd.mco2restructure.controller.MainMenuController;
-import com.vnd.mco2restructure.controller.MaintenanceService;
-import com.vnd.mco2restructure.controller.StockController;
+import com.vnd.mco2restructure.controller.*;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -27,12 +24,18 @@ public class WindowManager {
     private MaintenanceService maintenanceService;
 
     private StockController stockController;
+    private RestockController restockController;
+    private ChangeItemPriceController changeItemPriceController;
+    private DisplayTransactionsController displayTransactionsController;
     private Scene homeScene;
     private Scene mainMenuScene;
     private ScrollPane vndFeaturesLayout;
     private StackPane mntFeaturesLayout;
-
     private BorderPane stockLayout;
+    private BorderPane restockLayout;
+    private BorderPane changeItemPriceLayout;
+    private BorderPane displayTransactionsLayout;
+    private Pane currentMntLayout;
 
     public WindowManager(Stage window) {
         this.window = window;
@@ -70,6 +73,26 @@ public class WindowManager {
             stockController = stockView.getController();
             stockController.setWindowManager(this);
 
+            //Restock View Setup
+            FXMLLoader restockView = new FXMLLoader(getClass().getResource("pages/RestockView.fxml"));
+            restockLayout = restockView.load();
+            restockController = restockView.getController();
+            restockController.setWindowManager(this);
+
+            //Change Item Price View Setup
+            FXMLLoader changeItemPriceView = new FXMLLoader(getClass().getResource("pages/ChangeItemPriceView.fxml"));
+            changeItemPriceLayout = changeItemPriceView.load();
+            changeItemPriceController = changeItemPriceView.getController();
+            changeItemPriceController.setWindowManager(this);
+
+            //Display Transactions View Setup
+            FXMLLoader displayTransactionsView = new FXMLLoader(getClass().getResource("pages/DisplayTransactionsView.fxml"));
+            displayTransactionsLayout = displayTransactionsView.load();
+            displayTransactionsController = displayTransactionsView.getController();
+            displayTransactionsController.setWindowManager(this);
+
+            currentMntLayout = mntFeaturesLayout;
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -88,9 +111,6 @@ public class WindowManager {
         window.setScene(homeScene);
     }
 
-    public void gotoMainMenuView() {
-        window.setScene(mainMenuScene);
-    }
 
     public void gotoMntFeaturesView() {
         if (window.getScene() != mainMenuScene) {
@@ -98,6 +118,7 @@ public class WindowManager {
         }
 
         mainMenuController.getMainContent().setCenter(mntFeaturesLayout);
+        currentMntLayout = mntFeaturesLayout;
     }
 
     public void gotoVndFeaturesView() {
@@ -114,6 +135,42 @@ public class WindowManager {
         }
 
         mainMenuController.getMainContent().setCenter(stockLayout);
+        currentMntLayout = stockLayout;
+    }
+
+    public void gotoRestockView() {
+        if (window.getScene() != mainMenuScene) {
+            window.setScene(mainMenuScene);
+        }
+
+        mainMenuController.getMainContent().setCenter(restockLayout);
+        currentMntLayout = restockLayout;
+    }
+
+    public void gotoChangeItemPriceView() {
+        if (window.getScene() != mainMenuScene) {
+            window.setScene(mainMenuScene);
+        }
+
+        mainMenuController.getMainContent().setCenter(changeItemPriceLayout);
+        currentMntLayout = changeItemPriceLayout;
+    }
+
+    public void gotoDisplayTransactionsView() {
+        if (window.getScene() != mainMenuScene) {
+            window.setScene(mainMenuScene);
+        }
+
+        mainMenuController.getMainContent().setCenter(displayTransactionsLayout);
+        currentMntLayout = displayTransactionsLayout;
+    }
+
+    public void gotoCurrentMntLayout() {
+        if (window.getScene() != mainMenuScene) {
+            window.setScene(mainMenuScene);
+        }
+
+        mainMenuController.getMainContent().setCenter(currentMntLayout);
     }
 
     public VBox getCollectMoneyView() {
