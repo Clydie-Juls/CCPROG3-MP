@@ -6,8 +6,8 @@ import com.vnd.mco2restructure.model.vendingmachine.VendingMachine;
 import java.util.HashMap;
 
 public class ProgramData {
-    //TODO: Change the value to VendingMachine class
-    HashMap<VendingMachineButton, VendingMachine> vendingMachines;
+    private HashMap<VendingMachineButton, VendingMachine> vendingMachines;
+    private VendingMachine currentVendingMachine;
 
     public ProgramData() {
         vendingMachines = new HashMap<>();
@@ -15,5 +15,13 @@ public class ProgramData {
 
     public HashMap<VendingMachineButton, VendingMachine> getVendingMachines() {
         return vendingMachines;
+    }
+
+    public VendingMachine getCurrentVendingMachine() {
+        return currentVendingMachine;
+    }
+
+    public void setCurrentVendingMachine(VendingMachine currentVendingMachine) {
+        this.currentVendingMachine = currentVendingMachine;
     }
 }

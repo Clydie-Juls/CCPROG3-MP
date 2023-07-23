@@ -1,14 +1,31 @@
 package com.vnd.mco2restructure.menu;
 
+import com.vnd.mco2restructure.model.items.CustomizableItem;
+import com.vnd.mco2restructure.model.items.NonCustomizableItem;
+
 import java.util.ArrayList;
 
-public enum CustomizableItemEnum implements ItemEnum, Sellable {
+public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable {
     BASIC_BURGER(ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.SAUCE_AND_CONDIMENT_TYPES),
     VEGGIE_BURGER(ItemType.BUN_TYPES, ItemType.PINEAPPLE_PATTY, ItemType.SAUCE_AND_CONDIMENT_TYPES),
     CHICKEN_BURGER(ItemType.BUN_TYPES, ItemType.CHICKEN_BURGER, ItemType.SAUCE_AND_CONDIMENT_TYPES),
     CHEESEBURGER(ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.CHEESE_TYPES, ItemType.SAUCE_AND_CONDIMENT_TYPES),
     DELUXE_BURGER(ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.CHEESE_TYPES, ItemType.OTHER_TYPES,
             ItemType.SAUCE_AND_CONDIMENT_TYPES);
+
+    @Override
+    public CustomizableItem enumToItem() {
+        NonCustomizableItem[] nonCustomizableItems = new NonCustomizableItem[ingredients.length];
+        for (int i = 0; i < ingredients.length; i++) {
+            if(ingredients[i].items[ingredientTypes[i]] instanceof IndependentItemEnum independentItemEnum) {
+                nonCustomizableItems[i] = independentItemEnum.enumToItem();
+            } else if(ingredients[i].items[ingredientTypes[i]] instanceof DependentItemEnum dependentItemEnum) {
+                nonCustomizableItems[i] = dependentItemEnum.enumToItem();
+            }
+
+        }
+        return new CustomizableItem(this.toString().toLowerCase(), nonCustomizableItems);
+    }
 
     public enum ItemType  {
         // Independent Items
@@ -49,11 +66,13 @@ public enum CustomizableItemEnum implements ItemEnum, Sellable {
     }
 
     private ItemType[] ingredients;
+    private int[] ingredientTypes;
     private ArrayList<NonCustomizable> addons;
 
     CustomizableItemEnum(ItemType... ingredients) {
         this.ingredients = ingredients;
         this.addons = new ArrayList<>();
+        ingredientTypes = new int[ingredients.length];
     }
 
     public void addAddon(NonCustomizable addon) {

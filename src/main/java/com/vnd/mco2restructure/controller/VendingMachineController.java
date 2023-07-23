@@ -1,23 +1,28 @@
 package com.vnd.mco2restructure.controller;
 
 
+import com.vnd.mco2restructure.component.ItemInterface;
+import com.vnd.mco2restructure.component.SlidePopup;
 import com.vnd.mco2restructure.model.items.Item;
 import com.vnd.mco2restructure.model.slots.Slot;
 import com.vnd.mco2restructure.model.vendingmachine.VendingMachine;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.FlowPane;
 
+import java.net.URL;
 import java.util.LinkedHashMap;
+import java.util.ResourceBundle;
 
 /**
  * Teh VendingMachineController class represents the vending machine's controller.
  */
-public class VendingMachineController {
-    private final VendingMachine VENDING_MACHINE;
-    /**
-     * Initializes a vending machine controller with its model and view.
-     * @param vendingMachine  model of the vending machine controller
-     */
-    public VendingMachineController(VendingMachine vendingMachine) {
-        this.VENDING_MACHINE = vendingMachine;
+public class VendingMachineController implements Initializable {
+    private VendingMachine vendingMachine;
+    @FXML private SlidePopup slidePopup;
+    @FXML private FlowPane itemLayout;
+
+    public VendingMachineController() {
     }
 
     /**
@@ -30,19 +35,19 @@ public class VendingMachineController {
      */
     public Item[] buy(LinkedHashMap<Integer, Integer> payment, int slotNo, int amount) {
         // if range is out of bounds
-        if (slotNo - 1 < 0 || slotNo - 1 >= VENDING_MACHINE.getSlots().length) {
+        if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
         } else {
-            Slot<? extends Item> selectedSlot = VENDING_MACHINE.getSlots()[slotNo - 1];
+            Slot<? extends Item> selectedSlot = vendingMachine.getSlots()[slotNo - 1];
             // if transactions process has failed
-            if (!VENDING_MACHINE.getDenomination().processPayment(payment,
+            if (!vendingMachine.getDenomination().processPayment(payment,
                     selectedSlot.getItem().getPrice() * amount)) {
 
             } else {
-                Item[] dispensedItem = VENDING_MACHINE.dispenseItem(slotNo, amount);
+                Item[] dispensedItem = vendingMachine.dispenseItem(slotNo, amount);
 
                 // If dispense item process is successful
                 if(dispensedItem != null) {
-                    VENDING_MACHINE.getTransactions().addTransaction(dispensedItem[0], amount);
+                    vendingMachine.getTransactions().addTransaction(dispensedItem[0], amount);
                     return dispensedItem;
                 }
             }
@@ -70,7 +75,7 @@ public class VendingMachineController {
      * @return  The controller's vending machine.
      */
     public VendingMachine getVendingMachine() {
-        return VENDING_MACHINE;
+        return vendingMachine;
     }
 
     /**
@@ -80,12 +85,25 @@ public class VendingMachineController {
      */
     public int getItemPrice(int slotNo) {
         // If slotNo is out of bounds
-        if (slotNo - 1 < 0 || slotNo - 1 >= VENDING_MACHINE.getSlots().length) {
+        if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
             return -1;
             // If Slot object has no existing item
-        } else if(VENDING_MACHINE.getSlots()[slotNo - 1].getItem() == null) {
+        } else if(vendingMachine.getSlots()[slotNo - 1].getItem() == null) {
             return -1;
         }
-        return VENDING_MACHINE.getSlots()[slotNo - 1].getItem().getPrice();
+        return vendingMachine.getSlots()[slotNo - 1].getItem().getPrice();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        ItemInterface itemInterface = new ItemInterface();
+        itemInterface.setOnMouseClicked(event -> {
+            slidePopup.slideUpAnimation();
+        });
+        itemLayout.getChildren().add(itemInterface);
+    }
+
+    public void setVendingMachine(VendingMachine vendingMachine) {
+        this.vendingMachine = vendingMachine;
     }
 }

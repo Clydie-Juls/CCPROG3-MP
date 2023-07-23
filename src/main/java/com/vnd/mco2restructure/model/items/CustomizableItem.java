@@ -1,5 +1,7 @@
 package com.vnd.mco2restructure.model.items;
 
+import java.util.Arrays;
+
 public class CustomizableItem extends Item{
 
     NonCustomizableItem[] itemsDerived;
@@ -7,11 +9,12 @@ public class CustomizableItem extends Item{
      * Constructs an Item object with the specified name, calories, and price.
      *
      * @param name     The name of the item.
-     * @param calories The number of calories in the item.
-     * @param price    The price of the item.
      */
-    public CustomizableItem(String name, int calories, int price, NonCustomizableItem[] itemsDerived) {
-        super(name, calories, price);
+    public CustomizableItem(String name, NonCustomizableItem[] itemsDerived) {
+        super(name,
+                Arrays.stream(itemsDerived).mapToInt(Item::getCalories).sum(),
+                Arrays.stream(itemsDerived).mapToInt(Item::getPrice).sum());
         this.itemsDerived = itemsDerived;
+
     }
 }

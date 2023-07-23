@@ -1,6 +1,8 @@
 package com.vnd.mco2restructure.menu;
 
-public enum DependentItemEnum implements ItemEnum, NonCustomizable, Sellable{
+import com.vnd.mco2restructure.model.items.DependentItem;
+
+public enum DependentItemEnum implements ItemEnum<DependentItem>, NonCustomizable, Sellable{
     // Patties
     PINEAPPLE_PATTY(0, 0),
     A5_WAGYU_PATTY(0, 0),
@@ -22,11 +24,16 @@ public enum DependentItemEnum implements ItemEnum, NonCustomizable, Sellable{
     TOMATO(0, 0),
     PICKLES(0, 0);
 
-    private int calories;
-    private int price;
+    private final int CALORIES;
+    private final int PRICE;
 
     DependentItemEnum(int calories, int price) {
-        this.calories = calories;
-        this.price = price;
+        this.CALORIES = calories;
+        this.PRICE = price;
+    }
+
+    @Override
+    public DependentItem enumToItem() {
+        return new DependentItem(this.name().toLowerCase(), CALORIES, PRICE);
     }
 }

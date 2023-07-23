@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<?import java.lang.String?>
+<fx:root type="VBox" xmlns:fx="http://javafx.com/fxml/1" styleClass="vbox-style">
+    <stylesheets>
+        <String fx:value="/com/vnd/mco2restructure/components/css/ItemInterfaceView.css" />
+    </stylesheets>
+    <Label fx:id="itemNameLabel" text="Item"/>
+    <HBox styleClass="hbox-style">
+        <Label fx:id="itemPriceLabel" text="\$Price"/>
+        <Label fx:id="itemCaloriesLabel" text="calories"/>
+    </HBox>
+</fx:root>

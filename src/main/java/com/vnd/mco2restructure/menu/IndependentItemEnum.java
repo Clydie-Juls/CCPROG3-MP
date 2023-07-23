@@ -1,6 +1,8 @@
 package com.vnd.mco2restructure.menu;
 
-public enum IndependentItemEnum implements ItemEnum, NonCustomizable {
+import com.vnd.mco2restructure.model.items.IndependentItem;
+
+public enum IndependentItemEnum implements ItemEnum<IndependentItem>, NonCustomizable, Sellable {
     COLESLAW(0, 0),
 
     // Cheese
@@ -20,11 +22,8 @@ public enum IndependentItemEnum implements ItemEnum, NonCustomizable {
         this.PRICE = price;
     }
 
-    public int getCalories() {
-        return CALORIES;
-    }
-
-    public int getPrice() {
-        return PRICE;
+    @Override
+    public IndependentItem enumToItem() {
+        return new IndependentItem(this.name().toLowerCase(), CALORIES, PRICE);
     }
 }

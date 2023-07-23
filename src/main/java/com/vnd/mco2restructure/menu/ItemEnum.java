@@ -1,4 +1,7 @@
 package com.vnd.mco2restructure.menu;
 
-public interface ItemEnum {
+import com.vnd.mco2restructure.model.items.Item;
+
+public interface ItemEnum<T extends Item> {
+    public T enumToItem();
 }

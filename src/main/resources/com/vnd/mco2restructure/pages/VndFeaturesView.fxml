@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fitToWidth="true">
-    <FlowPane >
-        <Label text="Item"/>
-        <Label text="Item"/>
-        <Label text="Item"/>
-        <Label text="Item"/>
-        <Label text="Item"/>
-        <Label text="Item"/>
-        <Label text="Item"/>
-        <Label text="Item"/>
-    </FlowPane>
-</ScrollPane>
+<?import com.vnd.mco2restructure.component.SlidePopup?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1"  fx:controller="com.vnd.mco2restructure.controller.VendingMachineController">
+    <BorderPane>
+        <top>
+            <HBox>
+                <Label text="Buy Items"/>
+            </HBox>
+        </top>
+        <center>
+            <ScrollPane fitToWidth="true">
+                <FlowPane fx:id="itemLayout">
+                </FlowPane>
+            </ScrollPane>
+        </center>
+    </BorderPane>
+
+    <BorderPane>
+        <bottom>
+            <SlidePopup fx:id="slidePopup"/>
+        </bottom>
+    </BorderPane>
+</StackPane>

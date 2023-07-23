@@ -1,0 +1,19 @@
+.vbox-style {
+    -fx-background-color: #21506a;
+    -fx-padding: 10px;
+    -fx-background-radius: 10px;
+    -fx-alignment: center;
+    -fx-margin: 10px;
+    -fx-spacing: 20px;
+    -fx-pref-width: 160px;
+}
+
+.label{
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.hbox-style {
+    -fx-spacing: 20px;
+}

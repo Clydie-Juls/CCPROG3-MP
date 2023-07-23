@@ -39,7 +39,10 @@ public class HomeController {
                 vndTypeChoice.getValue(), noOfSlots, slotCapacity
         );
 
-        vendingMachineButton.setOnMouseClicked(event -> windowManager.gotoVndFeaturesView());
+        vendingMachineButton.setOnMouseClicked(event -> {
+            windowManager.gotoVndFeaturesView();
+            programData.setCurrentVendingMachine(programData.getVendingMachines().get(vendingMachineButton));
+        });
 
 
         vndMachineButtonsLayout.getChildren().add(vendingMachineButton);

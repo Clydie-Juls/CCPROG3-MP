@@ -4,7 +4,6 @@ import com.vnd.mco2restructure.controller.*;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -29,7 +28,7 @@ public class WindowManager {
     private DisplayTransactionsController displayTransactionsController;
     private Scene homeScene;
     private Scene mainMenuScene;
-    private ScrollPane vndFeaturesLayout;
+    private StackPane vndFeaturesLayout;
     private StackPane mntFeaturesLayout;
     private BorderPane stockLayout;
     private BorderPane restockLayout;
