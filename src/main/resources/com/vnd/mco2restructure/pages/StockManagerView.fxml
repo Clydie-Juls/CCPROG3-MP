@@ -3,10 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.StockController">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.StockManagerController">
     <top>
         <HBox>
             <Button text="Exit" onAction="#exit"/>
+            <Button text="Add Stock"/>
         </HBox>
     </top>
     <center>

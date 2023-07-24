@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root type="BorderPane" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: grey; -fx-pref-width: 130px">
+    <top>
+        <VBox>
+            <Label fx:id="itemNameLabel" text="Item Name"/>
+            <Label fx:id="itemTypeLabel" text="Item Type"/>
+            <Label fx:id="amountLabel" text="Amount"/>
+        </VBox>
+    </top>
+    <bottom>
+        <Button fx:id="changeButton" text="Change"/>
+    </bottom>
+</fx:root>
