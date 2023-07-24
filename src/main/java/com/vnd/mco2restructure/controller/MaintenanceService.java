@@ -68,7 +68,7 @@ public class MaintenanceService {
 
     @FXML
     private void gotoStockView() {
-        windowManager.gotoStockView();
+        windowManager.gotoStockManagerView(true);
     }
 
 

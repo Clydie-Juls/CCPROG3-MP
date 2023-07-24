@@ -1,6 +1,10 @@
 package com.vnd.mco2restructure;
 
 import com.vnd.mco2restructure.controller.*;
+import com.vnd.mco2restructure.menu.ItemEnum;
+import com.vnd.mco2restructure.model.StockData;
+import com.vnd.mco2restructure.model.Stocks;
+import com.vnd.mco2restructure.model.items.Item;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -26,6 +30,8 @@ public class WindowManager {
     private RestockController restockController;
     private ChangeItemPriceController changeItemPriceController;
     private DisplayTransactionsController displayTransactionsController;
+
+    private StockManagerController stockManagerController;
     private Scene homeScene;
     private Scene mainMenuScene;
     private StackPane vndFeaturesLayout;
@@ -34,6 +40,7 @@ public class WindowManager {
     private BorderPane restockLayout;
     private BorderPane changeItemPriceLayout;
     private BorderPane displayTransactionsLayout;
+    private BorderPane stockManagerLayout;
     private Pane currentMntLayout;
 
     public WindowManager(Stage window) {
@@ -71,6 +78,7 @@ public class WindowManager {
             stockLayout = stockView.load();
             stockController = stockView.getController();
             stockController.setWindowManager(this);
+            stockController.setStockData(new StockData());
 
             //Restock View Setup
             FXMLLoader restockView = new FXMLLoader(getClass().getResource("pages/RestockView.fxml"));
@@ -89,6 +97,15 @@ public class WindowManager {
             displayTransactionsLayout = displayTransactionsView.load();
             displayTransactionsController = displayTransactionsView.getController();
             displayTransactionsController.setWindowManager(this);
+
+            //Stock Manager View Setup
+            FXMLLoader StockManagerView = new FXMLLoader(getClass().getResource("pages/StockManagerView.fxml"));
+            stockManagerLayout = StockManagerView.load();
+            stockManagerController = StockManagerView.getController();
+            stockManagerController.setWindowManager(this);
+            stockManagerController.setProgramData(PROGRAM_DATA);
+            stockManagerController.setStocks(new Stocks());
+
 
             currentMntLayout = mntFeaturesLayout;
 
@@ -128,13 +145,18 @@ public class WindowManager {
         mainMenuController.getMainContent().setCenter(vndFeaturesLayout);
     }
 
-    public void gotoStockView() {
+    public void gotoStockView(int slotId) {
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
         }
 
         mainMenuController.getMainContent().setCenter(stockLayout);
         currentMntLayout = stockLayout;
+        stockController.setSlotId(slotId);
+    }
+
+    public void setStockManagerStock(ItemEnum<? extends Item> itemEnum, int index) {
+        stockManagerController.setSlotItemEnum(itemEnum, index);
     }
 
     public void gotoRestockView() {
@@ -162,6 +184,19 @@ public class WindowManager {
 
         mainMenuController.getMainContent().setCenter(displayTransactionsLayout);
         currentMntLayout = displayTransactionsLayout;
+    }
+
+    public void gotoStockManagerView(boolean isResetStockEnum) {
+        if (window.getScene() != mainMenuScene) {
+            window.setScene(mainMenuScene);
+        }
+
+        mainMenuController.getMainContent().setCenter(stockManagerLayout);
+        currentMntLayout = stockManagerLayout;
+        if(isResetStockEnum) {
+            stockManagerController.resetStockEnums();
+        }
+        stockManagerController.updateView();
     }
 
     public void gotoCurrentMntLayout() {

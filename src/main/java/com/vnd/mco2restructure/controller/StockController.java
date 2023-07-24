@@ -1,14 +1,13 @@
 package com.vnd.mco2restructure.controller;
 
 import com.vnd.mco2restructure.WindowManager;
-import com.vnd.mco2restructure.component.NumberField;
 import com.vnd.mco2restructure.menu.CustomizableItemEnum;
 import com.vnd.mco2restructure.menu.DependentItemEnum;
 import com.vnd.mco2restructure.menu.IndependentItemEnum;
-import com.vnd.mco2restructure.menu.NonCustomizable;
+import com.vnd.mco2restructure.model.StockData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
@@ -17,6 +16,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class StockController implements Initializable {
+
+    private StockData stockData;
     private WindowManager windowManager;
     @FXML private FlowPane menuLayout;
 
@@ -26,27 +27,14 @@ public class StockController implements Initializable {
             //TODO: create fxml structure for this
             Label itemName = new Label(item.toString().toLowerCase().replace('_',' '));
             VBox vBox = new VBox(itemName);
-            vBox.setStyle("-fx-background-color: #f0f0f0;");
+            vBox.setStyle("-fx-background-color: #aaaaaa;");
 
-            for (CustomizableItemEnum.ItemType ingredient : item.getIngredients()) {
-                Label ingredientTypesName = new Label(ingredient.getItemTypeName());
-                vBox.getChildren().add(ingredientTypesName);
-                for (NonCustomizable ingredientItem : ingredient.getItems()) {
-                    if (ingredientItem instanceof IndependentItemEnum independentItemEnum) {
-                        String name = independentItemEnum.toString().toLowerCase().replace('_',' ');
-                        CheckBox itemCheckBox = new CheckBox(name);
-                        itemCheckBox.setSelected(true);
-                        vBox.getChildren().add(itemCheckBox);
-                    } else if (ingredientItem instanceof DependentItemEnum dependentItemEnum) {
-                        String name = dependentItemEnum.toString().toLowerCase().replace('_',' ');
-                        CheckBox itemCheckBox = new CheckBox(name);
-                        itemCheckBox.setSelected(true);
-                        vBox.getChildren().add(itemCheckBox);
-                    }
-                }
-            }
-            NumberField numberField = new NumberField();
-            vBox.getChildren().add(numberField);
+            Button addButton = new Button("Add");
+            vBox.getChildren().add(addButton);
+            addButton.setOnAction(event -> {
+                windowManager.setStockManagerStock(item, stockData.getSlotId());
+                exit();
+            });
             menuLayout.getChildren().add(vBox);
         }
 
@@ -54,29 +42,32 @@ public class StockController implements Initializable {
             //TODO: create fxml structure for this
             Label itemName = new Label(item.toString().toLowerCase().replace('_',' '));
             VBox vBox = new VBox(itemName);
-            vBox.setStyle("-fx-background-color: #f0f0f0;");
-            NumberField numberField = new NumberField();
-            vBox.getChildren().add(numberField);
+            vBox.setStyle("-fx-background-color: #aaaaaa;");
             menuLayout.getChildren().add(vBox);
-        }
+            Button addButton = new Button("Add");
+            addButton.setOnAction(event -> {
+                windowManager.setStockManagerStock(item, stockData.getSlotId());
+                exit();
+            });
+            vBox.getChildren().add(addButton);
 
-        for (DependentItemEnum item : DependentItemEnum.values()) {
-            //TODO: create fxml structure for this
-            Label itemName = new Label(item.toString().toLowerCase().replace('_',' '));
-            VBox vBox = new VBox(itemName);
-            vBox.setStyle("-fx-background-color: #f0f0f0;");
-            NumberField numberField = new NumberField();
-            vBox.getChildren().add(numberField);
-            menuLayout.getChildren().add(vBox);
         }
+    }
+
+    public void setSlotId(int slotId) {
+        stockData.setSlotId(slotId);
     }
 
     @FXML
     private void exit() {
-        windowManager.gotoMntFeaturesView();
+        windowManager.gotoStockManagerView(false);
     }
 
     public void setWindowManager(WindowManager windowManager) {
         this.windowManager = windowManager;
+    }
+
+    public void setStockData(StockData stockData) {
+        this.stockData = stockData;
     }
 }
