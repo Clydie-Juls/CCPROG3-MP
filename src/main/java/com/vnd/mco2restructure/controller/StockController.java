@@ -2,7 +2,6 @@ package com.vnd.mco2restructure.controller;
 
 import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.menu.CustomizableItemEnum;
-import com.vnd.mco2restructure.menu.DependentItemEnum;
 import com.vnd.mco2restructure.menu.IndependentItemEnum;
 import com.vnd.mco2restructure.model.StockData;
 import javafx.fxml.FXML;
@@ -15,27 +14,29 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class StockController implements Initializable {
+public class StockController {
 
     private StockData stockData;
     private WindowManager windowManager;
     @FXML private FlowPane menuLayout;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        for (CustomizableItemEnum item : CustomizableItemEnum.values()) {
-            //TODO: create fxml structure for this
-            Label itemName = new Label(item.toString().toLowerCase().replace('_',' '));
-            VBox vBox = new VBox(itemName);
-            vBox.setStyle("-fx-background-color: #aaaaaa;");
+    public void setView(boolean isSpecialVendingMachine) {
+        menuLayout.getChildren().clear();
+        if(isSpecialVendingMachine) {
+            for (CustomizableItemEnum item : CustomizableItemEnum.values()) {
+                //TODO: create fxml structure for this
+                Label itemName = new Label(item.toString().toLowerCase().replace('_',' '));
+                VBox vBox = new VBox(itemName);
+                vBox.setStyle("-fx-background-color: #aaaaaa;");
 
-            Button addButton = new Button("Add");
-            vBox.getChildren().add(addButton);
-            addButton.setOnAction(event -> {
-                windowManager.setStockManagerStock(item, stockData.getSlotId());
-                exit();
-            });
-            menuLayout.getChildren().add(vBox);
+                Button addButton = new Button("Add");
+                vBox.getChildren().add(addButton);
+                addButton.setOnAction(event -> {
+                    windowManager.setStockManagerStock(item, stockData.getSlotId());
+                    exit();
+                });
+                menuLayout.getChildren().add(vBox);
+            }
         }
 
         for (IndependentItemEnum item : IndependentItemEnum.values()) {

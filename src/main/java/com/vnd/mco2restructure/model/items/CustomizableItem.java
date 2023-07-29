@@ -10,9 +10,9 @@ public class CustomizableItem extends Item{
      *
      * @param name     The name of the item.
      */
-    public CustomizableItem(String name, NonCustomizableItem[] itemsDerived) {
+    public CustomizableItem(String name, NonCustomizableItem[] itemsDerived, int id) {
         super(name,
-                Arrays.stream(itemsDerived).mapToInt(Item::getCalories).sum(),
+                Arrays.stream(itemsDerived).mapToInt(Item::getCalories).sum(), id,
                 Arrays.stream(itemsDerived).mapToInt(Item::getPrice).sum());
         this.itemsDerived = itemsDerived;
 

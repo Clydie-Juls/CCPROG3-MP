@@ -5,15 +5,16 @@
 
 
 <?import com.vnd.mco2restructure.component.NumberField?>
-<VBox xmlns:fx="http://javafx.com/fxml/1">
-    <Label text="Total money : 1234"/>
-    <HBox><Label text="₱ 1000"/> <NumberField/></HBox>
-    <HBox><Label text="₱ 500"/> <NumberField/></HBox>
-    <HBox><Label text="₱ 200"/> <NumberField/></HBox>
-    <HBox><Label text="₱ 100"/> <NumberField/></HBox>
-    <HBox><Label text="₱ 50"/> <NumberField/></HBox>
-    <HBox><Label text="₱ 20"/> <NumberField/></HBox>
-    <HBox><Label text="₱ 10"/> <NumberField/></HBox>
-    <HBox><Label text="₱ 5"/> <NumberField/></HBox>
-    <HBox><Label text="₱ 1"/> <NumberField/></HBox>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.ProvideDenomController">
+    <Label fx:id="totalMoney" text="Total money : 1234"/>
+    <HBox><Label text="₱ 1000"/> <NumberField fx:id="numberField1000"/></HBox>
+    <HBox><Label text="₱ 500"/> <NumberField fx:id="numberField500"/></HBox>
+    <HBox><Label text="₱ 200"/> <NumberField fx:id="numberField200"/></HBox>
+    <HBox><Label text="₱ 100"/> <NumberField fx:id="numberField100"/></HBox>
+    <HBox><Label text="₱ 50"/> <NumberField fx:id="numberField50"/></HBox>
+    <HBox><Label text="₱ 20"/> <NumberField fx:id="numberField20"/></HBox>
+    <HBox><Label text="₱ 10"/> <NumberField fx:id="numberField10"/></HBox>
+    <HBox><Label text="₱ 5"/> <NumberField fx:id="numberField5"/></HBox>
+    <HBox><Label text="₱ 1"/> <NumberField fx:id="numberField1"/></HBox>
+    <Button text="Replenish" onAction="#replenish"/>
 </VBox>

@@ -5,7 +5,7 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
-<VBox>
-    <Label text="Would you like to collect $1234 from the vending machine?"/>
-    <Button text="Collect Money"/>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.CollectMoneyController">
+    <Label fx:id="moneyLabel" text="Would you like to collect $1234 from the vending machine?"/>
+    <Button text="Collect Money" onAction="#collectMoney"/>
 </VBox>

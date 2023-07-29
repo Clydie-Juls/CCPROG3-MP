@@ -13,7 +13,7 @@ public class RegularVendingMachine extends VendingMachine {
     public RegularVendingMachine(int noOfSlots, int itemCapacity) {
         super(noOfSlots);
         for (int i = 0; i < slots.length; i++) {
-            slots[i] = new StorageSlot<>(itemCapacity);
+            slots[i] = new StorageSlot(itemCapacity);
         }
     }
 
@@ -21,12 +21,12 @@ public class RegularVendingMachine extends VendingMachine {
         super(no, isNoOfCapacity);
         if (isNoOfCapacity) {
             for (int i = 0; i < slots.length; i++) {
-                slots[i] = new StorageSlot<>(10);
+                slots[i] = new StorageSlot(10);
             }
         } else {
             no = Math.max(10, no);
             for (int i = 0; i < slots.length; i++) {
-                slots[i] = new StorageSlot<>(no);
+                slots[i] = new StorageSlot(no);
             }
         }
     }
