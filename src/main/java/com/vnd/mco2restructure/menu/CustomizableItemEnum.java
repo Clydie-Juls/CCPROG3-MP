@@ -24,10 +24,10 @@ public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable
             }
 
         }
-        return new CustomizableItem(this.toString().toLowerCase(), nonCustomizableItems);
+        return new CustomizableItem(this.toString().toLowerCase(), nonCustomizableItems, this.ordinal());
     }
 
-    public enum ItemType  {
+    public enum ItemType implements NonCustomizable {
         // Independent Items
         BUN_TYPES ("Buns",
                         IndependentItemEnum.SESAME_SEED_BUN, IndependentItemEnum.BRIOCHE_BUN, IndependentItemEnum.WHOLE_WHEAT_BUN),

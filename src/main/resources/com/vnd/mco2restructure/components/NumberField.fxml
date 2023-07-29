@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.HBox?>
 
 <fx:root type="HBox"  xmlns="http://javafx.com/javafx/1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.NumberFieldController">
-    <Button text="-"  onAction="#decrementValue" />
+    <Button fx:id="minusButton" text="-"  onAction="#decrementValue"/>
     <TextField fx:id="textField" text="1" prefColumnCount="5" />
-    <Button text="+" onAction="#incrementValue" />
+    <Button fx:id="addButton" text="+" onAction="#incrementValue" />
 </fx:root>

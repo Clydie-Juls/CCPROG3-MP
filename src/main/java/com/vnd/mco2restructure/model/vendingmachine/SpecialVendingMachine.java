@@ -1,5 +1,6 @@
 package com.vnd.mco2restructure.model.vendingmachine;
 
+import com.vnd.mco2restructure.menu.NonCustomizable;
 import com.vnd.mco2restructure.model.items.Item;
 import com.vnd.mco2restructure.model.items.NonCustomizableItem;
 import com.vnd.mco2restructure.model.slots.IdSlot;
@@ -18,7 +19,7 @@ public class SpecialVendingMachine extends VendingMachine{
         super(noOfSlots);
         itemStorage = new HashMap<>();
         for (int i = 0; i < slots.length; i++) {
-            slots[i] = new IdSlot<>(itemCapacity);
+            slots[i] = new IdSlot(itemCapacity);
         }
     }
 
@@ -27,12 +28,12 @@ public class SpecialVendingMachine extends VendingMachine{
         itemStorage = new HashMap<>();
         if (isNoOfCapacity) {
             for (int i = 0; i < slots.length; i++) {
-                slots[i] = new IdSlot<>(10);
+                slots[i] = new IdSlot(10);
             }
         } else {
             no = Math.max(10, no);
             for (int i = 0; i < slots.length; i++) {
-                slots[i] = new IdSlot<>(no);
+                slots[i] = new IdSlot(no);
             }
         }
     }
@@ -40,5 +41,9 @@ public class SpecialVendingMachine extends VendingMachine{
     @Override
     public Item[] dispenseItem(int slotNo, int amount) {
         return new Item[0];
+    }
+
+    public HashMap<NonCustomizableItem, List<NonCustomizableItem>> getItemStorage() {
+        return itemStorage;
     }
 }

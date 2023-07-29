@@ -3,6 +3,7 @@ package com.vnd.mco2restructure;
 import com.vnd.mco2restructure.controller.*;
 import com.vnd.mco2restructure.menu.ItemEnum;
 import com.vnd.mco2restructure.model.StockData;
+import com.vnd.mco2restructure.model.StockEditInfo;
 import com.vnd.mco2restructure.model.Stocks;
 import com.vnd.mco2restructure.model.items.Item;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class WindowManager {
     private final int IPHONE13_PRO_WIDTH = 1170;
@@ -30,8 +33,11 @@ public class WindowManager {
     private RestockController restockController;
     private ChangeItemPriceController changeItemPriceController;
     private DisplayTransactionsController displayTransactionsController;
-
     private StockManagerController stockManagerController;
+    private StockEditController stockEditController;
+    private CollectMoneyController collectMoneyController;
+
+    private ProvideDenomController provideDenomController;
     private Scene homeScene;
     private Scene mainMenuScene;
     private StackPane vndFeaturesLayout;
@@ -41,6 +47,7 @@ public class WindowManager {
     private BorderPane changeItemPriceLayout;
     private BorderPane displayTransactionsLayout;
     private BorderPane stockManagerLayout;
+    private BorderPane stockEditLayout;
     private Pane currentMntLayout;
 
     public WindowManager(Stage window) {
@@ -106,6 +113,13 @@ public class WindowManager {
             stockManagerController.setProgramData(PROGRAM_DATA);
             stockManagerController.setStocks(new Stocks());
 
+            //Stock Edit View Setup
+            FXMLLoader StockEditView = new FXMLLoader(getClass().getResource("pages/StockEditView.fxml"));
+            stockEditLayout = StockEditView.load();
+            stockEditController = StockEditView.getController();
+            stockEditController.setWindowManager(this);
+            stockEditController.setProgramData(PROGRAM_DATA);
+
 
             currentMntLayout = mntFeaturesLayout;
 
@@ -135,6 +149,23 @@ public class WindowManager {
 
         mainMenuController.getMainContent().setCenter(mntFeaturesLayout);
         currentMntLayout = mntFeaturesLayout;
+        maintenanceService.setMaintenanceData(PROGRAM_DATA.getCurrentMaintenanceData());
+        maintenanceService.updateView();
+    }
+
+    public void stock(ArrayList<ItemEnum<? extends Item>> itemEnums, ArrayList<StockEditInfo> stockEditInfos) {
+        maintenanceService.stock(itemEnums, stockEditInfos);
+    }
+
+    public void collectMoney() {
+        maintenanceService.collectMoney();
+        maintenanceService.getSlidePopup().slideDownAnimation();
+        maintenanceService.updateView();
+    }
+
+    public void replenishDenomination(Map<Integer, Integer> denomination) {
+        maintenanceService.replenishDenomination(denomination);
+        maintenanceService.getSlidePopup().slideDownAnimation();
     }
 
     public void gotoVndFeaturesView() {
@@ -143,9 +174,10 @@ public class WindowManager {
         }
 
         mainMenuController.getMainContent().setCenter(vndFeaturesLayout);
+        maintenanceService.setVendingMachine(PROGRAM_DATA.getCurrentVendingMachine());
     }
 
-    public void gotoStockView(int slotId) {
+    public void gotoStockView(int slotId, boolean isSpecialVendingMachine) {
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
         }
@@ -153,6 +185,7 @@ public class WindowManager {
         mainMenuController.getMainContent().setCenter(stockLayout);
         currentMntLayout = stockLayout;
         stockController.setSlotId(slotId);
+        stockController.setView(isSpecialVendingMachine);
     }
 
     public void setStockManagerStock(ItemEnum<? extends Item> itemEnum, int index) {
@@ -199,27 +232,48 @@ public class WindowManager {
         stockManagerController.updateView();
     }
 
+    public void gotoStockEditView() {
+        if (window.getScene() != mainMenuScene) {
+            window.setScene(mainMenuScene);
+        }
+
+        mainMenuController.getMainContent().setCenter(stockEditLayout);
+        currentMntLayout = stockEditLayout;
+        stockEditController.updateView();
+    }
+
     public void gotoCurrentMntLayout() {
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
         }
 
         mainMenuController.getMainContent().setCenter(currentMntLayout);
+        maintenanceService.setMaintenanceData(PROGRAM_DATA.getCurrentMaintenanceData());
+        maintenanceService.updateView();
     }
 
-    public VBox getCollectMoneyView() {
+    public VBox getCollectMoneyView(int money) {
         FXMLLoader collectMoneyView = new FXMLLoader(getClass().getResource("pages/CollectMoneyView.fxml"));
+        VBox vBox;
         try {
-            return collectMoneyView.load();
+            vBox = collectMoneyView.load();
+            collectMoneyController = collectMoneyView.getController();
+            collectMoneyController.updateView(money);
+            collectMoneyController.setWindowManager(this);
+            return vBox;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     public VBox getCollectDenomView() {
-        FXMLLoader collectMoneyView = new FXMLLoader(getClass().getResource("pages/CollectDenomView.fxml"));
+        FXMLLoader collectDenomView = new FXMLLoader(getClass().getResource("pages/CollectDenomView.fxml"));
+        VBox vBox;
         try {
-            return collectMoneyView.load();
+            vBox = collectDenomView.load();
+            provideDenomController = collectDenomView.getController();
+            provideDenomController.setWindowManager(this);
+            return vBox;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

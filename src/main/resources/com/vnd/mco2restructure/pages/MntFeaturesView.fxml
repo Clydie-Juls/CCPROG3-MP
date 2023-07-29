@@ -18,7 +18,7 @@
             <StackPane>
                 <VBox>
                     <Label text="Total money collected"/>
-                    <Label text="\$1234"/>
+                    <Label fx:id="moneyLabel" text="\$1234"/>
                 </VBox>
             </StackPane>
         </top>
@@ -31,9 +31,6 @@
                 <!-- Vending Machine selection interface  -->
                 <HBox styleClass="mnt-buttons" onMouseClicked="#gotoStockView">
                     <Label text="Stock Items"/>
-                </HBox>
-                <HBox styleClass="mnt-buttons" onMouseClicked="#gotoRestockView">
-                    <Label text="Restock"/>
                 </HBox>
                 <HBox styleClass="mnt-buttons" onMouseClicked="#gotoCollectMoneyView">
                     <Label text="collect money"/>

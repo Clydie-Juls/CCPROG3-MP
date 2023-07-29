@@ -113,6 +113,10 @@ public class Denomination {
         return payment.entrySet().stream().mapToInt(v -> v.getKey() * v.getValue()).sum();
     }
 
+    public int getTotalMoney() {
+        return CURRENCY.entrySet().stream().mapToInt(v -> v.getKey() * v.getValue()).sum();
+    }
+
     /**
      * Retrieves the currency denominations in the vending machine.
      *

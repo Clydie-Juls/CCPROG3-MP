@@ -3,7 +3,7 @@ package com.vnd.mco2restructure.model.slots;
 
 import com.vnd.mco2restructure.model.items.Item;
 
-public class IdSlot<T extends Item> extends Slot<T> {
+public class IdSlot extends Slot<Item> {
 
     /**
      * Constructs a Slot object with the specified capacity.
@@ -15,7 +15,8 @@ public class IdSlot<T extends Item> extends Slot<T> {
     }
 
     @Override
-    public void putItem(T item) {
+    public void putItem(Item item) {
         this.item = item;
     }
+
 }

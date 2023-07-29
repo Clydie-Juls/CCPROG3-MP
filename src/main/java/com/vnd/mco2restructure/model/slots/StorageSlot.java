@@ -5,9 +5,9 @@ import com.vnd.mco2restructure.model.items.NonCustomizableItem;
 
 import java.util.ArrayDeque;
 
-public class StorageSlot<T extends NonCustomizableItem> extends Slot<T>{
+public class StorageSlot extends Slot<NonCustomizableItem>{
 
-    private final ArrayDeque<T> itemStack;
+    private final ArrayDeque<NonCustomizableItem> itemStack;
     /**
      * Constructs a Slot object with the specified capacity.
      *
@@ -18,17 +18,22 @@ public class StorageSlot<T extends NonCustomizableItem> extends Slot<T>{
         itemStack = new ArrayDeque<>();
     }
 
-
     @Override
-    public void putItem(T item) {
+    public void putItem(NonCustomizableItem item) {
         if(itemStack.isEmpty()) {
             itemStack.add(item);
+            super.item = item;
         } else if(item.equals(itemStack.peek())) {
             itemStack.add(item);
+            super.item = item;
         }
     }
 
-    public T giveItem() {
+    public NonCustomizableItem giveItem() {
         return itemStack.pollLast();
+    }
+
+    public int getItemStackCount() {
+        return itemStack.size();
     }
 }

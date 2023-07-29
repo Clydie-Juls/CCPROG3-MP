@@ -4,25 +4,25 @@ import com.vnd.mco2restructure.model.items.DependentItem;
 
 public enum DependentItemEnum implements ItemEnum<DependentItem>, NonCustomizable, Sellable{
     // Patties
-    PINEAPPLE_PATTY(0, 0),
-    A5_WAGYU_PATTY(0, 0),
-    BEEF_PATTY(0, 0),
-    CHICKEN_PATTY(0, 0),
-    CHICKPEA_PATTY(0, 0),
+    PINEAPPLE_PATTY(150, 120),
+    A5_WAGYU_PATTY(500,400),
+    BEEF_PATTY(250, 350),
+    CHICKEN_PATTY(200, 300),
+    CHICKPEA_PATTY(180, 250),
 
     //Sauce and condiments
-    TERIYAKI_SAUCE(0, 0),
-    MAYO(0, 0),
-    KETCHUP(0, 0),
-    MUSTARD(0, 0),
+    TERIYAKI_SAUCE(50, 40),
+    MAYO(30, 50),
+    KETCHUP(20, 30),
+    MUSTARD(25, 20),
 
     //Others
-    PINEAPPLE_SLICES(0, 0),
-    CARAMELIZED_ONIONS(0, 0),
-    ARUGULA(0, 0),
-    LETTUCE(0, 0),
-    TOMATO(0, 0),
-    PICKLES(0, 0);
+    PINEAPPLE_SLICES(40, 20),
+    CARAMELIZED_ONIONS(60, 30),
+    ARUGULA(25, 15),
+    LETTUCE(20, 10),
+    TOMATO(30, 15),
+    PICKLES(35, 10);
 
     private final int CALORIES;
     private final int PRICE;
@@ -34,6 +34,6 @@ public enum DependentItemEnum implements ItemEnum<DependentItem>, NonCustomizabl
 
     @Override
     public DependentItem enumToItem() {
-        return new DependentItem(this.name().toLowerCase(), CALORIES, PRICE);
+        return new DependentItem(this.name().toLowerCase(), CALORIES, this.ordinal(), PRICE);
     }
 }

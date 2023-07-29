@@ -1,12 +1,16 @@
 package com.vnd.mco2restructure.model.items;
 
+import java.util.Objects;
+
 /**
  * The Item class represents an item in the vending machine.
  */
 public abstract class Item {
     private final String NAME;
     private final int CALORIES;
+    private final int ID;
     private int price;
+
 
     /**
      * Constructs an Item object with the specified name, calories, and price.
@@ -15,9 +19,10 @@ public abstract class Item {
      * @param calories The number of calories in the item.
      * @param price    The price of the item.
      */
-    public Item(String name, int calories, int price) {
+    public Item(String name, int calories, int id, int price) {
         this.NAME = name;
         this.CALORIES = calories;
+        this.ID = id;
         this.price = price;
     }
 
@@ -48,6 +53,10 @@ public abstract class Item {
         return price;
     }
 
+    public int getId() {
+        return ID;
+    }
+
     /**
      * Sets the price of the item.
      *
@@ -66,5 +75,18 @@ public abstract class Item {
     @Override
     public String toString() {
         return NAME + " - " + CALORIES + " cal";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return Objects.equals(NAME, item.NAME);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(NAME);
     }
 }

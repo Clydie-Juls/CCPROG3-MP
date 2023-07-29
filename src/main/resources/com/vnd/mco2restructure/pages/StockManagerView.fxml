@@ -7,7 +7,7 @@
     <top>
         <HBox>
             <Button text="Exit" onAction="#exit"/>
-            <Button text="Add Stock"/>
+            <Button text="Add Stock" onAction="#addStocks"/>
         </HBox>
     </top>
     <center>

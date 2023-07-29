@@ -12,6 +12,8 @@
         </VBox>
     </top>
     <bottom>
-        <Button fx:id="changeButton" text="Change"/>
+        <VBox fx:id="bottomLayout">
+            <Button fx:id="changeButton" text="Change"/>
+        </VBox>
     </bottom>
 </fx:root>

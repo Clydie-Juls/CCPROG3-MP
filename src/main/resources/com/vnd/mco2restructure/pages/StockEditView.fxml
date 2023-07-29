@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.StockEditController">
+    <top>
+        <HBox>
+            <Button text="Exit" onAction="#exit"/>
+            <Button text="Add"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox fx:id="infoLayout">
+            <Label fx:id="itemName" text="Item"/>
+        </VBox>
+    </center>
+</BorderPane>

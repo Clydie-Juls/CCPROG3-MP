@@ -5,6 +5,7 @@ import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.NumberField;
 import com.vnd.mco2restructure.component.SlidePopup;
 import com.vnd.mco2restructure.component.VendingMachineButton;
+import com.vnd.mco2restructure.model.MaintenanceData;
 import com.vnd.mco2restructure.model.vendingmachine.RegularVendingMachine;
 import com.vnd.mco2restructure.model.vendingmachine.SpecialVendingMachine;
 import javafx.fxml.FXML;
@@ -32,7 +33,7 @@ public class HomeController {
     private void addVendingMachine() {
         int noOfSlots = Math.max(8, ((NumberFieldController) noOfSlotsNumberField.getLoader().getController()).getValue());
         int slotCapacity = Math.max(10, ((NumberFieldController) slotCapacityNumberField.getLoader().getController()).getValue());
-        
+
         VendingMachineButton vendingMachineButton = new VendingMachineButton(
                 vndNameTextField.getText().isEmpty() ? "Vending Machine " +
                         (programData.getVendingMachines().size() + 1) : vndNameTextField.getText(),
@@ -40,8 +41,9 @@ public class HomeController {
         );
 
         vendingMachineButton.setOnMouseClicked(event -> {
-            windowManager.gotoVndFeaturesView();
             programData.setCurrentVendingMachine(programData.getVendingMachines().get(vendingMachineButton));
+            programData.setCurrentMaintenanceData(programData.getMaintenanceDatas().get(vendingMachineButton));
+            windowManager.gotoVndFeaturesView();
         });
 
 
@@ -53,6 +55,7 @@ public class HomeController {
             System.out.println("Add special vending machine");
             programData.getVendingMachines().put(vendingMachineButton, new SpecialVendingMachine(noOfSlots, slotCapacity));
         }
+        programData.getMaintenanceDatas().put(vendingMachineButton, new MaintenanceData());
 
 
         vndTypeChoice.setValue("Regular");
