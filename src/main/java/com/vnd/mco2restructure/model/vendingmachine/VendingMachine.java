@@ -71,6 +71,8 @@ public abstract class VendingMachine {
 //        return null;
 //    }
 
+    public abstract boolean hasStock(Slot<? extends Item> slot);
+
     /**
      * Retrieves the array of slots in the vending machine.
      *

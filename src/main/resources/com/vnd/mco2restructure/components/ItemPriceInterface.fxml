@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.vnd.mco2restructure.component.NumberField?>
+<fx:root type="VBox" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: grey">
+    <Label fx:id="itemNameLabel" text="Item Name"/>
+    <Label fx:id="itemPriceLabel" text="Item Price"/>
+    <NumberField fx:id="itemPriceNumberField"/>
+    <Button fx:id="changePriceButton" text="Change Price"/>
+</fx:root>

@@ -30,6 +30,9 @@ public class StorageSlot extends Slot<NonCustomizableItem>{
     }
 
     public NonCustomizableItem giveItem() {
+        if(itemStack.size() == 1) {
+            item = null;
+        }
         return itemStack.pollLast();
     }
 

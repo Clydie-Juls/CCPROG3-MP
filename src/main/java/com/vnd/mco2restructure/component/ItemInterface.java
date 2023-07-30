@@ -2,11 +2,16 @@ package com.vnd.mco2restructure.component;
 
 import com.vnd.mco2restructure.HelloApplication;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
 public class ItemInterface extends VBox {
+
+    private Label itemNameLabel;
+    private ImageView itemImageView;
 
     public ItemInterface() {
         setView();
@@ -18,9 +23,19 @@ public class ItemInterface extends VBox {
 
         try {
             view.load();
+            itemNameLabel = (Label) this.lookup("#itemNameLabel");
+            itemImageView = (ImageView) this.lookup("#itemImageView");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public Label getItemNameLabel() {
+        return itemNameLabel;
+    }
+
+    public ImageView getItemImageView() {
+        return itemImageView;
     }
 }

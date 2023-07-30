@@ -1,5 +1,6 @@
 package com.vnd.mco2restructure.controller;
 
+import com.vnd.mco2restructure.HelloApplication;
 import com.vnd.mco2restructure.ProgramData;
 import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.NumberField;
@@ -12,6 +13,7 @@ import com.vnd.mco2restructure.model.items.Item;
 import com.vnd.mco2restructure.model.vendingmachine.SpecialVendingMachine;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
 
 public class StockManagerController {
@@ -36,6 +38,8 @@ public class StockManagerController {
                     Button editButton = new Button("Edit");
                     editButton.setOnAction(event -> gotoStockEdit(customizableItemEnum, stocks.getStockEditInfos().get(finalI)));
                     slotInterface.getBottomLayout().getChildren().add(editButton);
+                    slotInterface.getItemImageView().setImage(new Image(
+                            HelloApplication.class.getResourceAsStream(customizableItemEnum.getImageFile())));
 
 
                 } else if (stocks.getItemEnums().get(finalI) instanceof IndependentItemEnum independentItemEnum) {
@@ -56,6 +60,8 @@ public class StockManagerController {
 
                         }
                     });
+                    slotInterface.getItemImageView().setImage(new Image(
+                            HelloApplication.class.getResourceAsStream(independentItemEnum.getImageFile())));
                 }
             }
             slotInterface.getChangeButton().setOnAction(event -> windowManager.gotoStockView(finalI,

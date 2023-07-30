@@ -4,6 +4,7 @@ import com.vnd.mco2restructure.HelloApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -15,7 +16,7 @@ public class SlotInterface extends BorderPane {
     private Label itemNameLabel;
     private Label amountLabel;
     private Button changeButton;
-
+    private ImageView itemImageView;
     private VBox bottomLayout;
 
     public SlotInterface() {
@@ -32,7 +33,9 @@ public class SlotInterface extends BorderPane {
             itemTypeLabel = (Label)this.lookup("#itemTypeLabel");
             itemNameLabel = (Label)this.lookup("#itemNameLabel");
             amountLabel = (Label)this.lookup("#amountLabel");
+            itemImageView = (ImageView) this.lookup("#itemImageView");
             bottomLayout = (VBox) this.lookup("#bottomLayout");
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -52,8 +55,10 @@ public class SlotInterface extends BorderPane {
     public Label getAmountLabel() {
         return amountLabel;
     }
-
     public VBox getBottomLayout() {
         return bottomLayout;
+    }
+    public ImageView getItemImageView() {
+        return itemImageView;
     }
 }

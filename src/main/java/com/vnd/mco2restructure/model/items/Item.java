@@ -7,9 +7,10 @@ import java.util.Objects;
  */
 public abstract class Item {
     private final String NAME;
-    private final int CALORIES;
+    private int calories;
     private final int ID;
     private int price;
+    private String imageFile;
 
 
     /**
@@ -19,11 +20,12 @@ public abstract class Item {
      * @param calories The number of calories in the item.
      * @param price    The price of the item.
      */
-    public Item(String name, int calories, int id, int price) {
+    public Item(String name, int calories, int id, int price, String imageFile) {
         this.NAME = name;
-        this.CALORIES = calories;
+        this.calories = calories;
         this.ID = id;
         this.price = price;
+        this.imageFile = imageFile;
     }
 
     /**
@@ -41,7 +43,7 @@ public abstract class Item {
      * @return The number of calories in the item.
      */
     public int getCalories() {
-        return CALORIES;
+        return calories;
     }
 
     /**
@@ -57,6 +59,10 @@ public abstract class Item {
         return ID;
     }
 
+    public String getImageFile() {
+        return imageFile;
+    }
+
     /**
      * Sets the price of the item.
      *
@@ -68,13 +74,17 @@ public abstract class Item {
         }
     }
 
+    public void setCalories(int calories) {
+        this.calories = calories;
+    }
+
     /**
      * Returns the item name and its calories.
      * @return  The item name and its calories.
      */
     @Override
     public String toString() {
-        return NAME + " - " + CALORIES + " cal";
+        return NAME + " - " + calories + " cal";
     }
 
     @Override

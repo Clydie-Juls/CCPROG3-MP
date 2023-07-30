@@ -8,7 +8,7 @@ public class DependentItem extends NonCustomizableItem{
      * @param calories The number of calories in the item.
      * @param price    The price of the item.
      */
-    public DependentItem(String name, int calories, int id, int price) {
-        super(name, calories, id, price);
+    public DependentItem(String name, int calories, int id, int price, String imageFile) {
+        super(name, calories, id, price, imageFile);
     }
 }

@@ -2,6 +2,7 @@ package com.vnd.mco2restructure.model.vendingmachine;
 
 
 import com.vnd.mco2restructure.model.items.Item;
+import com.vnd.mco2restructure.model.slots.Slot;
 import com.vnd.mco2restructure.model.slots.StorageSlot;
 
 public class RegularVendingMachine extends VendingMachine {
@@ -34,5 +35,14 @@ public class RegularVendingMachine extends VendingMachine {
     @Override
     public Item[] dispenseItem(int slotNo, int amount) {
         return new Item[0];
+    }
+
+    @Override
+    public boolean hasStock(Slot<? extends Item> slot) {
+        if (slot.getItem() == null) {
+            return false;
+        }
+
+        return ((StorageSlot) slot).getItemStackCount() >= 1;
     }
 }

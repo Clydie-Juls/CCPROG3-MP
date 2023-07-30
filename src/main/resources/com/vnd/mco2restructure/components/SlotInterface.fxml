@@ -3,13 +3,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root type="BorderPane" xmlns:fx="http://javafx.com/fxml" style="-fx-background-color: grey; -fx-pref-width: 130px">
+<?import javafx.scene.image.ImageView?>
+<fx:root type="BorderPane" xmlns:fx="http://javafx.com/fxml" fx:id="slotInterfaceBody"
+         style="-fx-background-color: grey; -fx-pref-width: 130; -fx-max-width: 130">
     <top>
-        <VBox>
-            <Label fx:id="itemNameLabel" text="Item Name"/>
-            <Label fx:id="itemTypeLabel" text="Item Type"/>
-            <Label fx:id="amountLabel" text="Amount"/>
-        </VBox>
+        <BorderPane fx:id="imageParent">
+            <center>
+                <ImageView preserveRatio="true" fitWidth="${slotInterfaceBody.prefWidth}" fx:id="itemImageView"/>
+            </center>
+            <bottom>
+                <VBox>
+                    <Label fx:id="itemNameLabel" text="Item Name"/>
+                    <Label fx:id="itemTypeLabel" text="Item Type"/>
+                    <Label fx:id="amountLabel" text="Amount"/>
+                </VBox>
+            </bottom>
+        </BorderPane>
     </top>
     <bottom>
         <VBox fx:id="bottomLayout">
