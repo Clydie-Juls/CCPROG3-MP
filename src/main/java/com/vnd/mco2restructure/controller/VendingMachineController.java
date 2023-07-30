@@ -1,6 +1,8 @@
 package com.vnd.mco2restructure.controller;
 
 
+import com.vnd.mco2restructure.HelloApplication;
+import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.ItemInterface;
 import com.vnd.mco2restructure.component.SlidePopup;
 import com.vnd.mco2restructure.model.items.Item;
@@ -8,16 +10,20 @@ import com.vnd.mco2restructure.model.slots.Slot;
 import com.vnd.mco2restructure.model.vendingmachine.VendingMachine;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
 import java.util.LinkedHashMap;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
  * Teh VendingMachineController class represents the vending machine's controller.
  */
 public class VendingMachineController implements Initializable {
+
+    private WindowManager windowManager;
     private VendingMachine vendingMachine;
     @FXML private SlidePopup slidePopup;
     @FXML private FlowPane itemLayout;
@@ -55,20 +61,6 @@ public class VendingMachineController implements Initializable {
         return null;
     }
 
-    /**
-     *  Checks if the vending machine has at least one stock of item.
-     * @return  true if there is at least one stock of item, false otherwise.
-     */
-    //TODO: create hasStock in model
-    public boolean hasStock() {
-        boolean hasItem = false;
-//        for (int i = 0; i < VENDING_MACHINE.getSlots().length; ++i) {
-//            if (VENDING_MACHINE.getSlots()[i].getAmount() > 0) {
-//                hasItem = true;
-//            }
-//        }
-        return hasItem;
-    }
 
     /**
      * A getter for the vending machine.
@@ -103,7 +95,28 @@ public class VendingMachineController implements Initializable {
         itemLayout.getChildren().add(itemInterface);
     }
 
+    public void updateView() {
+        itemLayout.getChildren().clear();
+        for (int i = 0; i < vendingMachine.getSlots().length; i++) {
+            if (vendingMachine.hasStock(vendingMachine.getSlots()[i])) {
+                ItemInterface itemInterface = new ItemInterface();
+                itemInterface.getItemNameLabel().setText(vendingMachine.getSlots()[i].getItem().getName());
+                itemInterface.getItemImageView().setImage(new Image(
+                        Objects.requireNonNull(HelloApplication.class.getResourceAsStream(
+                                vendingMachine.getSlots()[i].getItem().getImageFile()))));
+                int finalI = i;
+                itemInterface.setOnMouseClicked(event -> windowManager.gotoItemBuyView(finalI));
+
+                itemLayout.getChildren().add(itemInterface);
+            }
+        }
+    }
+
     public void setVendingMachine(VendingMachine vendingMachine) {
         this.vendingMachine = vendingMachine;
+    }
+
+    public void setWindowManager(WindowManager windowManager) {
+        this.windowManager = windowManager;
     }
 }

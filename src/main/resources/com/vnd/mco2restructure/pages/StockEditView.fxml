@@ -7,7 +7,6 @@
     <top>
         <HBox>
             <Button text="Exit" onAction="#exit"/>
-            <Button text="Add"/>
         </HBox>
     </top>
     <center>

@@ -11,14 +11,19 @@ import java.util.HashMap;
 public class ProgramData {
     private HashMap<VendingMachineButton, VendingMachine> vendingMachines;
     private HashMap<VendingMachineButton, MaintenanceData> maintenanceDatas;
+    private HashMap<VendingMachineButton, int[]> independentItemPrices;
+    private HashMap<VendingMachineButton, int[]> dependentItemPrices;
     private VendingMachine currentVendingMachine;
     private MaintenanceData currentMaintenanceData;
     private CustomizableItemEnum currentSlotItem;
     private StockEditInfo currentStockEditInfo;
 
+
     public ProgramData() {
         vendingMachines = new HashMap<>();
         maintenanceDatas = new HashMap<>();
+        independentItemPrices = new HashMap<>();
+        dependentItemPrices = new HashMap<>();
     }
 
     public HashMap<VendingMachineButton, VendingMachine> getVendingMachines() {
@@ -37,20 +42,12 @@ public class ProgramData {
         return maintenanceDatas;
     }
 
-    public void setMaintenanceDatas(HashMap<VendingMachineButton, MaintenanceData> maintenanceDatas) {
-        this.maintenanceDatas = maintenanceDatas;
-    }
-
     public MaintenanceData getCurrentMaintenanceData() {
         return currentMaintenanceData;
     }
 
     public void setCurrentMaintenanceData(MaintenanceData currentMaintenanceData) {
         this.currentMaintenanceData = currentMaintenanceData;
-    }
-
-    public void setVendingMachines(HashMap<VendingMachineButton, VendingMachine> vendingMachines) {
-        this.vendingMachines = vendingMachines;
     }
 
     public CustomizableItemEnum getCurrentSlotItem() {
@@ -67,5 +64,13 @@ public class ProgramData {
 
     public void setCurrentStockEditInfo(StockEditInfo currentStockEditInfo) {
         this.currentStockEditInfo = currentStockEditInfo;
+    }
+
+    public HashMap<VendingMachineButton, int[]> getIndependentItemPrices() {
+        return independentItemPrices;
+    }
+
+    public HashMap<VendingMachineButton, int[]> getDependentItemPrices() {
+        return dependentItemPrices;
     }
 }

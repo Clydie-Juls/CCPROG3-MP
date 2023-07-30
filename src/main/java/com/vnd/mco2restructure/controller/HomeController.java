@@ -5,6 +5,8 @@ import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.NumberField;
 import com.vnd.mco2restructure.component.SlidePopup;
 import com.vnd.mco2restructure.component.VendingMachineButton;
+import com.vnd.mco2restructure.menu.DependentItemEnum;
+import com.vnd.mco2restructure.menu.IndependentItemEnum;
 import com.vnd.mco2restructure.model.MaintenanceData;
 import com.vnd.mco2restructure.model.vendingmachine.RegularVendingMachine;
 import com.vnd.mco2restructure.model.vendingmachine.SpecialVendingMachine;
@@ -43,6 +45,8 @@ public class HomeController {
         vendingMachineButton.setOnMouseClicked(event -> {
             programData.setCurrentVendingMachine(programData.getVendingMachines().get(vendingMachineButton));
             programData.setCurrentMaintenanceData(programData.getMaintenanceDatas().get(vendingMachineButton));
+            IndependentItemEnum.setItemPrices(programData.getIndependentItemPrices().get(vendingMachineButton));
+            DependentItemEnum.setItemPrices(programData.getDependentItemPrices().get(vendingMachineButton));
             windowManager.gotoVndFeaturesView();
         });
 
@@ -56,10 +60,14 @@ public class HomeController {
             programData.getVendingMachines().put(vendingMachineButton, new SpecialVendingMachine(noOfSlots, slotCapacity));
         }
         programData.getMaintenanceDatas().put(vendingMachineButton, new MaintenanceData());
+        programData.getIndependentItemPrices().put(vendingMachineButton, IndependentItemEnum.createNewItemPrices());
+        programData.getDependentItemPrices().put(vendingMachineButton, DependentItemEnum.createNewItemPrices());
 
 
         vndTypeChoice.setValue("Regular");
         vndNameTextField.setText("");
+        noOfSlotsNumberField.getTextField().setText("0");
+        slotCapacityNumberField.getTextField().setText("0");
         slidePopup.slideDownAnimation();
     }
 

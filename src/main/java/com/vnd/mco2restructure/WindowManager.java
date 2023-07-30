@@ -28,7 +28,7 @@ public class WindowManager {
     private HomeController homeController;
     private MainMenuController mainMenuController;
     private MaintenanceService maintenanceService;
-
+    private VendingMachineController vendingMachineController;
     private StockController stockController;
     private RestockController restockController;
     private ChangeItemPriceController changeItemPriceController;
@@ -36,8 +36,8 @@ public class WindowManager {
     private StockManagerController stockManagerController;
     private StockEditController stockEditController;
     private CollectMoneyController collectMoneyController;
-
     private ProvideDenomController provideDenomController;
+    private ItemBuyController itemBuyController;
     private Scene homeScene;
     private Scene mainMenuScene;
     private StackPane vndFeaturesLayout;
@@ -48,6 +48,7 @@ public class WindowManager {
     private BorderPane displayTransactionsLayout;
     private BorderPane stockManagerLayout;
     private BorderPane stockEditLayout;
+    private StackPane itemBuyLayout;
     private Pane currentMntLayout;
 
     public WindowManager(Stage window) {
@@ -73,6 +74,8 @@ public class WindowManager {
             //Vnd Features View Setup
             FXMLLoader vndFeaturesView = new FXMLLoader(getClass().getResource("pages/VndFeaturesView.fxml"));
             vndFeaturesLayout = vndFeaturesView.load();
+            vendingMachineController = vndFeaturesView.getController();
+            vendingMachineController.setWindowManager(this);
 
             //Mnt Features View Setup
             FXMLLoader mntFeaturesView = new FXMLLoader(getClass().getResource("pages/MntFeaturesView.fxml"));
@@ -106,19 +109,26 @@ public class WindowManager {
             displayTransactionsController.setWindowManager(this);
 
             //Stock Manager View Setup
-            FXMLLoader StockManagerView = new FXMLLoader(getClass().getResource("pages/StockManagerView.fxml"));
-            stockManagerLayout = StockManagerView.load();
-            stockManagerController = StockManagerView.getController();
+            FXMLLoader stockManagerView = new FXMLLoader(getClass().getResource("pages/StockManagerView.fxml"));
+            stockManagerLayout = stockManagerView.load();
+            stockManagerController = stockManagerView.getController();
             stockManagerController.setWindowManager(this);
             stockManagerController.setProgramData(PROGRAM_DATA);
             stockManagerController.setStocks(new Stocks());
 
             //Stock Edit View Setup
-            FXMLLoader StockEditView = new FXMLLoader(getClass().getResource("pages/StockEditView.fxml"));
-            stockEditLayout = StockEditView.load();
-            stockEditController = StockEditView.getController();
+            FXMLLoader stockEditView = new FXMLLoader(getClass().getResource("pages/StockEditView.fxml"));
+            stockEditLayout = stockEditView.load();
+            stockEditController = stockEditView.getController();
             stockEditController.setWindowManager(this);
             stockEditController.setProgramData(PROGRAM_DATA);
+
+            //Stock Edit View Setup
+            FXMLLoader itemBuyView = new FXMLLoader(getClass().getResource("pages/ItemBuyView.fxml"));
+            itemBuyLayout = itemBuyView.load();
+            itemBuyController = itemBuyView.getController();
+            itemBuyController.setWindowManager(this);
+            itemBuyController.setProgramData(PROGRAM_DATA);
 
 
             currentMntLayout = mntFeaturesLayout;
@@ -174,7 +184,18 @@ public class WindowManager {
         }
 
         mainMenuController.getMainContent().setCenter(vndFeaturesLayout);
+        vendingMachineController.setVendingMachine(PROGRAM_DATA.getCurrentVendingMachine());
         maintenanceService.setVendingMachine(PROGRAM_DATA.getCurrentVendingMachine());
+        vendingMachineController.updateView();
+    }
+
+    public void gotoItemBuyView(int slotIndex) {
+        if (window.getScene() != mainMenuScene) {
+            window.setScene(mainMenuScene);
+        }
+
+        mainMenuController.getMainContent().setCenter(itemBuyLayout);
+        itemBuyController.updateView(slotIndex);
     }
 
     public void gotoStockView(int slotId, boolean isSpecialVendingMachine) {
@@ -277,5 +298,20 @@ public class WindowManager {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public VBox getPaymentView() {
+        FXMLLoader collectDenomView = new FXMLLoader(getClass().getResource("pages/CollectDenomView.fxml"));
+        VBox vBox;
+        try {
+            vBox = collectDenomView.load();
+            return vBox;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Stage getWindow() {
+        return window;
     }
 }

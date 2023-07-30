@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import com.vnd.mco2restructure.component.SlidePopup?>
+<StackPane  xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.ItemBuyController">
+    <BorderPane>
+        <top>
+            <HBox>
+                <Button text="Exit" onAction="#exit"/>
+            </HBox>
+        </top>
+        <center>
+            <BorderPane>
+                <top>
+                    <VBox>
+                        <ImageView preserveRatio="true" fitWidth="200" fx:id="itemImageView"/>
+                        <Label fx:id="itemName" text="Item"/>
+                    </VBox>
+                </top>
+                <center>
+                    <VBox fx:id="infoLayout"/>
+                </center>
+                <bottom>
+                    <Button fx:id="buyItemButton" text="Buy"/>
+                </bottom>
+            </BorderPane>
+
+        </center>
+    </BorderPane>
+
+    <BorderPane>
+        <bottom>
+            <SlidePopup fx:id="slidePopup"/>
+        </bottom>
+    </BorderPane>
+</StackPane>

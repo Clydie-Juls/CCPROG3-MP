@@ -13,7 +13,7 @@
         </top>
         <center>
             <ScrollPane fitToWidth="true">
-                <FlowPane fx:id="itemLayout">
+                <FlowPane fx:id="itemLayout"  hgap="20" vgap="20">
                 </FlowPane>
             </ScrollPane>
         </center>

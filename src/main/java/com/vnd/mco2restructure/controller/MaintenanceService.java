@@ -150,11 +150,6 @@ public class MaintenanceService {
     }
 
     @FXML
-    private void gotoRestockView() {
-        windowManager.gotoRestockView();
-    }
-
-    @FXML
     private void gotoChangeItemPriceView() {
         windowManager.gotoChangeItemPriceView();
     }

@@ -1,12 +1,17 @@
 package com.vnd.mco2restructure.model.vendingmachine;
 
+import com.vnd.mco2restructure.menu.IndependentItemEnum;
 import com.vnd.mco2restructure.menu.NonCustomizable;
+import com.vnd.mco2restructure.model.items.CustomizableItem;
+import com.vnd.mco2restructure.model.items.IndependentItem;
 import com.vnd.mco2restructure.model.items.Item;
 import com.vnd.mco2restructure.model.items.NonCustomizableItem;
 import com.vnd.mco2restructure.model.slots.IdSlot;
+import com.vnd.mco2restructure.model.slots.Slot;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SpecialVendingMachine extends VendingMachine{
     private HashMap<NonCustomizableItem, List<NonCustomizableItem>> itemStorage;
@@ -41,6 +46,41 @@ public class SpecialVendingMachine extends VendingMachine{
     @Override
     public Item[] dispenseItem(int slotNo, int amount) {
         return new Item[0];
+    }
+
+    @Override
+    public boolean hasStock(Slot<? extends Item> slot) {
+        boolean isCompleteItems = true;
+        if (slot.getItem() == null) {
+            return false;
+        }
+
+        if(slot.getItem() instanceof CustomizableItem customizableItem) {
+            for (Map.Entry<String, NonCustomizableItem[]> entry : customizableItem.getItemsDerived().entrySet()) {
+                if(!isCompleteItems) {
+                    break;
+                }
+
+                boolean containsType = false;
+                for (NonCustomizableItem item : entry.getValue()) {
+                    if(itemStorage.containsKey(item)) {
+                        if(!itemStorage.get(item).isEmpty()) {
+                            containsType = true;
+                        }
+                    }
+                }
+                isCompleteItems = containsType;
+            }
+
+        } else if(slot.getItem() instanceof IndependentItem independentItem) {
+            isCompleteItems = false;
+            if (itemStorage.containsKey(independentItem)) {
+                if(!itemStorage.get(independentItem).isEmpty()) {
+                    isCompleteItems = true;
+                }
+            }
+        }
+        return isCompleteItems;
     }
 
     public HashMap<NonCustomizableItem, List<NonCustomizableItem>> getItemStorage() {

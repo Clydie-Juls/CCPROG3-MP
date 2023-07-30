@@ -4,27 +4,32 @@ import com.vnd.mco2restructure.model.items.CustomizableItem;
 import com.vnd.mco2restructure.model.items.NonCustomizableItem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable {
-    BASIC_BURGER(ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.SAUCE_AND_CONDIMENT_TYPES),
-    VEGGIE_BURGER(ItemType.BUN_TYPES, ItemType.PINEAPPLE_PATTY, ItemType.SAUCE_AND_CONDIMENT_TYPES),
-    CHICKEN_BURGER(ItemType.BUN_TYPES, ItemType.CHICKEN_BURGER, ItemType.SAUCE_AND_CONDIMENT_TYPES),
-    CHEESEBURGER(ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.CHEESE_TYPES, ItemType.SAUCE_AND_CONDIMENT_TYPES),
-    DELUXE_BURGER(ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.CHEESE_TYPES, ItemType.OTHER_TYPES,
+    BASIC_BURGER("basic_burger.png", ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.SAUCE_AND_CONDIMENT_TYPES),
+    VEGGIE_BURGER("veggie_burger.png",ItemType.BUN_TYPES, ItemType.PINEAPPLE_PATTY, ItemType.SAUCE_AND_CONDIMENT_TYPES),
+    CHICKEN_BURGER("chicken_burger.png",ItemType.BUN_TYPES, ItemType.CHICKEN_BURGER, ItemType.SAUCE_AND_CONDIMENT_TYPES),
+    CHEESEBURGER("cheese_burger.png",ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.CHEESE_TYPES, ItemType.SAUCE_AND_CONDIMENT_TYPES),
+    DELUXE_BURGER("deluxe_burger.png",ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.CHEESE_TYPES, ItemType.OTHER_TYPES,
             ItemType.SAUCE_AND_CONDIMENT_TYPES);
 
     @Override
     public CustomizableItem enumToItem() {
-        NonCustomizableItem[] nonCustomizableItems = new NonCustomizableItem[ingredients.length];
-        for (int i = 0; i < ingredients.length; i++) {
-            if(ingredients[i].items[ingredientTypes[i]] instanceof IndependentItemEnum independentItemEnum) {
-                nonCustomizableItems[i] = independentItemEnum.enumToItem();
-            } else if(ingredients[i].items[ingredientTypes[i]] instanceof DependentItemEnum dependentItemEnum) {
-                nonCustomizableItems[i] = dependentItemEnum.enumToItem();
+        HashMap<String, NonCustomizableItem[]> itemsDerived = new HashMap<>();
+        for (ItemType ingredient : ingredients) {
+            NonCustomizableItem[] nonCustomizableItems = new NonCustomizableItem[ingredient.items.length];
+            for (int j = 0; j < ingredient.items.length; j++) {
+                if (ingredient.items[j] instanceof IndependentItemEnum independentItemEnum) {
+                    nonCustomizableItems[j] = independentItemEnum.enumToItem();
+                } else if (ingredient.items[j] instanceof DependentItemEnum dependentItemEnum) {
+                    nonCustomizableItems[j] = dependentItemEnum.enumToItem();
+                }
             }
-
+            itemsDerived.put(ingredient.itemTypeName, nonCustomizableItems);
         }
-        return new CustomizableItem(this.toString().toLowerCase(), nonCustomizableItems, this.ordinal());
+        return new CustomizableItem(this.toString().toLowerCase().replaceAll("_", " ")
+                , itemsDerived, this.ordinal(), getImageFile());
     }
 
     public enum ItemType implements NonCustomizable {
@@ -67,11 +72,14 @@ public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable
 
     private ItemType[] ingredients;
     private int[] ingredientTypes;
+
+    private String imageFile;
     private ArrayList<NonCustomizable> addons;
 
-    CustomizableItemEnum(ItemType... ingredients) {
+    CustomizableItemEnum(String imageFile, ItemType... ingredients) {
         this.ingredients = ingredients;
         this.addons = new ArrayList<>();
+        this.imageFile = imageFile;
         ingredientTypes = new int[ingredients.length];
     }
 
@@ -85,5 +93,9 @@ public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable
 
     public ArrayList<NonCustomizable> getAddons() {
         return addons;
+    }
+
+    public String getImageFile() {
+        return "images/customizable-item/" + imageFile;
     }
 }
