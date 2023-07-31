@@ -14,4 +14,5 @@ module com.vnd.mco2restructure {
     exports com.vnd.mco2restructure.model.items;
     exports com.vnd.mco2restructure.model.slots;
     exports com.vnd.mco2restructure.menu;
+    exports com.vnd.mco2restructure.callbacks;
 }

@@ -23,6 +23,11 @@ public class NavbarController {
         Platform.runLater(() -> windowManager.gotoCurrentMntLayout());
     }
 
+    @FXML
+    private void exit() {
+        Platform.runLater(() -> windowManager.gotoHomeView());
+    }
+
     public void setWindowManager(WindowManager windowManager) {
         this.windowManager = windowManager;
     }

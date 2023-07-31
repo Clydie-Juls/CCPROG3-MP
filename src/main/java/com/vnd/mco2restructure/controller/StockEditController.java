@@ -37,18 +37,6 @@ public class StockEditController {
                 }
             }
         }
-
-//        for (CustomizableItemEnum.ItemType ingredient : programData.getCurrentSlotItem().getIngredients()) {
-//            Label ingredientTypesName = new Label(ingredient.getItemTypeName());
-//            infoLayout.getChildren().add(ingredientTypesName);
-//            for (NonCustomizable ingredientItem : ingredient.getItems()) {
-//                if (ingredientItem instanceof IndependentItemEnum independentItemEnum) {
-//                    createItemInfo(independentItemEnum.toString());
-//                } else if (ingredientItem instanceof DependentItemEnum dependentItemEnum) {
-//                    createItemInfo(dependentItemEnum.toString());
-//                }
-//            }
-//        }
     }
 
     private void createItemInfo(String s, StockEditInfo.ItemEditInfo itemEditInfo) {

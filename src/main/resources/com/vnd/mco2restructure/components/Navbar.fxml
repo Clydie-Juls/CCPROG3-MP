@@ -6,4 +6,5 @@
 <fx:root type="HBox" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.NavbarController">
     <Button text="Vnd Features" onAction="#gotoVndFeaturesView"/>
     <Button text="Mnt-Features" onAction="#gotoMntFeaturesView"/>
+    <Button text="Exit" onAction="#exit"/>
 </fx:root>

@@ -51,25 +51,10 @@ public abstract class VendingMachine {
     /**
      * Dispenses an existing item if it has enough item amount.
      * @param slotNo Slot Number of the vending machine.
-     * @param amount Amount of items requested.
      * @return An array of items requested if the vending machine has enough. Returns null otherwise.
      */
-    public abstract Item[] dispenseItem(int slotNo, int amount); //{
-//        Slot<? extends Item> selectedSlot = slots[slotNo - 1];
-//            if (selectedSlot.sellItem(amount)) {
-//                Item item = selectedSlot.getItem();
-//
-//                Item[] dispensedItems = new Item[amount];
-//
-//                for (int i = 0; i < amount; i++) {
-//                    dispensedItems[i] = new Item(item.getName(), item.getCalories(), item.getPrice());
-//                }
-//
-//                return dispensedItems;
-//            }
-//
-//        return null;
-//    }
+    public abstract Item dispenseItem(int slotNo);
+
 
     public abstract boolean hasStock(Slot<? extends Item> slot);
 

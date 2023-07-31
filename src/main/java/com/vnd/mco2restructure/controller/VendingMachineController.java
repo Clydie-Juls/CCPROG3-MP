@@ -36,28 +36,24 @@ public class VendingMachineController implements Initializable {
      * there is not enough item, the buy process will fail. Else, it will pass the items the user bought.
      * @param payment  Users payment.
      * @param slotNo  Slot number of the vending machine.
-     * @param amount  amount of items the user wants to buy.
      * @return  array of items the user bought if successful, returns null otherwise.
      */
-    public Item[] buy(LinkedHashMap<Integer, Integer> payment, int slotNo, int amount) {
-        // if range is out of bounds
-        if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
-        } else {
-            Slot<? extends Item> selectedSlot = vendingMachine.getSlots()[slotNo - 1];
-            // if transactions process has failed
-            if (!vendingMachine.getDenomination().processPayment(payment,
-                    selectedSlot.getItem().getPrice() * amount)) {
+    public Item buy(LinkedHashMap<Integer, Integer> payment, int slotNo) {
 
-            } else {
-                Item[] dispensedItem = vendingMachine.dispenseItem(slotNo, amount);
+            Slot<? extends Item> selectedSlot = vendingMachine.getSlots()[slotNo];
+            // if transactions process has failed
+            if (vendingMachine.getDenomination().processPayment(payment,
+                    selectedSlot.getItem().getPrice())) {
+
+                Item dispensedItem = vendingMachine.dispenseItem(slotNo);
 
                 // If dispense item process is successful
                 if(dispensedItem != null) {
-                    vendingMachine.getTransactions().addTransaction(dispensedItem[0], amount);
+                    vendingMachine.getTransactions().addTransaction(dispensedItem.clone());
                     return dispensedItem;
                 }
             }
-        }
+
         return null;
     }
 

@@ -5,7 +5,10 @@
 <?import javafx.scene.layout.*?>
 
 <?import com.vnd.mco2restructure.component.NumberField?>
-<fx:root type="VBox" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: grey">
+<?import javafx.scene.image.ImageView?>
+<fx:root type="VBox" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: grey"
+         fx:id="body" prefWidth="130">
+    <ImageView preserveRatio="true" fitWidth="${body.prefWidth}" fx:id="itemImageView"/>
     <Label fx:id="itemNameLabel" text="Item Name"/>
     <Label fx:id="itemPriceLabel" text="Item Price"/>
     <NumberField fx:id="itemPriceNumberField"/>
