@@ -4,6 +4,7 @@ import com.vnd.mco2restructure.ProgramData;
 import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.NumberField;
 import com.vnd.mco2restructure.menu.*;
+import com.vnd.mco2restructure.menu.NonCustomizable;
 import com.vnd.mco2restructure.model.StockEditInfo;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -13,12 +14,18 @@ import javafx.scene.layout.VBox;
 
 import java.util.Map;
 
+/**
+ * Controller class for editing stocks.
+ */
 public class StockEditController {
     private WindowManager windowManager;
     private ProgramData programData;
     @FXML private VBox infoLayout;
     @FXML private Label itemName;
 
+    /**
+     * Updates the view for StockEditController.
+     */
     public void updateView() {
         infoLayout.getChildren().clear();
         itemName.setText(programData.getCurrentSlotItem().name().toLowerCase().replaceAll("_", " "));
@@ -37,18 +44,6 @@ public class StockEditController {
                 }
             }
         }
-
-//        for (CustomizableItemEnum.ItemType ingredient : programData.getCurrentSlotItem().getIngredients()) {
-//            Label ingredientTypesName = new Label(ingredient.getItemTypeName());
-//            infoLayout.getChildren().add(ingredientTypesName);
-//            for (NonCustomizable ingredientItem : ingredient.getItems()) {
-//                if (ingredientItem instanceof IndependentItemEnum independentItemEnum) {
-//                    createItemInfo(independentItemEnum.toString());
-//                } else if (ingredientItem instanceof DependentItemEnum dependentItemEnum) {
-//                    createItemInfo(dependentItemEnum.toString());
-//                }
-//            }
-//        }
     }
 
     private void createItemInfo(String s, StockEditInfo.ItemEditInfo itemEditInfo) {
@@ -77,15 +72,28 @@ public class StockEditController {
         infoLayout.getChildren().add(hBox);
     }
 
+    /**
+     * Method to exit from the StockEditController view.
+     */
     @FXML
     private void exit() {
         windowManager.gotoStockManagerView(false);
     }
 
+    /**
+     * Sets the WindowManager instance for this controller.
+     *
+     * @param windowManager The WindowManager instance to set.
+     */
     public void setWindowManager(WindowManager windowManager) {
         this.windowManager = windowManager;
     }
 
+    /**
+     * Sets the ProgramData instance for this controller.
+     *
+     * @param programData The ProgramData instance to set.
+     */
     public void setProgramData(ProgramData programData) {
         this.programData = programData;
     }
