@@ -46,9 +46,16 @@ public class StockEditController {
         }
     }
 
+    /**
+     * Creates an item information display in the Stock Edit view.
+     *
+     * @param s             The name of the item as a string.
+     * @param itemEditInfo  The ItemEditInfo object containing information about the item.
+     */
     private void createItemInfo(String s, StockEditInfo.ItemEditInfo itemEditInfo) {
         HBox hBox = new HBox();
         String name = s.toLowerCase().replace('_', ' ');
+
         NumberField numberField = new NumberField();
         numberField.getTextField().setText(itemEditInfo.getAmount().toString());
         numberField.getTextField().textProperty().addListener((observable, oldValue, newValue) -> {
@@ -68,9 +75,11 @@ public class StockEditController {
             itemEditInfo.setChecked(itemCheckBox.isSelected());
             numberField.setContentDisable(!itemCheckBox.isSelected());
         });
+
         hBox.getChildren().addAll(itemCheckBox, numberField);
         infoLayout.getChildren().add(hBox);
     }
+
 
     /**
      * Method to exit from the StockEditController view.
