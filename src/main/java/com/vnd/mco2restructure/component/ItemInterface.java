@@ -8,11 +8,17 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
+/**
+ * Represents a custom VBox component that displays item information.
+ */
 public class ItemInterface extends VBox {
 
     private Label itemNameLabel;
     private ImageView itemImageView;
 
+    /**
+     * Constructs a new ItemInterface component and sets its view.
+     */
     public ItemInterface() {
         setView();
     }
@@ -31,10 +37,20 @@ public class ItemInterface extends VBox {
 
     }
 
+    /**
+     * Get the label displaying the item name.
+     *
+     * @return The itemNameLabel displaying the item name.
+     */
     public Label getItemNameLabel() {
         return itemNameLabel;
     }
 
+    /**
+     * Get the ImageView displaying the item image.
+     *
+     * @return The itemImageView displaying the item image.
+     */
     public ImageView getItemImageView() {
         return itemImageView;
     }
