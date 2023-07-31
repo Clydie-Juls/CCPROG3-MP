@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MaintenanceService {
@@ -114,7 +115,7 @@ public class MaintenanceService {
     }
 
     // TODO: REDO THIS
-    public void replenishDenomination(Map<Integer, Integer> denomination) {
+    public void replenishDenomination(LinkedHashMap<Integer, Integer> denomination) {
         for (Map.Entry<Integer, Integer> entry : denomination.entrySet()) {
             vendingMachine.getDenomination().getCurrency().replace(entry.getKey(),
                     entry.getValue() + vendingMachine.getDenomination().getCurrency().get(entry.getKey()));

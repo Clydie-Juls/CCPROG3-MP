@@ -4,6 +4,7 @@ import com.vnd.mco2restructure.HelloApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ public class ItemPriceInterface extends VBox {
     private NumberField itemPriceNumberField;
     private Button changePriceButton;
 
+    private ImageView itemImageView;
     public ItemPriceInterface() {
         setView();
     }
@@ -27,6 +29,7 @@ public class ItemPriceInterface extends VBox {
             itemPriceLabel = (Label) this.lookup("#itemPriceLabel");
             itemPriceNumberField = (NumberField) this.lookup("#itemPriceNumberField");
             changePriceButton = (Button) this.lookup("#changePriceButton");
+            itemImageView = (ImageView) this.lookup("#itemImageView");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -46,5 +49,9 @@ public class ItemPriceInterface extends VBox {
 
     public Button getChangePriceButton() {
         return changePriceButton;
+    }
+
+    public ImageView getItemImageView() {
+        return itemImageView;
     }
 }

@@ -5,6 +5,7 @@ import com.vnd.mco2restructure.menu.ItemEnum;
 import com.vnd.mco2restructure.model.StockData;
 import com.vnd.mco2restructure.model.StockEditInfo;
 import com.vnd.mco2restructure.model.Stocks;
+import com.vnd.mco2restructure.model.items.CustomizableItem;
 import com.vnd.mco2restructure.model.items.Item;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -18,7 +19,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class WindowManager {
     private final int IPHONE13_PRO_WIDTH = 1170;
@@ -37,13 +37,16 @@ public class WindowManager {
     private StockEditController stockEditController;
     private CollectMoneyController collectMoneyController;
     private ProvideDenomController provideDenomController;
+    private ProvideDenomController paymentController;
     private ItemBuyController itemBuyController;
+    private BurgerLoadAnimationController burgerLoadAnimationController;
     private Scene homeScene;
     private Scene mainMenuScene;
+
+    private Scene animationScene;
     private StackPane vndFeaturesLayout;
     private StackPane mntFeaturesLayout;
     private BorderPane stockLayout;
-    private BorderPane restockLayout;
     private BorderPane changeItemPriceLayout;
     private BorderPane displayTransactionsLayout;
     private BorderPane stockManagerLayout;
@@ -92,7 +95,7 @@ public class WindowManager {
 
             //Restock View Setup
             FXMLLoader restockView = new FXMLLoader(getClass().getResource("pages/RestockView.fxml"));
-            restockLayout = restockView.load();
+            BorderPane restockLayout = restockView.load();
             restockController = restockView.getController();
             restockController.setWindowManager(this);
 
@@ -130,6 +133,12 @@ public class WindowManager {
             itemBuyController.setWindowManager(this);
             itemBuyController.setProgramData(PROGRAM_DATA);
 
+            //Stock Edit View Setup
+            FXMLLoader burgerLoadAnimView = new FXMLLoader(getClass().getResource("pages/BurgerLoadAnimationView.fxml"));
+            BorderPane burgerLoadingAnimationLayout = burgerLoadAnimView.load();
+            burgerLoadAnimationController = burgerLoadAnimView.getController();
+            burgerLoadAnimationController.setWindowManager(this);
+            animationScene = createIphoneScene(burgerLoadingAnimationLayout);
 
             currentMntLayout = mntFeaturesLayout;
 
@@ -173,11 +182,6 @@ public class WindowManager {
         maintenanceService.updateView();
     }
 
-    public void replenishDenomination(Map<Integer, Integer> denomination) {
-        maintenanceService.replenishDenomination(denomination);
-        maintenanceService.getSlidePopup().slideDownAnimation();
-    }
-
     public void gotoVndFeaturesView() {
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
@@ -187,6 +191,11 @@ public class WindowManager {
         vendingMachineController.setVendingMachine(PROGRAM_DATA.getCurrentVendingMachine());
         maintenanceService.setVendingMachine(PROGRAM_DATA.getCurrentVendingMachine());
         vendingMachineController.updateView();
+    }
+
+    public void gotoAnimationScene(String[] steps) {
+        window.setScene(animationScene);
+        burgerLoadAnimationController.startAnimation(0, steps);
     }
 
     public void gotoItemBuyView(int slotIndex) {
@@ -211,15 +220,6 @@ public class WindowManager {
 
     public void setStockManagerStock(ItemEnum<? extends Item> itemEnum, int index) {
         stockManagerController.setSlotItemEnum(itemEnum, index);
-    }
-
-    public void gotoRestockView() {
-        if (window.getScene() != mainMenuScene) {
-            window.setScene(mainMenuScene);
-        }
-
-        mainMenuController.getMainContent().setCenter(restockLayout);
-        currentMntLayout = restockLayout;
     }
 
     public void gotoChangeItemPriceView() {
@@ -293,18 +293,47 @@ public class WindowManager {
         try {
             vBox = collectDenomView.load();
             provideDenomController = collectDenomView.getController();
-            provideDenomController.setWindowManager(this);
+            provideDenomController.updateView(1);
+            provideDenomController.setDenomCallback(denom -> {
+                maintenanceService.replenishDenomination(denom);
+                maintenanceService.getSlidePopup().slideDownAnimation();
+            });
             return vBox;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public VBox getPaymentView() {
+    public VBox getPaymentView(int slotIndex, int itemPrice) {
         FXMLLoader collectDenomView = new FXMLLoader(getClass().getResource("pages/CollectDenomView.fxml"));
         VBox vBox;
         try {
             vBox = collectDenomView.load();
+            paymentController = collectDenomView.getController();
+            paymentController.updateView(itemPrice);
+            paymentController.setDenomCallback(denom -> {
+                Item item = vendingMachineController.buy(denom, slotIndex);
+               if(item != null) {
+                   if(item instanceof CustomizableItem) {
+                       String[] burgerSteps = {
+                               "Preparing Patty",
+                               "Bringing in the buns",
+                               "Adding Sauce/Condiments",
+                               "Assembling Burger",
+                               item.getName() + " is Ready!"
+                       };
+                       gotoAnimationScene(burgerSteps);
+                   } else {
+                       String[] burgerSteps = {
+                               "Preparing " + item.getName(),
+                               item.getName() + " is Ready!"
+                       };
+                       gotoAnimationScene(burgerSteps);
+                   }
+               }
+                itemBuyController.getSlidePopup().slideDownAnimation();
+                vendingMachineController.updateView();
+            });
             return vBox;
         } catch (IOException e) {
             throw new RuntimeException(e);

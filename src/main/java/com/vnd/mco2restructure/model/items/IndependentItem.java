@@ -1,5 +1,7 @@
 package com.vnd.mco2restructure.model.items;
 
+import com.vnd.mco2restructure.menu.IndependentItemEnum;
+
 public class IndependentItem extends NonCustomizableItem{
     /**
      * Constructs an Item object with the specified name, calories, and price.
@@ -10,5 +12,11 @@ public class IndependentItem extends NonCustomizableItem{
      */
     public IndependentItem(String name, int calories, int id, int price, String imageFile) {
         super(name, calories, id, price, imageFile);
+    }
+
+    @Override
+    public int getPrice() {
+        price = IndependentItemEnum.values()[ID].getPrice();
+        return price;
     }
 }

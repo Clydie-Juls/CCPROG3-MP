@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<BorderPane  xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.vnd.mco2restructure.controller.BurgerLoadAnimationController">
+    <center>
+        <VBox fx:id="body"/>
+    </center>
+    <bottom>
+        <Button fx:id="exitButton" text="Exit" onAction="#exit"/>
+    </bottom>
+</BorderPane>
+
+

@@ -5,11 +5,11 @@ import java.util.Objects;
 /**
  * The Item class represents an item in the vending machine.
  */
-public abstract class Item {
+public abstract class Item implements Cloneable {
     private final String NAME;
     private int calories;
-    private final int ID;
-    private int price;
+    protected final int ID;
+    protected int price;
     private String imageFile;
 
 
@@ -51,7 +51,9 @@ public abstract class Item {
      *
      * @return The price of the item.
      */
-    public int getPrice() {
+    public abstract int getPrice();
+
+    public int getUnchangedPrice() {
         return price;
     }
 
@@ -98,5 +100,15 @@ public abstract class Item {
     @Override
     public int hashCode() {
         return Objects.hash(NAME);
+    }
+
+    @Override
+    public Item clone() {
+        try {
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return (Item) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

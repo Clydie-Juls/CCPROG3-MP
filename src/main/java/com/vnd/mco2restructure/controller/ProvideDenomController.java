@@ -1,19 +1,20 @@
 package com.vnd.mco2restructure.controller;
 
-import com.vnd.mco2restructure.WindowManager;
+import com.vnd.mco2restructure.callbacks.DenomCallback;
 import com.vnd.mco2restructure.component.NumberField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
 
 public class ProvideDenomController implements Initializable {
-    private WindowManager windowManager;
-    @FXML private Label totalMoney;
+    @FXML private Button button;
+    private DenomCallback denomCallback;
+    @FXML private Label totalMoneyLabel;
     @FXML private NumberField numberField1000;
     @FXML private NumberField numberField500;
     @FXML private NumberField numberField200;
@@ -27,26 +28,26 @@ public class ProvideDenomController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setUpdateFunction(numberField1000);
-        setUpdateFunction(numberField500);
-        setUpdateFunction(numberField200);
-        setUpdateFunction(numberField100);
-        setUpdateFunction(numberField50);
-        setUpdateFunction(numberField20);
-        setUpdateFunction(numberField10);
-        setUpdateFunction(numberField5);
-        setUpdateFunction(numberField1);
-        updateView();
+
     }
 
-    private void setUpdateFunction(NumberField numberField) {
+    private void setUpdateFunction(NumberField numberField, int minimumNo) {
         numberField.getTextField().textProperty().addListener((observable, oldValue, newValue) -> {
             // This method will be called whenever the TextField text is updated
-            updateView();
+            updateView(minimumNo);
         });
     }
 
-    private void updateView() {
+    public void updateView(int minimumNo) {
+        setUpdateFunction(numberField1000, minimumNo);
+        setUpdateFunction(numberField500, minimumNo);
+        setUpdateFunction(numberField200, minimumNo);
+        setUpdateFunction(numberField100, minimumNo);
+        setUpdateFunction(numberField50, minimumNo);
+        setUpdateFunction(numberField20, minimumNo);
+        setUpdateFunction(numberField10, minimumNo);
+        setUpdateFunction(numberField5, minimumNo);
+        setUpdateFunction(numberField1, minimumNo);
         try {
             int money1000 = Integer.parseInt(numberField1000.getTextField().getText());
             int money500 = Integer.parseInt(numberField500.getTextField().getText());
@@ -57,9 +58,12 @@ public class ProvideDenomController implements Initializable {
             int money10 = Integer.parseInt(numberField10.getTextField().getText());
             int money5 = Integer.parseInt(numberField5.getTextField().getText());
             int money1 = Integer.parseInt(numberField1.getTextField().getText());
-            totalMoney.setText("Total: " + (money1000 * 1000 + money500 * 500 + money200 * 200 + money100 * 100 +
+            int totalMoney = money1000 * 1000 + money500 * 500 + money200 * 200 + money100 * 100 +
                     money50 * 50 + money20 * 20 + money10 * 10 +
-                    money5 * 5 + money1));
+                    money5 * 5 + money1;
+            totalMoneyLabel.setText("Total: " + totalMoney);
+
+            button.setDisable(totalMoney < minimumNo);
         } catch (Exception e) {
             System.out.println("Updating failed");
         }
@@ -67,7 +71,7 @@ public class ProvideDenomController implements Initializable {
 
     @FXML
     private void replenish() {
-        Map<Integer, Integer> denomination = new HashMap<>();
+        LinkedHashMap<Integer, Integer> denomination = new LinkedHashMap<>();
         int money1000 = Integer.parseInt(numberField1000.getTextField().getText());
         int money500 = Integer.parseInt(numberField500.getTextField().getText());
         int money200 = Integer.parseInt(numberField200.getTextField().getText());
@@ -86,10 +90,11 @@ public class ProvideDenomController implements Initializable {
         denomination.put(10, money10);
         denomination.put(5, money5);
         denomination.put(1, money1);
-        windowManager.replenishDenomination(denomination);
+        denomCallback.onCallBack(denomination);
     }
 
-    public void setWindowManager(WindowManager windowManager) {
-        this.windowManager = windowManager;
+
+    public void setDenomCallback(DenomCallback denomCallback) {
+        this.denomCallback = denomCallback;
     }
 }
