@@ -8,12 +8,18 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
+/**
+ * Represents a custom VBox component that displays item price information.
+ */
 public class ItemPriceInterface extends VBox {
     private Label itemNameLabel;
     private Label itemPriceLabel;
     private NumberField itemPriceNumberField;
     private Button changePriceButton;
 
+    /**
+     * Constructs a new ItemPriceInterface component and sets its view.
+     */
     public ItemPriceInterface() {
         setView();
     }
@@ -32,18 +38,38 @@ public class ItemPriceInterface extends VBox {
         }
     }
 
+    /**
+     * Get the label displaying the item name.
+     *
+     * @return The itemNameLabel displaying the item name.
+     */
     public Label getItemNameLabel() {
         return itemNameLabel;
     }
 
+    /**
+     * Get the label displaying the item price.
+     *
+     * @return The itemPriceLabel displaying the item price.
+     */
     public Label getItemPriceLabel() {
         return itemPriceLabel;
     }
 
+    /**
+     * Get the NumberField for item price input.
+     *
+     * @return The itemPriceNumberField for item price input.
+     */
     public NumberField getItemPriceNumberField() {
         return itemPriceNumberField;
     }
 
+    /**
+     * Get the button to change the item price.
+     *
+     * @return The changePriceButton to change the item price.
+     */
     public Button getChangePriceButton() {
         return changePriceButton;
     }
