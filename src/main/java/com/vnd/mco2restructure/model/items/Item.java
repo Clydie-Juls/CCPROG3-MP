@@ -105,7 +105,6 @@ public abstract class Item implements Cloneable {
     @Override
     public Item clone() {
         try {
-            // TODO: copy mutable state here, so the clone can't change the internals of the original
             return (Item) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();

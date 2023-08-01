@@ -48,7 +48,7 @@ public class WindowManager {
     private StackPane mntFeaturesLayout;
     private BorderPane stockLayout;
     private BorderPane changeItemPriceLayout;
-    private BorderPane displayTransactionsLayout;
+    private StackPane displayTransactionsLayout;
     private BorderPane stockManagerLayout;
     private BorderPane stockEditLayout;
     private StackPane itemBuyLayout;
@@ -170,6 +170,8 @@ public class WindowManager {
         currentMntLayout = mntFeaturesLayout;
         maintenanceService.setMaintenanceData(PROGRAM_DATA.getCurrentMaintenanceData());
         maintenanceService.updateView();
+        System.out.println("HEEEELLLOOOOOO");
+        System.out.println("HIIIII");
     }
 
     public void stock(ArrayList<ItemEnum<? extends Item>> itemEnums, ArrayList<StockEditInfo> stockEditInfos) {
@@ -191,10 +193,13 @@ public class WindowManager {
         vendingMachineController.setVendingMachine(PROGRAM_DATA.getCurrentVendingMachine());
         maintenanceService.setVendingMachine(PROGRAM_DATA.getCurrentVendingMachine());
         vendingMachineController.updateView();
+        System.out.println("EEGEGGEGE");
+        displayTransactionsController.setTransactions(PROGRAM_DATA.getCurrentVendingMachine().getTransactions());
     }
 
     public void gotoAnimationScene(String[] steps) {
         window.setScene(animationScene);
+        burgerLoadAnimationController.getBody().getChildren().clear();
         burgerLoadAnimationController.startAnimation(0, steps);
     }
 
@@ -207,7 +212,7 @@ public class WindowManager {
         itemBuyController.updateView(slotIndex);
     }
 
-    public void gotoStockView(int slotId, boolean isSpecialVendingMachine) {
+    public void gotoStockView(int slotId) {
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
         }
@@ -215,7 +220,11 @@ public class WindowManager {
         mainMenuController.getMainContent().setCenter(stockLayout);
         currentMntLayout = stockLayout;
         stockController.setSlotId(slotId);
+    }
+
+    public void setStockView(boolean isSpecialVendingMachine) {
         stockController.setView(isSpecialVendingMachine);
+        changeItemPriceController.updateView(isSpecialVendingMachine);
     }
 
     public void setStockManagerStock(ItemEnum<? extends Item> itemEnum, int index) {
@@ -238,6 +247,7 @@ public class WindowManager {
 
         mainMenuController.getMainContent().setCenter(displayTransactionsLayout);
         currentMntLayout = displayTransactionsLayout;
+        displayTransactionsController.updateView();
     }
 
     public void gotoStockManagerView(boolean isResetStockEnum) {
@@ -320,17 +330,26 @@ public class WindowManager {
                                "Bringing in the buns",
                                "Adding Sauce/Condiments",
                                "Assembling Burger",
-                               item.getName() + " is Ready!"
+                               item.getName() + " is Ready!",
+                               denom.toString()
                        };
                        gotoAnimationScene(burgerSteps);
                    } else {
                        String[] burgerSteps = {
                                "Preparing " + item.getName(),
-                               item.getName() + " is Ready!"
+                               item.getName() + " is Ready!",
+                               denom.toString()
                        };
                        gotoAnimationScene(burgerSteps);
                    }
+               } else {
+                   String[] burgerSteps = {
+                           "Vending Machine doesn't have enough denomination",
+                           denom.toString()
+                   };
+                   gotoAnimationScene(burgerSteps);
                }
+
                 itemBuyController.getSlidePopup().slideDownAnimation();
                 vendingMachineController.updateView();
             });
@@ -339,6 +358,11 @@ public class WindowManager {
             throw new RuntimeException(e);
         }
     }
+
+    public void resetCurrentFeaturesView() {
+        currentMntLayout = mntFeaturesLayout;
+    }
+
 
     public Stage getWindow() {
         return window;

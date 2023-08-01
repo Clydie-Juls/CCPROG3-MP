@@ -26,6 +26,7 @@ tasks.withType(JavaCompile) {
 application {
     mainModule = 'com.vnd.mco2restructure'
     mainClass = 'com.vnd.mco2restructure.HelloApplication'
+    mainClassName = 'com.vnd.mco2restructure.HelloApplication'
 }
 
 javafx {
@@ -34,7 +35,6 @@ javafx {
 }
 
 dependencies {
-
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
@@ -54,3 +54,15 @@ jlink {
 jlinkZip {
     group = 'distribution'
 }
+
+//jar {
+//    duplicatesStrategy(DuplicatesStrategy.INCLUDE)
+//    manifest {
+//        attributes 'Main-Class': 'com.vnd.mco2restructure.VendingMachineSimulator'
+//    }
+//    from {
+//        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+//    }
+//}
+
+

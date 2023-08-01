@@ -36,7 +36,8 @@ public enum IndependentItemEnum implements ItemEnum<IndependentItem>, NonCustomi
 
     @Override
     public IndependentItem enumToItem() {
-        return new IndependentItem(this.name().toLowerCase(), CALORIES, this.ordinal(), itemPrices[this.ordinal()], getImageFile());
+        return new IndependentItem(this.name().toLowerCase().replaceAll("_", " ")
+                , CALORIES, this.ordinal(), itemPrices[this.ordinal()], getImageFile());
     }
 
     public int getPrice() {
@@ -61,5 +62,9 @@ public enum IndependentItemEnum implements ItemEnum<IndependentItem>, NonCustomi
             newItemPrices[i] = IndependentItemEnum.values()[i].PRICE;
         }
         return newItemPrices;
+    }
+
+    public int getCalories() {
+        return CALORIES;
     }
 }

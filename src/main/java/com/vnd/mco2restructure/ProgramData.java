@@ -2,6 +2,8 @@ package com.vnd.mco2restructure;
 
 import com.vnd.mco2restructure.component.VendingMachineButton;
 import com.vnd.mco2restructure.menu.CustomizableItemEnum;
+import com.vnd.mco2restructure.menu.DependentItemEnum;
+import com.vnd.mco2restructure.menu.IndependentItemEnum;
 import com.vnd.mco2restructure.model.MaintenanceData;
 import com.vnd.mco2restructure.model.StockEditInfo;
 import com.vnd.mco2restructure.model.vendingmachine.VendingMachine;
@@ -73,4 +75,5 @@ public class ProgramData {
     public HashMap<VendingMachineButton, int[]> getDependentItemPrices() {
         return dependentItemPrices;
     }
+
 }

@@ -49,7 +49,7 @@ public class VendingMachineController implements Initializable {
 
                 // If dispense item process is successful
                 if(dispensedItem != null) {
-                    vendingMachine.getTransactions().addTransaction(dispensedItem.clone());
+                    vendingMachine.getTransactions().updateTableAfterBuy(dispensedItem);
                     return dispensedItem;
                 }
             }

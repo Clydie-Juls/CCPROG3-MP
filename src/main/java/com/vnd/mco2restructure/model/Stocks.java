@@ -17,7 +17,6 @@ public class Stocks {
         return itemEnums;
     }
 
-    //TODO: Update this to an actual setter
     public void setItemData(int size) {
         this.itemEnums = new ArrayList<>();
         this.stockEditInfos = new ArrayList<>();

@@ -64,8 +64,7 @@ public class StockManagerController {
                             HelloApplication.class.getResourceAsStream(independentItemEnum.getImageFile())));
                 }
             }
-            slotInterface.getChangeButton().setOnAction(event -> windowManager.gotoStockView(finalI,
-                    programData.getCurrentVendingMachine() instanceof SpecialVendingMachine));
+            slotInterface.getChangeButton().setOnAction(event -> windowManager.gotoStockView(finalI));
             menuLayout.getChildren().add(slotInterface);
         }
     }
@@ -115,7 +114,6 @@ public class StockManagerController {
     public void resetStockEnums() {
         stocks.setItemData(programData.getCurrentVendingMachine().getSlots().length);
         for (int i = 0; i < programData.getCurrentVendingMachine().getSlots().length; i++) {
-            System.out.println("FOSFKOSFKFSO");
             if(programData.getCurrentVendingMachine().getSlots()[i].getItem() != null) {
                 int id = programData.getCurrentVendingMachine().getSlots()[i].getItem().getId();
                 System.out.println(id);
@@ -129,7 +127,6 @@ public class StockManagerController {
     }
 
     public void addStocks() {
-        System.out.println("SOmeoemeomeoe");
         windowManager.stock(stocks.getItemEnums(), stocks.getStockEditInfos());
         windowManager.gotoMntFeaturesView();
     }
