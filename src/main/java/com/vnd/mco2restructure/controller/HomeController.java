@@ -15,6 +15,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controller class for the home view.
+ */
 public class HomeController {
     private WindowManager windowManager;
     private ProgramData programData;
@@ -25,12 +28,19 @@ public class HomeController {
     @FXML private NumberField noOfSlotsNumberField;
     @FXML private NumberField slotCapacityNumberField;
 
-
+    /**
+     * Handles the action when the "Show Popup" button is clicked.
+     * Shows the slide popup.
+     */
     @FXML
     private void showPopup() {
         slidePopup.slideUpAnimation();
     }
 
+    /**
+     * Handles the action when the "Add Vending Machine" button is clicked.
+     * Adds a new vending machine based on the entered data.
+     */
     @FXML
     private void addVendingMachine() {
         int noOfSlots = Math.max(8, ((NumberFieldController) noOfSlotsNumberField.getLoader().getController()).getValue());
@@ -50,7 +60,6 @@ public class HomeController {
             windowManager.gotoVndFeaturesView();
         });
 
-
         vndMachineButtonsLayout.getChildren().add(vendingMachineButton);
         if (vndTypeChoice.getValue().equalsIgnoreCase("Regular")) {
             System.out.println("Add regular vending machine");
@@ -63,7 +72,6 @@ public class HomeController {
         programData.getIndependentItemPrices().put(vendingMachineButton, IndependentItemEnum.createNewItemPrices());
         programData.getDependentItemPrices().put(vendingMachineButton, DependentItemEnum.createNewItemPrices());
 
-
         vndTypeChoice.setValue("Regular");
         vndNameTextField.setText("");
         noOfSlotsNumberField.getTextField().setText("0");
@@ -71,10 +79,20 @@ public class HomeController {
         slidePopup.slideDownAnimation();
     }
 
+    /**
+     * Sets the WindowManager for this controller.
+     *
+     * @param windowManager The WindowManager instance.
+     */
     public void setWindowManager(WindowManager windowManager) {
         this.windowManager = windowManager;
     }
 
+    /**
+     * Sets the ProgramData for this controller.
+     *
+     * @param programData The ProgramData instance.
+     */
     public void setProgramData(ProgramData programData) {
         this.programData = programData;
     }

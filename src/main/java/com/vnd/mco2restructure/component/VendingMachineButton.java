@@ -8,6 +8,9 @@ import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 
+/**
+ * Represents a custom HBox component for a vending machine button.
+ */
 public class VendingMachineButton extends HBox {
     public VendingMachineButton(@NamedArg("vndName") String vndName, @NamedArg("vndType") String vndType,
                                 int noOfSlots, int slotCapacity) {
