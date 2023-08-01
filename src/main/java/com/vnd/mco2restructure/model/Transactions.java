@@ -19,9 +19,9 @@ public class Transactions {
     }
 
     /**
-     * Adds a transaction for the specified item and quantity to the current item log.
+     * Adds a transaction for the specified item to the current item log.
      *
-     * @param item     The item involved in the transaction.
+     * @param item The item involved in the transaction.
      */
     public void addTransaction(Item item) {
         List<Item> currentLog = ITEM_LOGS.get(ITEM_LOGS.size() - 1);
