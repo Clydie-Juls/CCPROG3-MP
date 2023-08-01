@@ -4,6 +4,8 @@ import com.vnd.mco2restructure.model.items.Item;
 
 /**
  * The Slot class represents a slot in the vending machine that holds an item.
+ *
+ * @param <T> The type of item that the slot can hold.
  */
 public abstract class Slot<T extends Item> {
     protected T item;
@@ -21,7 +23,7 @@ public abstract class Slot<T extends Item> {
     /**
      * Retrieves the capacity of the slot for holding items.
      *
-     * @return The capacity of the slot/
+     * @return The capacity of the slot.
      */
     public int getCapacity() {
         return CAPACITY;
@@ -36,6 +38,10 @@ public abstract class Slot<T extends Item> {
         return item;
     }
 
-
+    /**
+     * Puts an item into the slot.
+     *
+     * @param item The item to be put into the slot.
+     */
     public abstract void putItem(T item);
 }
