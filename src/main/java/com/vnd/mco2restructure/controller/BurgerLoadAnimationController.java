@@ -53,4 +53,8 @@ public class BurgerLoadAnimationController {
     private void exit() {
         windowManager.gotoVndFeaturesView();
     }
+
+    public VBox getBody() {
+        return body;
+    }
 }

@@ -58,6 +58,8 @@ public class HomeController {
             IndependentItemEnum.setItemPrices(programData.getIndependentItemPrices().get(vendingMachineButton));
             DependentItemEnum.setItemPrices(programData.getDependentItemPrices().get(vendingMachineButton));
             windowManager.gotoVndFeaturesView();
+            windowManager.setStockView(programData.getCurrentVendingMachine() instanceof SpecialVendingMachine);
+            windowManager.resetCurrentFeaturesView();
         });
 
         vndMachineButtonsLayout.getChildren().add(vendingMachineButton);

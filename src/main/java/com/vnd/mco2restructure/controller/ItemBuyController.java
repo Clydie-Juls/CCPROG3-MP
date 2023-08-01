@@ -65,7 +65,6 @@ public class ItemBuyController {
                 for (Map.Entry<String, NonCustomizableItem[]> entry : customizableItem.getItemsDerived().entrySet()) {
                     ItemChoices itemChoices = new ItemChoices();
                     ToggleGroup toggleGroup = new ToggleGroup();
-                    itemChoices.getItemTypeLabel().setText(entry.getKey());
                     int i = 0;
                     for (NonCustomizableItem nonCustomizableItem : entry.getValue()) {
                         if (specialVendingMachine.getItemStorage().containsKey(nonCustomizableItem)) {
@@ -79,6 +78,16 @@ public class ItemBuyController {
                         }
                         i++;
                     }
+
+                    toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+                        if (newValue != null) {
+                            int selectedOption = (int)((RadioButton) newValue).getUserData();
+                            itemChoices.getItemTypeLabel().setText(entry.getKey() + "\nItem Price: " +
+                                    entry.getValue()[selectedOption].getPrice() + "\nItem Calories: " +
+                                    entry.getValue()[selectedOption].getCalories());
+                        }
+                    });
+
                     itemsChose.add(toggleGroup);
                     toggleGroup.getToggles().get(0).setSelected(true);
                     infoLayout.getChildren().add(itemChoices);
@@ -117,11 +126,9 @@ public class ItemBuyController {
             i++;
         }
         itemToBuy.setItemContents(items);
-        for (NonCustomizableItem itemContent : itemToBuy.getItemContents()) {
-            System.out.println(itemContent.getName());
-        }
-        VBox vBox = new VBox(new Label("" + itemToBuy.getPrice()), windowManager.
-                getPaymentView(slotIndex, itemToBuy.getPrice()));
+        Label finalItem = new Label("Total Price:" + itemToBuy.getPrice() +
+                "\nTotal Calories: " + itemToBuy.getCalories());
+        VBox vBox = new VBox(finalItem, windowManager.getPaymentView(slotIndex, itemToBuy.getPrice()));
         slidePopup.setCenter(vBox);
         slidePopup.slideUpAnimation();
     }

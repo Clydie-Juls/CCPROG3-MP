@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.vnd.mco2restructure.component.NumberField?>
+<fx:root type="VBox" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: grey"
+         fx:id="body">
+    <HBox>
+        <CheckBox  fx:id="itemCheckbox" text="Item Name"/>
+        <NumberField fx:id="numberField"/>
+    </HBox>
+    <HBox>
+        <Label fx:id="itemPriceLabel" text="Item Price"/>
+        <Label fx:id="itemCaloriesLabel" text="Item Calories"/>
+        <Label fx:id="currentItemAmount" text="Current Amount:"/>
+    </HBox>
+</fx:root>

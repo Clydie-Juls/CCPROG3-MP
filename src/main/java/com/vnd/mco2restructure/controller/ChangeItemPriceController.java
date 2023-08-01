@@ -15,10 +15,11 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.function.IntConsumer;
 
+
 /**
  * Controller class for the change item price view.
  */
-public class ChangeItemPriceController implements Initializable {
+public class ChangeItemPriceController {
 
     private WindowManager windowManager;
     @FXML private FlowPane menuLayout;
@@ -41,28 +42,21 @@ public class ChangeItemPriceController implements Initializable {
         this.windowManager = windowManager;
     }
 
-    /**
-     * Initializes the view and updates the item prices display.
-     *
-     * @param location The location used to resolve relative paths for the root object, or null if the location is not known.
-     * @param resources The resources used to localize the root object, or null if the root object was not localized.
-     */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        updateView();
-    }
+
 
     /**
      * Updates the view by displaying the item prices and providing buttons to change the prices.
      */
-    private void updateView() {
+    public void updateView(boolean isSpecialVendingMachine) {
         menuLayout.getChildren().clear();
         for (IndependentItemEnum value : IndependentItemEnum.values()) {
             createChangeItemInterface(value.name(), value.getImageFile(), value.getPrice(), value::setPrice);
         }
 
-        for (DependentItemEnum value : DependentItemEnum.values()) {
-            createChangeItemInterface(value.name(), value.getImageFile(), value.getPrice(), value::setPrice);
+        if(isSpecialVendingMachine) {
+            for (DependentItemEnum value : DependentItemEnum.values()) {
+                createChangeItemInterface(value.name(), value.getImageFile(), value.getPrice(), value::setPrice);
+            }
         }
     }
 
@@ -79,7 +73,6 @@ public class ChangeItemPriceController implements Initializable {
         itemPriceInterface.getItemNameLabel().setText(name.toLowerCase().replaceAll("_", " "));
         itemPriceInterface.getItemPriceLabel().setText("Price: " + price);
         itemPriceInterface.getItemPriceNumberField().getTextField().setText("" + price);
-        System.out.println(imageFile);
         itemPriceInterface.getItemImageView().setImage(new
                 Image(Objects.requireNonNull(HelloApplication.class.getResourceAsStream(imageFile))));
         itemPriceInterface.getChangePriceButton().setOnAction(event -> {

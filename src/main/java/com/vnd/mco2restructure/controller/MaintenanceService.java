@@ -5,7 +5,10 @@ import com.vnd.mco2restructure.component.SlidePopup;
 import com.vnd.mco2restructure.menu.*;
 import com.vnd.mco2restructure.model.MaintenanceData;
 import com.vnd.mco2restructure.model.StockEditInfo;
+import com.vnd.mco2restructure.model.items.CustomizableItem;
+import com.vnd.mco2restructure.model.items.IndependentItem;
 import com.vnd.mco2restructure.model.items.Item;
+import com.vnd.mco2restructure.model.items.NonCustomizableItem;
 import com.vnd.mco2restructure.model.slots.IdSlot;
 import com.vnd.mco2restructure.model.slots.StorageSlot;
 import com.vnd.mco2restructure.model.vendingmachine.RegularVendingMachine;
@@ -14,9 +17,7 @@ import com.vnd.mco2restructure.model.vendingmachine.VendingMachine;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The MaintenanceService class is responsible for managing maintenance operations on the vending machine.
@@ -33,6 +34,7 @@ public class MaintenanceService {
     private Label moneyLabel;
 
 
+
     /**
      * Stocks the vending machine with items based on the provided item enums and stock edit information.
      *
@@ -40,6 +42,7 @@ public class MaintenanceService {
      * @param stockEditInfos The list of StockEditInfo objects representing the restock information.
      */
     public void stock(ArrayList<ItemEnum<? extends Item>> itemEnums, ArrayList<StockEditInfo> stockEditInfos) {
+        Set<String> itemNames = new HashSet<>();
         if (vendingMachine instanceof RegularVendingMachine regularVendingMachine) {
             for (int i = 0; i < itemEnums.size(); i++) {
                 if (stockEditInfos.get(i) != null) {
@@ -51,17 +54,17 @@ public class MaintenanceService {
                                 storageSlot.getItemStackCount() < storageSlot.getCapacity(); i1++) {
                             storageSlot.putItem(item.enumToItem());
                         }
+                        vendingMachine.getTransactions().addTransaction(storageSlot.getItem(),
+                                "" + storageSlot.getItemStackCount());
+                        itemNames.add(storageSlot.getItem().getName());
                     }
                 }
             }
-
             System.out.println("Regular vending machine stock done");
         } else if (vendingMachine instanceof SpecialVendingMachine specialVendingMachine) {
             for (int i = 0; i < itemEnums.size(); i++) {
-                if (stockEditInfos.get(i) != null) {
-                    if (specialVendingMachine.getSlots()[i] instanceof IdSlot idSlot) {
-                        idSlot.putItem(itemEnums.get(i).enumToItem());
-                    }
+
+                if(stockEditInfos.get(i) != null) {
                     for (Map.Entry<NonCustomizable, StockEditInfo.ItemEditInfo[]> entry : stockEditInfos.get(i).getItemAmount().entrySet()) {
                         if (entry.getKey() instanceof CustomizableItemEnum.ItemType itemType) {
                             for (int i1 = 0; i1 < itemType.getItems().length; i1++) {
@@ -76,8 +79,9 @@ public class MaintenanceService {
                                             entry.getValue()[i1].isChecked(); integer++) {
                                         specialVendingMachine.getItemStorage().get(independentItemEnum.enumToItem()).add(independentItemEnum.enumToItem());
                                     }
-                                } else if (itemType.getItems()[i1] instanceof DependentItemEnum dependentItemEnum) {
-                                    if (!specialVendingMachine.getItemStorage().containsKey(dependentItemEnum.enumToItem())) {
+                                    itemNames.add(independentItemEnum.enumToItem().getName());
+                                } else if (itemType.getItems()[i1] instanceof DependentItemEnum dependentItemEnum ) {
+                                    if(!specialVendingMachine.getItemStorage().containsKey(dependentItemEnum.enumToItem())) {
                                         specialVendingMachine.getItemStorage().put(dependentItemEnum.enumToItem(), new ArrayList<>());
                                     }
 
@@ -87,6 +91,7 @@ public class MaintenanceService {
                                             entry.getValue()[i1].isChecked(); integer++) {
                                         specialVendingMachine.getItemStorage().get(dependentItemEnum.enumToItem()).add(dependentItemEnum.enumToItem());
                                     }
+                                    itemNames.add(dependentItemEnum.enumToItem().getName());
                                 }
                             }
                         } else if (entry.getKey() instanceof IndependentItemEnum independentItemEnum) {
@@ -101,30 +106,42 @@ public class MaintenanceService {
                             }
                         }
                     }
+                    if (specialVendingMachine.getSlots()[i] instanceof IdSlot idSlot) {
+                        idSlot.putItem(itemEnums.get(i).enumToItem());
+                        itemNames.add(idSlot.getItem().getName());
+                        if(itemEnums.get(i).enumToItem() instanceof CustomizableItem customizableItem) {
+                            customizableItemToTransaction(customizableItem, specialVendingMachine);
+                        } else if(itemEnums.get(i).enumToItem() instanceof IndependentItem independentItem) {
+                            int itemAmount = specialVendingMachine.getItemStorage().containsKey(independentItem) ?
+                                    specialVendingMachine.getItemStorage().get(independentItem).size() : 0;
+                            specialVendingMachine.getTransactions().addTransaction(independentItem,
+                                    "" + itemAmount);
+                        }
+                    }
                 }
-
             }
             System.out.println("Special Vending Stocking Done");
         }
-//        // If all parameters are valid
-//        Item newItem = new Item(itemName, calories, price);
-//        vendingMachine.getSlots()[slotNo - 1].setItem(newItem);
-//        vendingMachine.getSlots()[slotNo - 1].setAmount(amount);
-//        vendingMachine.getTransactions().resetTransactions();
+
+        vendingMachine.getTransactions().UpdateStockTransactionInfo(itemNames);
     }
 
-
-    /**
-     * Changes the prices of items in the vending machine.
-     * TODO: Implement the logic for changing item prices.
-     */
-    public void changeItemPrice() {
-        // TODO: Implement the logic for changing item prices.
+    private void customizableItemToTransaction(CustomizableItem item, SpecialVendingMachine specialVendingMachine) {
+        for (NonCustomizableItem[] value : item.getItemsDerived().values()) {
+            for (NonCustomizableItem nonCustomizableItem : value) {
+                int itemAmount = specialVendingMachine.getItemStorage().containsKey(nonCustomizableItem) ?
+                        specialVendingMachine.getItemStorage().get(nonCustomizableItem).size() : 0;
+                vendingMachine.getTransactions().addTransaction(nonCustomizableItem, "" + itemAmount);
+            }
+        }
+        vendingMachine.getTransactions().addTransaction(item, null);
     }
+
 
     /**
      * Collects the money from the vending machine.
      */
+
     public void collectMoney() {
         maintenanceData.setTotalMoney(maintenanceData.getTotalMoney() +
                 vendingMachine.getDenomination().passDenomination());
@@ -135,12 +152,12 @@ public class MaintenanceService {
      *
      * @param denomination The map representing the denomination to be replenished.
      */
+
     public void replenishDenomination(LinkedHashMap<Integer, Integer> denomination) {
         for (Map.Entry<Integer, Integer> entry : denomination.entrySet()) {
             vendingMachine.getDenomination().getCurrency().replace(entry.getKey(),
                     entry.getValue() + vendingMachine.getDenomination().getCurrency().get(entry.getKey()));
         }
-        System.out.println(vendingMachine.getDenomination().getCurrency());
     }
 
     /**

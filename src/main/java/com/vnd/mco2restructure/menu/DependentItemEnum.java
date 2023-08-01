@@ -62,7 +62,8 @@ public enum DependentItemEnum implements ItemEnum<DependentItem>, NonCustomizabl
      */
     @Override
     public DependentItem enumToItem() {
-        return new DependentItem(this.name().toLowerCase(), CALORIES, this.ordinal(), itemPrices[this.ordinal()], getImageFile());
+        return new DependentItem(this.name().toLowerCase().replaceAll("_", " "),
+                CALORIES, this.ordinal(),  itemPrices[this.ordinal()], getImageFile());
     }
 
     /**
@@ -112,5 +113,9 @@ public enum DependentItemEnum implements ItemEnum<DependentItem>, NonCustomizabl
      */
     public String getImageFile() {
         return "images/dependent-item/" + imageFile;
+    }
+
+    public int getCalories() {
+        return CALORIES;
     }
 }
