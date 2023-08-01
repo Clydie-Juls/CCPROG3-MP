@@ -1,5 +1,6 @@
 package com.vnd.mco2restructure.controller;
 
+import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.callbacks.DenomCallback;
 import com.vnd.mco2restructure.component.NumberField;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import java.util.ResourceBundle;
  */
 public class ProvideDenomController implements Initializable {
     @FXML private Button button;
+
     private DenomCallback denomCallback;
     @FXML private Label totalMoneyLabel;
     @FXML private NumberField numberField1000;
@@ -27,6 +29,8 @@ public class ProvideDenomController implements Initializable {
     @FXML private NumberField numberField10;
     @FXML private NumberField numberField5;
     @FXML private NumberField numberField1;
+
+    private WindowManager windowManager;
 
     /**
      * Initializes the ProvideDenomController with default values and preferences.
