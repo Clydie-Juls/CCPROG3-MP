@@ -7,7 +7,7 @@ public enum IndependentItemEnum implements ItemEnum<IndependentItem>, NonCustomi
 
     // Cheese
     AMERICAN_CHEESE(40, 60,"american_cheese.png"),
-    SWISS_CHEESE(50, 70, "swiss-cheese.png"),
+    SWISS_CHEESE(50, 70, "swiss_cheese.png"),
     FETA_CHEESE(60, 80, "feta_cheese.png"),
 
     //Buns

@@ -6,9 +6,11 @@ import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.ItemChoices;
 import com.vnd.mco2restructure.component.SlidePopup;
 import com.vnd.mco2restructure.model.items.CustomizableItem;
+import com.vnd.mco2restructure.model.items.IndependentItem;
 import com.vnd.mco2restructure.model.items.Item;
 import com.vnd.mco2restructure.model.items.NonCustomizableItem;
 import com.vnd.mco2restructure.model.slots.Slot;
+import com.vnd.mco2restructure.model.vendingmachine.RegularVendingMachine;
 import com.vnd.mco2restructure.model.vendingmachine.SpecialVendingMachine;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -50,34 +52,51 @@ public class ItemBuyController {
      * @param slotIndex The index of the slot in the vending machine.
      */
     public void updateView(int slotIndex) {
-        ArrayList<ToggleGroup> itemsChose = new ArrayList<>();
-
         infoLayout.getChildren().clear();
         Slot<? extends Item> slot = programData.getCurrentVendingMachine().getSlots()[slotIndex];
         itemName.setText(slot.getItem().getName());
-        if (programData.getCurrentVendingMachine() instanceof SpecialVendingMachine specialVendingMachine) {
-            if (slot.getItem() instanceof CustomizableItem customizableItem) {
-                itemImageView.setImage(new Image(
-                        Objects.requireNonNull(HelloApplication.class.getResourceAsStream(customizableItem.getImageFile()))));
+        itemImageView.setImage(new Image(
+                Objects.requireNonNull(HelloApplication.class.
+                        getResourceAsStream(slot.getItem().getImageFile()))));
+
+        if(programData.getCurrentVendingMachine() instanceof SpecialVendingMachine specialVendingMachine) {
+            ArrayList<ToggleGroup> itemsChose = new ArrayList<>();
+            if(slot.getItem() instanceof CustomizableItem customizableItem) {
                 for (Map.Entry<String, NonCustomizableItem[]> entry : customizableItem.getItemsDerived().entrySet()) {
                     ItemChoices itemChoices = new ItemChoices();
                     ToggleGroup toggleGroup = new ToggleGroup();
                     itemChoices.getItemTypeLabel().setText(entry.getKey());
+                    int i = 0;
                     for (NonCustomizableItem nonCustomizableItem : entry.getValue()) {
                         if (specialVendingMachine.getItemStorage().containsKey(nonCustomizableItem)) {
                             if (specialVendingMachine.getItemStorage().get(nonCustomizableItem).size() > 0) {
                                 RadioButton itemChoice = new RadioButton(nonCustomizableItem.getName());
                                 itemChoice.setToggleGroup(toggleGroup);
+                                itemChoice.setUserData(i);
                                 itemChoices.getItemChoicesLayout().getChildren().add(itemChoice);
+                                System.out.println(itemChoice.getUserData());
                             }
                         }
+                        i++;
                     }
                     itemsChose.add(toggleGroup);
                     toggleGroup.getToggles().get(0).setSelected(true);
                     infoLayout.getChildren().add(itemChoices);
                 }
 
-                buyItemButton.setOnAction(event -> buyItem(itemsChose, customizableItem));
+                buyItemButton.setOnAction(event -> buyItem(itemsChose, customizableItem, slotIndex));
+            } else if(slot.getItem() instanceof IndependentItem independentItem) {
+                if(specialVendingMachine.getItemStorage().containsKey(independentItem)) {
+                    if (specialVendingMachine.getItemStorage().get(independentItem).size() > 0) {
+                        buyItemButton.setOnAction(event -> buyItem(independentItem, slotIndex));
+                    }
+                }
+            }
+        } else if(programData.getCurrentVendingMachine() instanceof RegularVendingMachine regularVendingMachine){
+            if(slot.getItem() instanceof IndependentItem independentItem) {
+                if(regularVendingMachine.getSlots()[slotIndex].getItem() != null) {
+                    buyItemButton.setOnAction(event -> buyItem(independentItem, slotIndex));
+                }
             }
         }
     }
@@ -87,21 +106,31 @@ public class ItemBuyController {
      *
      * @param itemsChose The list of ToggleGroups for each item category.
      * @param itemToBuy The customizable item to buy.
+     * @param slotIndex The index of the slot in the vending machine.
      */
-    public void buyItem(ArrayList<ToggleGroup> itemsChose, CustomizableItem itemToBuy) {
+    public void buyItem(ArrayList<ToggleGroup> itemsChose, CustomizableItem itemToBuy, int slotIndex) {
+        System.out.println("SLot index:" + slotIndex);
         NonCustomizableItem[] items = new NonCustomizableItem[itemsChose.size()];
         int i = 0;
         for (Map.Entry<String, NonCustomizableItem[]> entry : itemToBuy.getItemsDerived().entrySet()) {
-            items[i] = entry.getValue()[itemsChose.get(i).getToggles().indexOf(itemsChose.get(i).getSelectedToggle())];
+            items[i] = entry.getValue()[(int)itemsChose.get(i).getSelectedToggle().getUserData()];
             i++;
         }
         itemToBuy.setItemContents(items);
-
-        for (NonCustomizableItem content : itemToBuy.getItemContents()) {
-            System.out.println(content.getName());
+        for (NonCustomizableItem itemContent : itemToBuy.getItemContents()) {
+            System.out.println(itemContent.getName());
         }
+        VBox vBox = new VBox(new Label("" + itemToBuy.getPrice()), windowManager.
+                getPaymentView(slotIndex, itemToBuy.getPrice()));
+        slidePopup.setCenter(vBox);
+        slidePopup.slideUpAnimation();
+    }
 
-        slidePopup.setCenter(windowManager.getPaymentView());
+    public void buyItem( IndependentItem itemToBuy, int slotIndex) {
+        System.out.println("SLot index:" + slotIndex);
+        VBox vBox = new VBox(new Label("" + itemToBuy.getPrice()), windowManager.
+                getPaymentView(slotIndex, itemToBuy.getPrice()));
+        slidePopup.setCenter(vBox);
         slidePopup.slideUpAnimation();
     }
 
@@ -121,5 +150,9 @@ public class ItemBuyController {
      */
     public void setProgramData(ProgramData programData) {
         this.programData = programData;
+    }
+
+    public SlidePopup getSlidePopup() {
+        return slidePopup;
     }
 }

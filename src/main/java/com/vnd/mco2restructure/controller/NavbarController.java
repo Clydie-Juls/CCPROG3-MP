@@ -31,6 +31,14 @@ public class NavbarController {
     }
 
     /**
+     * Method to exit to the Home View.
+     */
+    @FXML
+    private void exit() {
+        Platform.runLater(() -> windowManager.gotoHomeView());
+    }
+
+    /**
      * Sets the WindowManager instance for this controller.
      *
      * @param windowManager The WindowManager instance to set.

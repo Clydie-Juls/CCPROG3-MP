@@ -31,4 +31,22 @@ public class CustomizableItem extends Item{
         setPrice(Arrays.stream(itemContents).mapToInt(Item::getPrice).sum());
         setCalories(Arrays.stream(itemContents).mapToInt(Item::getCalories).sum());
     }
+
+    @Override
+    public int getPrice() {
+        price = 0;
+        for (NonCustomizableItem itemContent : itemContents) {
+            price += itemContent.getPrice();
+        }
+        return price;
+    }
+
+    @Override
+    public CustomizableItem clone() {
+        // TODO: copy mutable state here, so the clone can't change the internals of the original
+        CustomizableItem customizableItem = (CustomizableItem) super.clone();
+        this.itemContents = customizableItem.itemContents;
+        this.itemsDerived = customizableItem.itemsDerived;
+        return customizableItem;
+    }
 }

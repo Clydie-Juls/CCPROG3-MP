@@ -4,7 +4,7 @@ import com.vnd.mco2restructure.model.items.DependentItem;
 
 public enum DependentItemEnum implements ItemEnum<DependentItem>, NonCustomizable, Sellable{
     // Patties
-    PINEAPPLE_PATTY(150, 120, "pineapple-patty.png"),
+    PINEAPPLE_PATTY(150, 120, "pineapple_patty.png"),
     A5_WAGYU_PATTY(500,400, "a5_wagyu_patty.png"),
     BEEF_PATTY(250, 350, "beef_patty.png"),
     CHICKEN_PATTY(200, 300, "chicken_patty.png"),

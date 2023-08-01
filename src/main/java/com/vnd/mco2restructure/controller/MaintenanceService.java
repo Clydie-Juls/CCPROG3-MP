@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -134,7 +135,7 @@ public class MaintenanceService {
      *
      * @param denomination The map representing the denomination to be replenished.
      */
-    public void replenishDenomination(Map<Integer, Integer> denomination) {
+    public void replenishDenomination(LinkedHashMap<Integer, Integer> denomination) {
         for (Map.Entry<Integer, Integer> entry : denomination.entrySet()) {
             vendingMachine.getDenomination().getCurrency().replace(entry.getKey(),
                     entry.getValue() + vendingMachine.getDenomination().getCurrency().get(entry.getKey()));

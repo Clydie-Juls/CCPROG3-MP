@@ -1,7 +1,5 @@
 package com.vnd.mco2restructure.model.vendingmachine;
 
-import com.vnd.mco2restructure.menu.IndependentItemEnum;
-import com.vnd.mco2restructure.menu.NonCustomizable;
 import com.vnd.mco2restructure.model.items.CustomizableItem;
 import com.vnd.mco2restructure.model.items.IndependentItem;
 import com.vnd.mco2restructure.model.items.Item;
@@ -44,8 +42,17 @@ public class SpecialVendingMachine extends VendingMachine{
     }
 
     @Override
-    public Item[] dispenseItem(int slotNo, int amount) {
-        return new Item[0];
+    public Item dispenseItem(int slotNo) {
+        IdSlot slot = (IdSlot) slots[slotNo];
+        if(slot.getItem() instanceof CustomizableItem customizableItem) {
+            for (NonCustomizableItem content : customizableItem.getItemContents()) {
+                System.out.println(content.getName());
+                itemStorage.get(content).remove(itemStorage.get(content).size() - 1);
+            }
+        } else if (slot.getItem() instanceof IndependentItem independentItem){
+            itemStorage.get(independentItem).remove(itemStorage.get(independentItem).size() - 1);
+        }
+        return slot.getItem();
     }
 
     @Override
