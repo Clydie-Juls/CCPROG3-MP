@@ -16,12 +16,19 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
 
+/**
+ * The StockManagerController class manages the stock of items in the vending machine.
+ * It handles updating the view, setting item enums, and navigating to the stock edit view.
+ */
 public class StockManagerController {
     private Stocks stocks;
     private WindowManager windowManager;
     private ProgramData programData;
     @FXML private FlowPane menuLayout;
 
+    /**
+     * Updates the view of the stock in the vending machine.
+     */
     public void updateView() {
         if (stocks.getItemEnums().size() == 0) {
             resetStockEnums();
@@ -69,15 +76,29 @@ public class StockManagerController {
         }
     }
 
+    /**
+     * Exits the stock manager view and navigates to the main features view.
+     */
     @FXML
     private void exit() {
         windowManager.gotoMntFeaturesView();
     }
 
+    /**
+     * Sets the WindowManager instance for the controller.
+     *
+     * @param windowManager The WindowManager instance to set.
+     */
     public void setWindowManager(WindowManager windowManager) {
         this.windowManager = windowManager;
     }
 
+    /**
+     * Sets the ItemEnum and StockEditInfo for the given index in the stocks list.
+     *
+     * @param itemEnum The ItemEnum to set.
+     * @param index    The index in the stocks list.
+     */
     public void setSlotItemEnum(ItemEnum<? extends Item> itemEnum, int index) {
         stocks.getItemEnums().set(index, itemEnum);
         stocks.getStockEditInfos().set(index, new StockEditInfo());
@@ -97,20 +118,39 @@ public class StockManagerController {
         }
     }
 
+    /**
+     * Sets the ProgramData instance for the controller.
+     *
+     * @param programData The ProgramData instance to set.
+     */
     public void setProgramData(ProgramData programData) {
         this.programData = programData;
     }
 
+    /**
+     * Sets the Stocks instance for the controller.
+     *
+     * @param stocks The Stocks instance to set.
+     */
     public void setStocks(Stocks stocks) {
         this.stocks = stocks;
     }
 
+    /**
+     * Navigates to the stock edit view for the specified item and stock edit info.
+     *
+     * @param currentItem The current item to edit.
+     * @param stockEditInfo The stock edit info for the item.
+     */
     public void gotoStockEdit(CustomizableItemEnum currentItem, StockEditInfo stockEditInfo) {
         programData.setCurrentStockEditInfo(stockEditInfo);
         programData.setCurrentSlotItem(currentItem);
         windowManager.gotoStockEditView();
     }
 
+    /**
+     * Resets the item enums in the stocks list based on the current vending machine's slots.
+     */
     public void resetStockEnums() {
         stocks.setItemData(programData.getCurrentVendingMachine().getSlots().length);
         for (int i = 0; i < programData.getCurrentVendingMachine().getSlots().length; i++) {
@@ -126,6 +166,9 @@ public class StockManagerController {
         }
     }
 
+    /**
+     * Adds stocks to the vending machine and navigates back to the main features view.
+     */
     public void addStocks() {
         windowManager.stock(stocks.getItemEnums(), stocks.getStockEditInfos());
         windowManager.gotoMntFeaturesView();

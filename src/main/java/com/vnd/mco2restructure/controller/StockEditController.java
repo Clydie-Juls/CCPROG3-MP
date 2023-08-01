@@ -5,6 +5,7 @@ import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.ItemEditInfoInterface;
 import com.vnd.mco2restructure.component.NumberField;
 import com.vnd.mco2restructure.menu.*;
+import com.vnd.mco2restructure.menu.NonCustomizable;
 import com.vnd.mco2restructure.model.StockEditInfo;
 import com.vnd.mco2restructure.model.items.NonCustomizableItem;
 import com.vnd.mco2restructure.model.vendingmachine.RegularVendingMachine;
@@ -17,12 +18,18 @@ import javafx.scene.layout.VBox;
 
 import java.util.Map;
 
+/**
+ * Controller class for editing stocks.
+ */
 public class StockEditController {
     private WindowManager windowManager;
     private ProgramData programData;
     @FXML private VBox infoLayout;
     @FXML private Label itemName;
 
+    /**
+     * Updates the view for StockEditController.
+     */
     public void updateView() {
         infoLayout.getChildren().clear();
         itemName.setText(programData.getCurrentSlotItem().name().toLowerCase().replaceAll("_", " "));
@@ -45,6 +52,12 @@ public class StockEditController {
         }
     }
 
+      /**
+     * Creates an item information display in the Stock Edit view.
+     *
+     * @param s             The name of the item as a string.
+     * @param itemEditInfo  The ItemEditInfo object containing information about the item.
+     */
     private void createItemInfo(String s, StockEditInfo.ItemEditInfo itemEditInfo, int price, int calories,
                                 NonCustomizableItem ingredientItem) {
         ItemEditInfoInterface itemEditInfoInterface = new ItemEditInfoInterface();
@@ -78,15 +91,29 @@ public class StockEditController {
         infoLayout.getChildren().add(itemEditInfoInterface);
     }
 
+
+    /**
+     * Method to exit from the StockEditController view.
+     */
     @FXML
     private void exit() {
         windowManager.gotoStockManagerView(false);
     }
 
+    /**
+     * Sets the WindowManager instance for this controller.
+     *
+     * @param windowManager The WindowManager instance to set.
+     */
     public void setWindowManager(WindowManager windowManager) {
         this.windowManager = windowManager;
     }
 
+    /**
+     * Sets the ProgramData instance for this controller.
+     *
+     * @param programData The ProgramData instance to set.
+     */
     public void setProgramData(ProgramData programData) {
         this.programData = programData;
     }
