@@ -7,9 +7,16 @@ import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 
+/**
+ * Represents a custom HBox component for the navigation bar.
+ */
 public class Navbar extends HBox {
 
     private NavbarController navbarController;
+
+    /**
+     * Constructs a new Navbar component and sets its view.
+     */
     public Navbar() {
         setView();
     }
@@ -27,6 +34,11 @@ public class Navbar extends HBox {
         navbarController = view.getController();
     }
 
+    /**
+     * Get the controller associated with the Navbar.
+     *
+     * @return The NavbarController for handling Navbar interactions.
+     */
     public NavbarController getNavbarController() {
         return navbarController;
     }

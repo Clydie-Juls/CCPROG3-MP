@@ -26,11 +26,11 @@ public class Denomination {
     }
 
     /**
-     * Processes the payment by checking  if the vending machine has enough bills to provide the change.
-     * If there is enough change, the payment is transferred and the denominations are updated.
+     * Processes the payment by checking if the vending machine has enough bills to provide the change.
+     * If there is enough change, the payment is transferred, and the denominations are updated.
      *
-     * @param payment     The user's payment.
-     * @param totalPrice  The total price of the products.
+     * @param payment    The user's payment.
+     * @param totalPrice The total price of the products.
      * @return True if the payment process is successful, false otherwise.
      */
     public boolean processPayment(Map<Integer, ArrayList<Money>> payment, int totalPrice) {
@@ -42,17 +42,17 @@ public class Denomination {
         Map<Integer, ArrayList<Money>> currencyHolder = new LinkedHashMap<>(CURRENCY);
         ArrayList<ArrayList<Money>> changeDenomination;
 
-        // if change is a non-negative number
+        // If change is a non-negative number
         if (change >= 0) {
-            // transfer user payment to denomination currency
+            // Transfer user payment to denomination currency
             transferPayment(payment);
             changeDenomination = Stream.generate(ArrayList<Money>::new).limit(CURRENCY.size()).
                     collect(Collectors.toCollection(ArrayList::new));
             System.out.println(changeDenomination.get(0) == changeDenomination.get(1));
             int changeToPass = change;
             int i = 0;
-            /* loops through each denomination in stable order then reduce each denomination by how much it
-            * can actually decrease to the current change.*/
+            /* Loops through each denomination in stable order then reduce each denomination by how much it
+             * can actually decrease to the current change. */
 
             for (Map.Entry<Integer, ArrayList<Money>> entry : CURRENCY.entrySet()) {
                 for (int j = 0; j < entry.getValue().size() && changeToPass - entry.getKey() >= 0
@@ -66,7 +66,6 @@ public class Denomination {
                 // If giving the change to the user is successful
                 if (changeToPass == 0) {
                     i = 0;
-                    System.out.println("kkokowfkwo" + changeDenomination);
                     // pass the change to the payment and update the denomination
                     for (Map.Entry<Integer, ArrayList<Money>> entry2 : CURRENCY.entrySet()) {
                         for (Money money : changeDenomination.get(i)) {
@@ -80,16 +79,16 @@ public class Denomination {
             }
         }
 
-        // If the transaction process failed
+        // If the transaction process failed, restore previous data
         payment.putAll(paymentHolder);
         CURRENCY.putAll(currencyHolder);
         return false;
     }
 
     /**
-     * Transfers the user's payment to the vending machine.
+     * Transfers the user's payment to the vending machine's currency.
      *
-     * @param payment the user's payment
+     * @param payment The user's payment.
      */
     private void transferPayment(Map<Integer, ArrayList<Money>> payment) {
         for (Map.Entry<Integer, ArrayList<Money>> entry : payment.entrySet()) {
@@ -101,7 +100,7 @@ public class Denomination {
     /**
      * Returns the total amount of money in the vending machine and clears each denomination to 0.
      *
-     * @return the total amount of money in the vending machine
+     * @return The total amount of money in the vending machine.
      */
     public int passDenomination() {
         int total = getTotalPayment(CURRENCY);
@@ -112,13 +111,18 @@ public class Denomination {
     /**
      * Gets the total amount of money in the payment.
      *
-     * @param payment the user's payment
-     * @return the total amount of money in the payment
+     * @param payment The user's payment.
+     * @return The total amount of money in the payment.
      */
     private int getTotalPayment(Map<Integer, ArrayList<Money>> payment) {
         return payment.entrySet().stream().mapToInt(v -> v.getKey() * v.getValue().size()).sum();
     }
 
+    /**
+     * Retrieves the total amount of money in the vending machine.
+     *
+     * @return The total amount of money in the vending machine.
+     */
     public int getTotalMoney() {
         return CURRENCY.entrySet().stream().mapToInt(v -> v.getKey() * v.getValue().size()).sum();
     }
@@ -126,7 +130,7 @@ public class Denomination {
     /**
      * Retrieves the currency denominations in the vending machine.
      *
-     * @return the currency denominations
+     * @return The currency denominations.
      */
     public Map<Integer, ArrayList<Money>> getCurrency() {
         return CURRENCY;

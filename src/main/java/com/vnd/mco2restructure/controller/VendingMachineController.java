@@ -21,7 +21,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
- * Teh VendingMachineController class represents the vending machine's controller.
+ * The VendingMachineController class represents the controller for the vending machine view.
+ * It handles the vending machine actions such as buying items and updating the view.
  */
 public class VendingMachineController implements Initializable {
 
@@ -36,6 +37,7 @@ public class VendingMachineController implements Initializable {
     /**
      * Buys an existing item of the vending machine. If the transaction process failed(i.e. not enough denomination) or
      * there is not enough item, the buy process will fail. Else, it will pass the items the user bought.
+     * 
      * @param payment  Users payment.
      * @param slotNo  Slot number of the vending machine.
      * @return  array of items the user bought if successful, returns null otherwise.
@@ -61,17 +63,19 @@ public class VendingMachineController implements Initializable {
 
 
     /**
-     * A getter for the vending machine.
-     * @return  The controller's vending machine.
+     * Gets the vending machine's instance.
+     *
+     * @return The vending machine's instance.
      */
     public VendingMachine getVendingMachine() {
         return vendingMachine;
     }
 
     /**
-     * Retrieves the price of an existing item.
-     * @param slotNo  Slot number of the vending machine.
-     * @return  The price of the existing item.
+     * Retrieves the price of an existing item in the specified slot.
+     *
+     * @param slotNo    Slot number of the vending machine.
+     * @return The price of the existing item, or -1 if slot number is out of bounds or the slot has no item.
      */
     public int getItemPrice(int slotNo) {
         // If slotNo is out of bounds
@@ -93,6 +97,9 @@ public class VendingMachineController implements Initializable {
         itemLayout.getChildren().add(itemInterface);
     }
 
+    /**
+     * Updates the view of the vending machine with the current slot items.
+     */
     public void updateView() {
         itemLayout.getChildren().clear();
         for (int i = 0; i < vendingMachine.getSlots().length; i++) {
@@ -110,10 +117,20 @@ public class VendingMachineController implements Initializable {
         }
     }
 
+    /**
+     * Sets the vending machine instance for the controller.
+     *
+     * @param vendingMachine The vending machine instance to set.
+     */
     public void setVendingMachine(VendingMachine vendingMachine) {
         this.vendingMachine = vendingMachine;
     }
 
+    /**
+     * Sets the WindowManager instance for the controller.
+     *
+     * @param windowManager The WindowManager instance to set.
+     */
     public void setWindowManager(WindowManager windowManager) {
         this.windowManager = windowManager;
     }

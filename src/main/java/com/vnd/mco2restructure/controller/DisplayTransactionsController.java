@@ -18,9 +18,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
+
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/**
+ * Controller class for the display transactions view.
+ */
 public class DisplayTransactionsController implements Initializable {
 
     @FXML private Label totalMoneyLabel;
@@ -32,7 +35,15 @@ public class DisplayTransactionsController implements Initializable {
     @FXML private TableColumn<ItemTransactData, String> profitCollectedColumn;
     @FXML private TableView<ItemTransactData> tableView;
     private Transactions transactions;
+
+
+
     private WindowManager windowManager;
+
+    /**
+     * Handles the action when the "Exit" button is clicked.
+     * Goes back to the main features view.
+     */
     @FXML
     private void exit() {
         windowManager.gotoMntFeaturesView();
@@ -49,6 +60,12 @@ public class DisplayTransactionsController implements Initializable {
                 transactions.getItemLogs().values().stream().mapToInt(
                         v -> v.getProfitCollected() != null ? v.getProfitCollected() : 0 ).sum());
     }
+
+    /**
+     * Sets the WindowManager for this controller.
+     *
+     * @param windowManager The WindowManager instance.
+     */
 
     public void setWindowManager(WindowManager windowManager) {
         this.windowManager = windowManager;

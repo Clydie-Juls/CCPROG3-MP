@@ -14,16 +14,18 @@ public class MaintenanceData {
     }
 
     /**
-     * A getter that return the maintenance's total money collected.
-     * @return  Total money collected.
+     * Retrieves the maintenance's total money collected.
+     *
+     * @return Total money collected.
      */
     public int getTotalMoney() {
         return totalMoney;
     }
 
     /**
-     * A setter that changes the value of the total money collected.
-     * @param totalMoney  Total money collected.
+     * Sets the total money collected.
+     *
+     * @param totalMoney Total money collected.
      */
     public void setTotalMoney(int totalMoney) {
         this.totalMoney = totalMoney;

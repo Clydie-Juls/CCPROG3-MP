@@ -6,14 +6,25 @@ import com.vnd.mco2restructure.model.items.NonCustomizableItem;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The CustomizableItemEnum enum represents different types of customizable items in the vending machine.
+ * It implements the ItemEnum interface for CustomizableItem and the Sellable interface.
+ */
 public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable {
-    BASIC_BURGER("basic_burger.png", ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.SAUCE_AND_CONDIMENT_TYPES),
-    VEGGIE_BURGER("veggie_burger.png",ItemType.BUN_TYPES, ItemType.PINEAPPLE_PATTY, ItemType.SAUCE_AND_CONDIMENT_TYPES),
-    CHICKEN_BURGER("chicken_burger.png",ItemType.BUN_TYPES, ItemType.CHICKEN_BURGER, ItemType.SAUCE_AND_CONDIMENT_TYPES),
-    CHEESEBURGER("cheese_burger.png",ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.CHEESE_TYPES, ItemType.SAUCE_AND_CONDIMENT_TYPES),
-    DELUXE_BURGER("deluxe_burger.png",ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.CHEESE_TYPES, ItemType.OTHER_TYPES,
-            ItemType.SAUCE_AND_CONDIMENT_TYPES);
 
+    BASIC_BURGER("basic_burger.png", ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.SAUCE_AND_CONDIMENT_TYPES),
+    VEGGIE_BURGER("veggie_burger.png", ItemType.BUN_TYPES, ItemType.PINEAPPLE_PATTY, ItemType.SAUCE_AND_CONDIMENT_TYPES),
+    CHICKEN_BURGER("chicken_burger.png", ItemType.BUN_TYPES, ItemType.CHICKEN_BURGER, ItemType.SAUCE_AND_CONDIMENT_TYPES),
+    CHEESEBURGER("cheese_burger.png", ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.CHEESE_TYPES,
+            ItemType.SAUCE_AND_CONDIMENT_TYPES),
+    DELUXE_BURGER("deluxe_burger.png", ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.CHEESE_TYPES,
+            ItemType.OTHER_TYPES, ItemType.SAUCE_AND_CONDIMENT_TYPES);
+
+    /**
+     * Converts the CustomizableItemEnum to a CustomizableItem instance based on the ingredients and image file.
+     *
+     * @return The corresponding CustomizableItem instance.
+     */
     @Override
     public CustomizableItem enumToItem() {
         HashMap<String, NonCustomizableItem[]> itemsDerived = new HashMap<>();
@@ -28,14 +39,17 @@ public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable
             }
             itemsDerived.put(ingredient.itemTypeName, nonCustomizableItems);
         }
-        return new CustomizableItem(this.toString().toLowerCase().replaceAll("_", " ")
-                , itemsDerived, this.ordinal(), getImageFile());
+        return new CustomizableItem(this.toString().toLowerCase().replaceAll("_", " "),
+                itemsDerived, this.ordinal(), getImageFile());
     }
 
+    /**
+     * Represents the types of items that can be combined to create a customizable item.
+     */
     public enum ItemType implements NonCustomizable {
         // Independent Items
-        BUN_TYPES ("Buns",
-                        IndependentItemEnum.SESAME_SEED_BUN, IndependentItemEnum.BRIOCHE_BUN, IndependentItemEnum.WHOLE_WHEAT_BUN),
+        BUN_TYPES("Buns",
+                IndependentItemEnum.SESAME_SEED_BUN, IndependentItemEnum.BRIOCHE_BUN, IndependentItemEnum.WHOLE_WHEAT_BUN),
         CHEESE_TYPES("Cheese",
                 IndependentItemEnum.AMERICAN_CHEESE, IndependentItemEnum.FETA_CHEESE, IndependentItemEnum.SWISS_CHEESE),
         COLESLAW(null, IndependentItemEnum.COLESLAW),
@@ -49,7 +63,7 @@ public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable
                 DependentItemEnum.ARUGULA, DependentItemEnum.LETTUCE, DependentItemEnum.TOMATO,
                 DependentItemEnum.PICKLES),
 
-        //Single Types
+        // Single Types
         PINEAPPLE_PATTY(null, DependentItemEnum.PINEAPPLE_PATTY),
         CHICKEN_BURGER(null, DependentItemEnum.CHICKEN_PATTY);
 
@@ -61,10 +75,20 @@ public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable
             this.items = items;
         }
 
+        /**
+         * Gets the item type name.
+         *
+         * @return The item type name.
+         */
         public String getItemTypeName() {
             return itemTypeName;
         }
 
+        /**
+         * Gets the array of non-customizable items in this item type.
+         *
+         * @return The array of non-customizable items.
+         */
         public NonCustomizable[] getItems() {
             return items;
         }
@@ -75,6 +99,12 @@ public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable
 
     private String imageFile;
 
+    /**
+     * Constructs a CustomizableItemEnum with the provided image file and ingredients.
+     *
+     * @param imageFile The image file for the customizable item.
+     * @param ingredients The item types that can be combined to create this customizable item.
+     */
     CustomizableItemEnum(String imageFile, ItemType... ingredients) {
         this.ingredients = ingredients;
         this.imageFile = imageFile;
@@ -82,10 +112,20 @@ public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable
     }
 
 
+    /**
+     * Gets the array of item types that can be combined to create this customizable item.
+     *
+     * @return The array of item types.
+     */
     public ItemType[] getIngredients() {
         return ingredients;
     }
 
+    /**
+     * Gets the image file path for this customizable item.
+     *
+     * @return The image file path.
+     */
     public String getImageFile() {
         return "images/customizable-item/" + imageFile;
     }

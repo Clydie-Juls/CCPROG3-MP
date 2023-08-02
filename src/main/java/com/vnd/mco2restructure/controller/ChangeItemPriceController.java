@@ -13,22 +13,40 @@ import javafx.scene.layout.FlowPane;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 
+
+/**
+ * Controller class for the change item price view.
+ */
 public class ChangeItemPriceController {
+
     private WindowManager windowManager;
     @FXML private FlowPane menuLayout;
 
+    /**
+     * Handles the action when the "Exit" button is clicked.
+     * Goes back to the main features view.
+     */
     @FXML
     private void exit() {
         windowManager.gotoMntFeaturesView();
     }
 
+    /**
+     * Sets the WindowManager for this controller.
+     *
+     * @param windowManager The WindowManager instance.
+     */
     public void setWindowManager(WindowManager windowManager) {
         this.windowManager = windowManager;
     }
 
+
+
+    /**
+     * Updates the view by displaying the item prices and providing buttons to change the prices.
+     */
     public void updateView(boolean isSpecialVendingMachine) {
         menuLayout.getChildren().clear();
         for (IndependentItemEnum value : IndependentItemEnum.values()) {
@@ -42,6 +60,14 @@ public class ChangeItemPriceController {
         }
     }
 
+    /**
+     * Creates and adds the item price interface to the view for a specific item.
+     *
+     * @param name The name of the item.
+     * @param price The current price of the item.
+     * @param callback The callback function to update the price when changed.
+     * @param imageFile The image file of the item.
+     */
     private void createChangeItemInterface(String name, String imageFile, int price, IntConsumer callback) {
         ItemPriceInterface itemPriceInterface = new ItemPriceInterface();
         itemPriceInterface.getItemNameLabel().setText(name.toLowerCase().replaceAll("_", " "));

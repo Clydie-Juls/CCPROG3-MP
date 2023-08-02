@@ -10,6 +10,9 @@ import com.vnd.mco2restructure.model.vendingmachine.VendingMachine;
 
 import java.util.HashMap;
 
+/**
+ * The ProgramData class holds various data related to the vending machine simulator program.
+ */
 public class ProgramData {
     private HashMap<VendingMachineButton, VendingMachine> vendingMachines;
     private HashMap<VendingMachineButton, MaintenanceData> maintenanceDatas;
@@ -20,13 +23,17 @@ public class ProgramData {
     private CustomizableItemEnum currentSlotItem;
     private StockEditInfo currentStockEditInfo;
 
-
+    /**
+     * Constructs a ProgramData object with empty data containers.
+     */
     public ProgramData() {
         vendingMachines = new HashMap<>();
         maintenanceDatas = new HashMap<>();
         independentItemPrices = new HashMap<>();
         dependentItemPrices = new HashMap<>();
     }
+
+    // Getters and setters for various data
 
     public HashMap<VendingMachineButton, VendingMachine> getVendingMachines() {
         return vendingMachines;

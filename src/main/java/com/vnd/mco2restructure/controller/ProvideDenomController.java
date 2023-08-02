@@ -1,5 +1,6 @@
 package com.vnd.mco2restructure.controller;
 
+import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.callbacks.DenomCallback;
 import com.vnd.mco2restructure.component.NumberField;
 import com.vnd.mco2restructure.model.Money;
@@ -15,8 +16,12 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Controller class for providing denomination.
+ */
 public class ProvideDenomController implements Initializable {
     @FXML private Button button;
+
     private DenomCallback denomCallback;
     @FXML private Label totalMoneyLabel;
     @FXML private NumberField numberField1000;
@@ -29,7 +34,14 @@ public class ProvideDenomController implements Initializable {
     @FXML private NumberField numberField5;
     @FXML private NumberField numberField1;
 
+    private WindowManager windowManager;
 
+    /**
+     * Initializes the ProvideDenomController with default values and preferences.
+     *
+     * @param location  The URL location used to resolve relative paths.
+     * @param resources The resource bundle containing localized objects.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -73,6 +85,9 @@ public class ProvideDenomController implements Initializable {
         }
     }
 
+    /**
+     * Replenishes the vending machine with the provided denominations.
+     */
     @FXML
     private void replenish() {
         LinkedHashMap<Integer, ArrayList<Money>> denomination = new LinkedHashMap<>();
@@ -98,7 +113,20 @@ public class ProvideDenomController implements Initializable {
         denomCallback.onCallBack(denomination);
     }
 
+    /**
+     * Sets the WindowManager instance for this controller.
+     *
+     * @param windowManager The WindowManager instance to set.
+     */
+    public void setWindowManager(WindowManager windowManager) {
+        this.windowManager = windowManager;
+    }
 
+    /**
+     * Sets the DenomCallback instance for this controller.
+     *
+     * @param denomCallback The DenomCallback instance to set.
+     */
     public void setDenomCallback(DenomCallback denomCallback) {
         this.denomCallback = denomCallback;
     }

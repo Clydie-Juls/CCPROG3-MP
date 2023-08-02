@@ -22,11 +22,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * The WindowManager class manages the different views and scenes in the vending machine simulator application.
+ * It handles navigation between different screens and provides methods for displaying various views.
+ */
 public class WindowManager {
     private final int IPHONE13_PRO_WIDTH = 1170;
     private final int IPHONE13_PRO_HEIGHT = 2532;
     private final Stage window;
     private final ProgramData PROGRAM_DATA;
+
+    // Controller instances for different views
     private HomeController homeController;
     private MainMenuController mainMenuController;
     private MaintenanceService maintenanceService;
@@ -42,10 +48,13 @@ public class WindowManager {
     private ProvideDenomController paymentController;
     private ItemBuyController itemBuyController;
     private BurgerLoadAnimationController burgerLoadAnimationController;
+
+    // Scenes for different views
     private Scene homeScene;
     private Scene mainMenuScene;
-
     private Scene animationScene;
+
+    // Layouts for different views
     private StackPane vndFeaturesLayout;
     private StackPane mntFeaturesLayout;
     private BorderPane stockLayout;
@@ -56,11 +65,22 @@ public class WindowManager {
     private StackPane itemBuyLayout;
     private Pane currentMntLayout;
 
+    /**
+     * Creates a new WindowManager with the main application stage.
+     * Initializes the ProgramData instance and sets up the views and controllers.
+     *
+     * @param window The main stage of the application.
+     */
     public WindowManager(Stage window) {
         this.window = window;
         PROGRAM_DATA = new ProgramData();
         setup();
     }
+
+    /**
+     * Sets up the different views and controllers of the application.
+     * Loads FXML files for each view and initializes the corresponding controller instances.
+     */
     void setup() {
         try {
             // Home View Setup
@@ -149,6 +169,12 @@ public class WindowManager {
         }
     }
 
+    /**
+     * Creates an iPhone-like scene with the provided root pane and scales it according to the screen resolution.
+     *
+     * @param root The root pane of the scene.
+     * @return The scaled Scene object.
+     */
     private Scene createIphoneScene(Pane root) {
         // Layout IPhone 13 pro size relative to the resolution of the monitor
         Rectangle2D screenBounds = Screen.getPrimary().getBounds();
@@ -158,11 +184,19 @@ public class WindowManager {
         return new Scene(root, screenWidth, screenHeight);
     }
 
+    /**
+     * Navigates to the Home view.
+     * Sets the main stage's scene to the Home scene.
+     */
     public void gotoHomeView() {
         window.setScene(homeScene);
     }
 
-
+    /**
+     * Navigates to the Maintenance Features view.
+     * Sets the main stage's scene to the Maintenance Features scene.
+     * Updates the MaintenanceService view with the current maintenance data.
+     */
     public void gotoMntFeaturesView() {
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
@@ -176,16 +210,31 @@ public class WindowManager {
         System.out.println("HIIIII");
     }
 
+    /**
+     * Stocks items in the vending machine with the provided item enums and stock edit information.
+     *
+     * @param itemEnums      The list of item enums to be stocked.
+     * @param stockEditInfos The list of stock edit information for each item.
+     */
     public void stock(ArrayList<ItemEnum<? extends Item>> itemEnums, ArrayList<StockEditInfo> stockEditInfos) {
         maintenanceService.stock(itemEnums, stockEditInfos);
     }
 
+    /**
+     * Collects money from the vending machine.
+     * Initiates the collection animation and updates the maintenance service view.
+     */
     public void collectMoney() {
         maintenanceService.collectMoney();
         maintenanceService.getSlidePopup().slideDownAnimation();
         maintenanceService.updateView();
     }
 
+    /**
+     * Navigates to the Vending Features view.
+     * Sets the main stage's scene to the Vending Features scene.
+     * Updates the VendingMachineController and MaintenanceService view with the current vending machine data.
+     */
     public void gotoVndFeaturesView() {
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
@@ -199,12 +248,23 @@ public class WindowManager {
         displayTransactionsController.setTransactions(PROGRAM_DATA.getCurrentVendingMachine().getTransactions());
     }
 
+    /**
+     * Navigates to the animation scene and starts the specified animation steps.
+     *
+     * @param steps The steps of the animation to be displayed.
+     */
     public void gotoAnimationScene(String[] steps) {
         window.setScene(animationScene);
         burgerLoadAnimationController.getBody().getChildren().clear();
         burgerLoadAnimationController.startAnimation(0, steps);
     }
 
+    /**
+     * Navigates to the Item Buy view for the specified slot index.
+     * Sets the main stage's scene to the Item Buy scene and updates the ItemBuyController view.
+     *
+     * @param slotIndex The index of the slot for the item to be bought.
+     */
     public void gotoItemBuyView(int slotIndex) {
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
@@ -214,7 +274,16 @@ public class WindowManager {
         itemBuyController.updateView(slotIndex);
     }
 
-    public void gotoStockView(int slotId) {
+
+    /**
+     * Navigates to the Stock view for the specified slot ID and vending machine type.
+     * Sets the main stage's scene to the Stock scene and updates the StockController view.
+     *
+     * @param slotId                  The ID of the slot to be displayed.
+     * @param isSpecialVendingMachine Flag indicating whether the vending machine is a special type.
+     */
+  public void gotoStockView(int slotId) {
+
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
         }
@@ -229,10 +298,20 @@ public class WindowManager {
         changeItemPriceController.updateView(isSpecialVendingMachine);
     }
 
+    /**
+     * Sets the stock manager's stock for the specified item enum at the given index.
+     *
+     * @param itemEnum The item enum to set for the stock manager.
+     * @param index    The index of the slot to set the item enum.
+     */
     public void setStockManagerStock(ItemEnum<? extends Item> itemEnum, int index) {
         stockManagerController.setSlotItemEnum(itemEnum, index);
     }
 
+    /**
+     * Navigates to the Change Item Price view.
+     * Sets the main stage's scene to the Change Item Price scene.
+     */
     public void gotoChangeItemPriceView() {
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
@@ -242,6 +321,10 @@ public class WindowManager {
         currentMntLayout = changeItemPriceLayout;
     }
 
+    /**
+     * Navigates to the Display Transactions view.
+     * Sets the main stage's scene to the Display Transactions scene.
+     */
     public void gotoDisplayTransactionsView() {
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
@@ -252,6 +335,13 @@ public class WindowManager {
         displayTransactionsController.updateView();
     }
 
+    /**
+     * Navigates to the Stock Manager view.
+     * Sets the main stage's scene to the Stock Manager scene.
+     * Updates the StockManagerController view and optionally resets the stock enums.
+     *
+     * @param isResetStockEnum Flag indicating whether to reset the stock enums.
+     */
     public void gotoStockManagerView(boolean isResetStockEnum) {
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
@@ -265,6 +355,11 @@ public class WindowManager {
         stockManagerController.updateView();
     }
 
+    /**
+     * Navigates to the Stock Edit view.
+     * Sets the main stage's scene to the Stock Edit scene.
+     * Updates the StockEditController view.
+     */
     public void gotoStockEditView() {
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
@@ -275,6 +370,11 @@ public class WindowManager {
         stockEditController.updateView();
     }
 
+    /**
+     * Navigates to the currently active maintenance layout.
+     * Sets the main stage's scene to the current maintenance layout.
+     * Updates the MaintenanceService view with the current maintenance data.
+     */
     public void gotoCurrentMntLayout() {
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
@@ -285,6 +385,12 @@ public class WindowManager {
         maintenanceService.updateView();
     }
 
+    /**
+     * Creates and returns a VBox containing the Collect Money view for the specified amount of money.
+     *
+     * @param money The amount of money to be collected.
+     * @return The VBox containing the Collect Money view.
+     */
     public VBox getCollectMoneyView(int money) {
         FXMLLoader collectMoneyView = new FXMLLoader(getClass().getResource("pages/CollectMoneyView.fxml"));
         VBox vBox;
@@ -299,6 +405,11 @@ public class WindowManager {
         }
     }
 
+    /**
+     * Creates and returns a VBox containing the Collect Denomination view for replenishing denominations.
+     *
+     * @return The VBox containing the Collect Denomination view.
+     */
     public VBox getCollectDenomView() {
         FXMLLoader collectDenomView = new FXMLLoader(getClass().getResource("pages/CollectDenomView.fxml"));
         VBox vBox;
@@ -316,6 +427,13 @@ public class WindowManager {
         }
     }
 
+    /**
+     * Creates and returns a VBox containing the Payment view for the specified slot index and item price.
+     *
+     * @param slotIndex The index of the slot for the item to be bought.
+     * @param itemPrice The price of the item to be bought.
+     * @return The VBox containing the Payment view.
+     */
     public VBox getPaymentView(int slotIndex, int itemPrice) {
         FXMLLoader collectDenomView = new FXMLLoader(getClass().getResource("pages/CollectDenomView.fxml"));
         VBox vBox;
@@ -365,10 +483,16 @@ public class WindowManager {
         }
     }
 
+
     public void resetCurrentFeaturesView() {
         currentMntLayout = mntFeaturesLayout;
     }
 
+    /**
+     * Returns the main application stage.
+     *
+     * @return The main application stage.
+     */
 
     public Stage getWindow() {
         return window;
