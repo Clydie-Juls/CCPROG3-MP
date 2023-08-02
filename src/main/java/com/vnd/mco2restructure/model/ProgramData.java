@@ -1,4 +1,4 @@
-package com.vnd.mco2restructure;
+package com.vnd.mco2restructure.model;
 
 import com.vnd.mco2restructure.component.VendingMachineButton;
 import com.vnd.mco2restructure.menu.CustomizableItemEnum;

@@ -1,0 +1,22 @@
+.custom-number-field {
+    -fx-spacing: 5px; /* Spacing between the buttons and the text field */
+}
+
+.custom-button {
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-background-color: #e0736c;
+}
+
+.custom-text-field {
+    -fx-font-size: 16px;
+    -fx-padding: 5px;
+}
+
+#minusButton {
+    -fx-background-radius: 20 5 5 20;
+}
+
+#addButton {
+    -fx-background-radius: 5 20 20 5;
+}

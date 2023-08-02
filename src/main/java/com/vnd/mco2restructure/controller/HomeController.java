@@ -1,6 +1,6 @@
 package com.vnd.mco2restructure.controller;
 
-import com.vnd.mco2restructure.ProgramData;
+import com.vnd.mco2restructure.model.ProgramData;
 import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.NumberField;
 import com.vnd.mco2restructure.component.SlidePopup;

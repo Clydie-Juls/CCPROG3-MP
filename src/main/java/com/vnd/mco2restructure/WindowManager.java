@@ -2,6 +2,7 @@ package com.vnd.mco2restructure;
 
 import com.vnd.mco2restructure.controller.*;
 import com.vnd.mco2restructure.menu.ItemEnum;
+import com.vnd.mco2restructure.model.ProgramData;
 import com.vnd.mco2restructure.model.StockData;
 import com.vnd.mco2restructure.model.StockEditInfo;
 import com.vnd.mco2restructure.model.Stocks;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class WindowManager {
     private final int IPHONE13_PRO_WIDTH = 1170;
@@ -323,6 +325,10 @@ public class WindowManager {
             paymentController.updateView(itemPrice);
             paymentController.setDenomCallback(denom -> {
                 Item item = vendingMachineController.buy(denom, slotIndex);
+                String demonString = denom.entrySet().stream().map(v -> v.getValue().size() > 0 ?
+                                v.getKey() + " " + v.getValue() + "\n" : "")
+                        .collect(Collectors.joining());
+                System.out.println("SUKLI: " + demonString);
                if(item != null) {
                    if(item instanceof CustomizableItem) {
                        String[] burgerSteps = {
@@ -331,21 +337,21 @@ public class WindowManager {
                                "Adding Sauce/Condiments",
                                "Assembling Burger",
                                item.getName() + " is Ready!",
-                               denom.toString()
+                               "Change of the buyer\n" + demonString
                        };
                        gotoAnimationScene(burgerSteps);
                    } else {
                        String[] burgerSteps = {
                                "Preparing " + item.getName(),
                                item.getName() + " is Ready!",
-                               denom.toString()
+                               "Change of the buyer\n" + demonString
                        };
                        gotoAnimationScene(burgerSteps);
                    }
                } else {
                    String[] burgerSteps = {
                            "Vending Machine doesn't have enough denomination",
-                           denom.toString()
+                           "Change of the buyer\n" + demonString
                    };
                    gotoAnimationScene(burgerSteps);
                }

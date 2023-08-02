@@ -2,14 +2,18 @@ package com.vnd.mco2restructure.controller;
 
 import com.vnd.mco2restructure.callbacks.DenomCallback;
 import com.vnd.mco2restructure.component.NumberField;
+import com.vnd.mco2restructure.model.Money;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ProvideDenomController implements Initializable {
     @FXML private Button button;
@@ -71,7 +75,7 @@ public class ProvideDenomController implements Initializable {
 
     @FXML
     private void replenish() {
-        LinkedHashMap<Integer, Integer> denomination = new LinkedHashMap<>();
+        LinkedHashMap<Integer, ArrayList<Money>> denomination = new LinkedHashMap<>();
         int money1000 = Integer.parseInt(numberField1000.getTextField().getText());
         int money500 = Integer.parseInt(numberField500.getTextField().getText());
         int money200 = Integer.parseInt(numberField200.getTextField().getText());
@@ -81,15 +85,16 @@ public class ProvideDenomController implements Initializable {
         int money10 = Integer.parseInt(numberField10.getTextField().getText());
         int money5 = Integer.parseInt(numberField5.getTextField().getText());
         int money1 = Integer.parseInt(numberField1.getTextField().getText());
-        denomination.put(1000, money1000);
-        denomination.put(500, money500);
-        denomination.put(200, money200);
-        denomination.put(100, money100);
-        denomination.put(50, money50);
-        denomination.put(20, money20);
-        denomination.put(10, money10);
-        denomination.put(5, money5);
-        denomination.put(1, money1);
+        int[] currencies = new int[] {1000, 500, 200, 100 ,50, 20, 10, 5, 1};
+        int[] amounts = new int[] {money1000, money500, money200, money100 ,money50, money20, money10, money5, money1};
+
+        for (int i = 0; i < currencies.length; i++) {
+            int finalI = i;
+            denomination.put(currencies[i], Stream.generate(() ->
+                    new Money(currencies[finalI])).limit(amounts[finalI]).
+                    collect(Collectors.toCollection(ArrayList::new)));
+        }
+
         denomCallback.onCallBack(denomination);
     }
 

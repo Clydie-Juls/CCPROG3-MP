@@ -3,8 +3,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 
-<fx:root type="HBox"  xmlns="http://javafx.com/javafx/1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.NumberFieldController">
-    <Button fx:id="minusButton" text="-"  onAction="#decrementValue"/>
-    <TextField fx:id="textField" text="1" prefColumnCount="5" />
-    <Button fx:id="addButton" text="+" onAction="#incrementValue" />
+<?import java.lang.String?>
+<fx:root type="HBox" xmlns="http://javafx.com/javafx/1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.NumberFieldController"
+      styleClass="custom-number-field">
+    <stylesheets>
+        <String fx:value="/com/vnd/mco2restructure/components/css/NumberField.css" />
+    </stylesheets>
+    <Button fx:id="minusButton" text="-" onAction="#decrementValue" styleClass="custom-button" />
+    <TextField fx:id="textField" text="1" prefColumnCount="5" styleClass="custom-text-field" />
+    <Button fx:id="addButton" text="+" onAction="#incrementValue" styleClass="custom-button" />
 </fx:root>

@@ -74,25 +74,16 @@ public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable
     private int[] ingredientTypes;
 
     private String imageFile;
-    private ArrayList<NonCustomizable> addons;
 
     CustomizableItemEnum(String imageFile, ItemType... ingredients) {
         this.ingredients = ingredients;
-        this.addons = new ArrayList<>();
         this.imageFile = imageFile;
         ingredientTypes = new int[ingredients.length];
     }
 
-    public void addAddon(NonCustomizable addon) {
-        addons.add(addon);
-    }
 
     public ItemType[] getIngredients() {
         return ingredients;
-    }
-
-    public ArrayList<NonCustomizable> getAddons() {
-        return addons;
     }
 
     public String getImageFile() {

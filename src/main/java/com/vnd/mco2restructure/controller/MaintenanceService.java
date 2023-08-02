@@ -4,6 +4,7 @@ import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.SlidePopup;
 import com.vnd.mco2restructure.menu.*;
 import com.vnd.mco2restructure.model.MaintenanceData;
+import com.vnd.mco2restructure.model.Money;
 import com.vnd.mco2restructure.model.StockEditInfo;
 import com.vnd.mco2restructure.model.items.CustomizableItem;
 import com.vnd.mco2restructure.model.items.IndependentItem;
@@ -129,10 +130,9 @@ public class MaintenanceService {
                 vendingMachine.getDenomination().passDenomination());
     }
 
-    public void replenishDenomination(LinkedHashMap<Integer, Integer> denomination) {
-        for (Map.Entry<Integer, Integer> entry : denomination.entrySet()) {
-            vendingMachine.getDenomination().getCurrency().replace(entry.getKey(),
-                    entry.getValue() + vendingMachine.getDenomination().getCurrency().get(entry.getKey()));
+    public void replenishDenomination(LinkedHashMap<Integer, ArrayList<Money>> denomination) {
+        for (Map.Entry<Integer, ArrayList<Money>> entry : denomination.entrySet()) {
+            vendingMachine.getDenomination().getCurrency().get(entry.getKey()).addAll(entry.getValue());
         }
     }
 

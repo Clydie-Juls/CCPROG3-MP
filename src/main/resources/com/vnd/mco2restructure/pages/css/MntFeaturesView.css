@@ -1,4 +1,15 @@
 .mnt-buttons {
-    -fx-background-color: grey;
-    -fx-background-radius: 20;
+    -fx-background-color: #af2f25;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+}
+.mnt-buttons .label {
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+}
+
+
+.content {
+    -fx-spacing: 20;
+    -fx-padding: 10;
 }

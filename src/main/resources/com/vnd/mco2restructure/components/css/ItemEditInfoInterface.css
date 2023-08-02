@@ -1,0 +1,15 @@
+.label {
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+}
+
+.body {
+    -fx-background-color: #af2f25;
+    -fx-background-radius: 20;
+    -fx-padding: 10;
+}
+
+.check-box {
+    -fx-font-size: 12px;
+    -fx-text-fill: white; /* Checkbox text color */
+}

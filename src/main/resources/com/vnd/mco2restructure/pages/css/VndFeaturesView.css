@@ -1,0 +1,10 @@
+.title {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.title-container {
+    -fx-background-color: #af2f25;
+    -fx-background-radius: 0 0 10 10;
+}

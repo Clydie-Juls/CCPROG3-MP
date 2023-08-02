@@ -5,6 +5,7 @@ import com.vnd.mco2restructure.HelloApplication;
 import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.ItemInterface;
 import com.vnd.mco2restructure.component.SlidePopup;
+import com.vnd.mco2restructure.model.Money;
 import com.vnd.mco2restructure.model.items.Item;
 import com.vnd.mco2restructure.model.slots.Slot;
 import com.vnd.mco2restructure.model.vendingmachine.VendingMachine;
@@ -14,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -38,7 +40,7 @@ public class VendingMachineController implements Initializable {
      * @param slotNo  Slot number of the vending machine.
      * @return  array of items the user bought if successful, returns null otherwise.
      */
-    public Item buy(LinkedHashMap<Integer, Integer> payment, int slotNo) {
+    public Item buy(LinkedHashMap<Integer, ArrayList<Money>> payment, int slotNo) {
 
             Slot<? extends Item> selectedSlot = vendingMachine.getSlots()[slotNo];
             // if transactions process has failed
