@@ -1,7 +1,7 @@
 package com.vnd.mco2restructure.controller;
 
 import com.vnd.mco2restructure.HelloApplication;
-import com.vnd.mco2restructure.ProgramData;
+import com.vnd.mco2restructure.model.ProgramData;
 import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.ItemChoices;
 import com.vnd.mco2restructure.component.SlidePopup;
@@ -59,13 +59,13 @@ public class ItemBuyController {
                 Objects.requireNonNull(HelloApplication.class.
                         getResourceAsStream(slot.getItem().getImageFile()))));
 
+        // add item choices if the item is customized
         if(programData.getCurrentVendingMachine() instanceof SpecialVendingMachine specialVendingMachine) {
             ArrayList<ToggleGroup> itemsChose = new ArrayList<>();
             if(slot.getItem() instanceof CustomizableItem customizableItem) {
                 for (Map.Entry<String, NonCustomizableItem[]> entry : customizableItem.getItemsDerived().entrySet()) {
                     ItemChoices itemChoices = new ItemChoices();
                     ToggleGroup toggleGroup = new ToggleGroup();
-                    itemChoices.getItemTypeLabel().setText(entry.getKey());
                     int i = 0;
                     for (NonCustomizableItem nonCustomizableItem : entry.getValue()) {
                         if (specialVendingMachine.getItemStorage().containsKey(nonCustomizableItem)) {
@@ -79,12 +79,23 @@ public class ItemBuyController {
                         }
                         i++;
                     }
+
+                    toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+                        if (newValue != null) {
+                            int selectedOption = (int)((RadioButton) newValue).getUserData();
+                            itemChoices.getItemTypeLabel().setText(entry.getKey() + "\nItem Price: " +
+                                    entry.getValue()[selectedOption].getPrice() + "\nItem Calories: " +
+                                    entry.getValue()[selectedOption].getCalories());
+                        }
+                    });
+
                     itemsChose.add(toggleGroup);
                     toggleGroup.getToggles().get(0).setSelected(true);
                     infoLayout.getChildren().add(itemChoices);
                 }
 
                 buyItemButton.setOnAction(event -> buyItem(itemsChose, customizableItem, slotIndex));
+                // only show the item if it's an individual item
             } else if(slot.getItem() instanceof IndependentItem independentItem) {
                 if(specialVendingMachine.getItemStorage().containsKey(independentItem)) {
                     if (specialVendingMachine.getItemStorage().get(independentItem).size() > 0) {
@@ -92,6 +103,7 @@ public class ItemBuyController {
                     }
                 }
             }
+            // only show the item if it's an individual item
         } else if(programData.getCurrentVendingMachine() instanceof RegularVendingMachine regularVendingMachine){
             if(slot.getItem() instanceof IndependentItem independentItem) {
                 if(regularVendingMachine.getSlots()[slotIndex].getItem() != null) {
@@ -117,18 +129,18 @@ public class ItemBuyController {
             i++;
         }
         itemToBuy.setItemContents(items);
-        for (NonCustomizableItem itemContent : itemToBuy.getItemContents()) {
-            System.out.println(itemContent.getName());
-        }
-        VBox vBox = new VBox(new Label("" + itemToBuy.getPrice()), windowManager.
-                getPaymentView(slotIndex, itemToBuy.getPrice()));
+        Label finalItem = new Label("Total Price:" + itemToBuy.getPrice() +
+                "\nTotal Calories: " + itemToBuy.getCalories());
+        VBox vBox = new VBox(finalItem, windowManager.getPaymentView(slotIndex, itemToBuy.getPrice()));
         slidePopup.setCenter(vBox);
         slidePopup.slideUpAnimation();
     }
 
     public void buyItem( IndependentItem itemToBuy, int slotIndex) {
         System.out.println("SLot index:" + slotIndex);
-        VBox vBox = new VBox(new Label("" + itemToBuy.getPrice()), windowManager.
+        Label finalItem = new Label("Total Price:" + itemToBuy.getPrice() +
+                "\nTotal Calories: " + itemToBuy.getCalories());
+        VBox vBox = new VBox(finalItem, windowManager.
                 getPaymentView(slotIndex, itemToBuy.getPrice()));
         slidePopup.setCenter(vBox);
         slidePopup.slideUpAnimation();

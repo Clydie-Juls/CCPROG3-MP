@@ -3,8 +3,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root type="HBox" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.NavbarController">
-    <Button text="Vnd Features" onAction="#gotoVndFeaturesView"/>
-    <Button text="Mnt-Features" onAction="#gotoMntFeaturesView"/>
-    <Button text="Exit" onAction="#exit"/>
+<?import java.lang.String?>
+<?import javafx.scene.shape.Circle?>
+<fx:root type="HBox" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="com.vnd.mco2restructure.controller.NavbarController" styleClass="container">
+    <stylesheets>
+        <String fx:value="/com/vnd/mco2restructure/components/css/Navbar.css" />
+    </stylesheets>
+    <Button text="VND" onAction="#gotoVndFeaturesView">
+        <graphic>
+            <Circle radius="6" styleClass="navbar-circle" />
+        </graphic>
+    </Button>
+    <Button text="MNT" onAction="#gotoMntFeaturesView">
+        <graphic>
+            <Circle radius="6" styleClass="navbar-circle"  />
+        </graphic>
+    </Button>
+    <Button text="Exit" onAction="#exit" >
+        <graphic>
+            <Circle radius="6" styleClass="navbar-circle"  />
+        </graphic>
+    </Button>
 </fx:root>

@@ -29,6 +29,7 @@ public class Stocks {
         return itemEnums;
     }
 
+
     /**
      * Sets the item data for the stocks.
      *

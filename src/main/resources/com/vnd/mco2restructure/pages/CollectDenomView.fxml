@@ -5,7 +5,7 @@
 
 
 <?import com.vnd.mco2restructure.component.NumberField?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.ProvideDenomController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.ProvideDenomController" spacing="10">
     <Label fx:id="totalMoneyLabel" text="Total money : 1234"/>
     <HBox><Label text="₱ 1000"/> <NumberField fx:id="numberField1000"/></HBox>
     <HBox><Label text="₱ 500"/> <NumberField fx:id="numberField500"/></HBox>
@@ -16,5 +16,5 @@
     <HBox><Label text="₱ 10"/> <NumberField fx:id="numberField10"/></HBox>
     <HBox><Label text="₱ 5"/> <NumberField fx:id="numberField5"/></HBox>
     <HBox><Label text="₱ 1"/> <NumberField fx:id="numberField1"/></HBox>
-    <Button fx:id="button" text="Replenish" onAction="#replenish"/>
+    <Button style="-fx-background-color: #e0736c; -fx-text-fill: white" fx:id="button" text="Replenish" onAction="#replenish"/>
 </VBox>

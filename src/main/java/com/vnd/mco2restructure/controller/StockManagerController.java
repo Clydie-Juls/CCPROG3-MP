@@ -1,7 +1,7 @@
 package com.vnd.mco2restructure.controller;
 
 import com.vnd.mco2restructure.HelloApplication;
-import com.vnd.mco2restructure.ProgramData;
+import com.vnd.mco2restructure.model.ProgramData;
 import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.NumberField;
 import com.vnd.mco2restructure.component.SlotInterface;
@@ -10,6 +10,8 @@ import com.vnd.mco2restructure.model.StockEditInfo;
 import com.vnd.mco2restructure.model.Stocks;
 import com.vnd.mco2restructure.model.items.CustomizableItem;
 import com.vnd.mco2restructure.model.items.Item;
+import com.vnd.mco2restructure.model.slots.StorageSlot;
+import com.vnd.mco2restructure.model.vendingmachine.RegularVendingMachine;
 import com.vnd.mco2restructure.model.vendingmachine.SpecialVendingMachine;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -41,23 +43,35 @@ public class StockManagerController {
                 if (stocks.getItemEnums().get(finalI) instanceof CustomizableItemEnum customizableItemEnum) {
                     slotInterface.getItemNameLabel().setText(customizableItemEnum.name().toLowerCase().
                             replaceAll("_", " "));
-                    slotInterface.getItemTypeLabel().setText("Item type: Customizable Item");
+                    slotInterface.getItemTypeLabel().setText("Customizable");
                     Button editButton = new Button("Edit");
+                    editButton.getStyleClass().add("change-button");
                     editButton.setOnAction(event -> gotoStockEdit(customizableItemEnum, stocks.getStockEditInfos().get(finalI)));
                     slotInterface.getBottomLayout().getChildren().add(editButton);
                     slotInterface.getItemImageView().setImage(new Image(
                             HelloApplication.class.getResourceAsStream(customizableItemEnum.getImageFile())));
-
+                    slotInterface.getAmountLabel().setText("");
 
                 } else if (stocks.getItemEnums().get(finalI) instanceof IndependentItemEnum independentItemEnum) {
                     slotInterface.getItemNameLabel().setText(independentItemEnum.name().toLowerCase().
                             replaceAll("_", " "));
-                    slotInterface.getItemTypeLabel().setText("Item type: Independent Item");
+                    slotInterface.getItemTypeLabel().setText("Independent");
                     NumberField numberField = new NumberField();
                     slotInterface.setCenter(numberField);
                     StockEditInfo.ItemEditInfo itemEditInfo = stocks.getStockEditInfos().get(finalI).
                             getItemAmount().get(independentItemEnum)[0];
                     numberField.getTextField().setText(itemEditInfo.getAmount().toString());
+
+                    if(programData.getCurrentVendingMachine() instanceof RegularVendingMachine regularVendingMachine) {
+                        slotInterface.getAmountLabel().setText(
+                                "Amount: " + ((StorageSlot)regularVendingMachine.getSlots()[i]).getItemStackCount());
+                    } else if(programData.getCurrentVendingMachine() instanceof
+                            SpecialVendingMachine specialVendingMachine) {
+                        int amount = specialVendingMachine.getItemStorage().containsKey(
+                                independentItemEnum.enumToItem()) ? specialVendingMachine.getItemStorage().get(
+                                independentItemEnum.enumToItem()).size() : 0;
+                        slotInterface.getAmountLabel().setText("Amount: " + amount);
+                    }
                     numberField.getTextField().textProperty().addListener((observable, oldValue, newValue) -> {
                         // Try to parse the text into an integer
                         try {
@@ -71,8 +85,7 @@ public class StockManagerController {
                             HelloApplication.class.getResourceAsStream(independentItemEnum.getImageFile())));
                 }
             }
-            slotInterface.getChangeButton().setOnAction(event -> windowManager.gotoStockView(finalI,
-                    programData.getCurrentVendingMachine() instanceof SpecialVendingMachine));
+            slotInterface.getChangeButton().setOnAction(event -> windowManager.gotoStockView(finalI));
             menuLayout.getChildren().add(slotInterface);
         }
     }
@@ -100,7 +113,7 @@ public class StockManagerController {
      * @param itemEnum The ItemEnum to set.
      * @param index    The index in the stocks list.
      */
-    public void setSlotItemEnum(ItemEnum<? extends Item> itemEnum, int index) {
+    public void setSlotItemEnum(ItemEnum<? extends Item> itemEnum, int index, boolean hasItemAlready) {
         stocks.getItemEnums().set(index, itemEnum);
         stocks.getStockEditInfos().set(index, new StockEditInfo());
         if(itemEnum instanceof CustomizableItemEnum customizableItemEnum) {
@@ -109,13 +122,23 @@ public class StockManagerController {
                         new StockEditInfo.ItemEditInfo[ingredient.getItems().length]);
 
                 for (int i = 0; i < stocks.getStockEditInfos().get(index).getItemAmount().get(ingredient).length; i++) {
-                    stocks.getStockEditInfos().get(index).getItemAmount().get(ingredient)[i] = new StockEditInfo.ItemEditInfo();
+                    StockEditInfo.ItemEditInfo itemEditInfo = new StockEditInfo.ItemEditInfo();
+                    if(hasItemAlready) {
+                        itemEditInfo.setAmount(0);
+                    }
+
+                    stocks.getStockEditInfos().get(index).getItemAmount().get(ingredient)[i] = itemEditInfo;
                 }
 
             }
         } else if(itemEnum instanceof IndependentItemEnum independentItemEnum) {
-            stocks.getStockEditInfos().get(index).getItemAmount().put(independentItemEnum, new StockEditInfo.ItemEditInfo[1]);
-            stocks.getStockEditInfos().get(index).getItemAmount().get(independentItemEnum)[0] = new StockEditInfo.ItemEditInfo();
+            StockEditInfo.ItemEditInfo itemEditInfo = new StockEditInfo.ItemEditInfo();
+            if(hasItemAlready) {
+                itemEditInfo.setAmount(0);
+            }
+            stocks.getStockEditInfos().get(index).getItemAmount().put(independentItemEnum,
+                    new StockEditInfo.ItemEditInfo[1]);
+            stocks.getStockEditInfos().get(index).getItemAmount().get(independentItemEnum)[0] = itemEditInfo;
         }
     }
 
@@ -155,14 +178,13 @@ public class StockManagerController {
     public void resetStockEnums() {
         stocks.setItemData(programData.getCurrentVendingMachine().getSlots().length);
         for (int i = 0; i < programData.getCurrentVendingMachine().getSlots().length; i++) {
-            System.out.println("FOSFKOSFKFSO");
             if(programData.getCurrentVendingMachine().getSlots()[i].getItem() != null) {
                 int id = programData.getCurrentVendingMachine().getSlots()[i].getItem().getId();
                 System.out.println(id);
                 if( programData.getCurrentVendingMachine().getSlots()[i].getItem() instanceof CustomizableItem) {
-                    setSlotItemEnum(CustomizableItemEnum.values()[id], i);
+                    setSlotItemEnum(CustomizableItemEnum.values()[id], i, true);
                 } else {
-                    setSlotItemEnum(IndependentItemEnum.values()[id], i);
+                    setSlotItemEnum(IndependentItemEnum.values()[id], i, true);
                 }
             }
         }
@@ -172,7 +194,6 @@ public class StockManagerController {
      * Adds stocks to the vending machine and navigates back to the main features view.
      */
     public void addStocks() {
-        System.out.println("SOmeoemeomeoe");
         windowManager.stock(stocks.getItemEnums(), stocks.getStockEditInfos());
         windowManager.gotoMntFeaturesView();
     }

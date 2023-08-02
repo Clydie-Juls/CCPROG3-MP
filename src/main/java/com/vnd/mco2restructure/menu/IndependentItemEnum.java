@@ -8,16 +8,37 @@ import com.vnd.mco2restructure.model.items.IndependentItem;
  */
 public enum IndependentItemEnum implements ItemEnum<IndependentItem>, NonCustomizable, Sellable {
 
+    /**
+     * Coleslaw preset
+     */
     COLESLAW(80, 100, "coleslaw.png"),
 
     // Cheese
+    /**
+     * American cheese preset
+     */
     AMERICAN_CHEESE(40, 60, "american_cheese.png"),
+    /**
+     * Swiss cheese preset
+     */
     SWISS_CHEESE(50, 70, "swiss_cheese.png"),
+    /**
+     * Feta cheese preset
+     */
     FETA_CHEESE(60, 80, "feta_cheese.png"),
 
     // Buns
+    /**
+     * Sesame seed bun preset
+     */
     SESAME_SEED_BUN(30, 100, "sesame_seed_bun.png"),
+    /**
+     * brioche bun preset
+     */
     BRIOCHE_BUN(40, 120, "brioche_bun.png"),
+    /**
+     * Whole wheat bun preset
+     */
     WHOLE_WHEAT_BUN(35, 90, "whole_wheat_bun.png");
 
     private static int[] itemPrices;
@@ -53,7 +74,8 @@ public enum IndependentItemEnum implements ItemEnum<IndependentItem>, NonCustomi
      */
     @Override
     public IndependentItem enumToItem() {
-        return new IndependentItem(this.name().toLowerCase(), CALORIES, this.ordinal(), itemPrices[this.ordinal()], getImageFile());
+        return new IndependentItem(this.name().toLowerCase().replaceAll("_", " ")
+                , CALORIES, this.ordinal(), itemPrices[this.ordinal()], getImageFile());
     }
 
     /**
@@ -103,5 +125,9 @@ public enum IndependentItemEnum implements ItemEnum<IndependentItem>, NonCustomi
             newItemPrices[i] = IndependentItemEnum.values()[i].PRICE;
         }
         return newItemPrices;
+    }
+
+    public int getCalories() {
+        return CALORIES;
     }
 }

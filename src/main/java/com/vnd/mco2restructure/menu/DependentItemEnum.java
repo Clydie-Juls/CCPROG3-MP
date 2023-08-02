@@ -9,24 +9,69 @@ import com.vnd.mco2restructure.model.items.DependentItem;
 public enum DependentItemEnum implements ItemEnum<DependentItem>, NonCustomizable, Sellable {
 
     // Patties
+    /**
+     * Pineapple patty preset
+     */
     PINEAPPLE_PATTY(150, 120, "pineapple_patty.png"),
+    /**
+     * A5 wagyu patty preset
+     */
     A5_WAGYU_PATTY(500, 400, "a5_wagyu_patty.png"),
+    /**
+     * Beef patty preset
+     */
     BEEF_PATTY(250, 350, "beef_patty.png"),
+    /**
+     * Chicken patty preset
+     */
     CHICKEN_PATTY(200, 300, "chicken_patty.png"),
+    /**
+     * Chickpea patty preset
+     */
     CHICKPEA_PATTY(180, 250, "chickpea_patty.png"),
 
     // Sauce and condiments
+    /**
+     * Teriyaki preset
+     */
     TERIYAKI_SAUCE(50, 40, "teriyaki_sauce.png"),
+    /**
+     * Mayo preset
+     */
     MAYO(30, 50, "mayo.png"),
+    /**
+     * Ketchup preset
+     */
     KETCHUP(20, 30, "ketchup.png"),
+    /**
+     * Mustard preset
+     */
     MUSTARD(25, 20, "lettuce.png"),
 
     // Others
+    /**
+     * Pineapple Slices preset
+     */
     PINEAPPLE_SLICES(40, 20, "pineapple_slices.png"),
+    /**
+     * Caramelized onion preset
+     */
     CARAMELIZED_ONIONS(60, 30, "caramelized_onions.png"),
+    /**
+     * Arugula preset
+     */
     ARUGULA(25, 15, "arugula.png"),
+    /**
+     * Lettuce preset
+     */
     LETTUCE(20, 10, "lettuce.png"),
+    /**
+     * Tomato preset
+     */
     TOMATO(30, 15, "tomato.png"),
+    /**
+     * Pickles preset
+     */
     PICKLES(35, 10, "pickles.png");
 
     private static int[] itemPrices;
@@ -62,7 +107,8 @@ public enum DependentItemEnum implements ItemEnum<DependentItem>, NonCustomizabl
      */
     @Override
     public DependentItem enumToItem() {
-        return new DependentItem(this.name().toLowerCase(), CALORIES, this.ordinal(), itemPrices[this.ordinal()], getImageFile());
+        return new DependentItem(this.name().toLowerCase().replaceAll("_", " "),
+                CALORIES, this.ordinal(),  itemPrices[this.ordinal()], getImageFile());
     }
 
     /**
@@ -112,5 +158,9 @@ public enum DependentItemEnum implements ItemEnum<DependentItem>, NonCustomizabl
      */
     public String getImageFile() {
         return "images/dependent-item/" + imageFile;
+    }
+
+    public int getCalories() {
+        return CALORIES;
     }
 }

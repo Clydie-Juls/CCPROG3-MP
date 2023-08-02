@@ -1,0 +1,20 @@
+.container {
+    -fx-background-color:  #af2f25;
+    -fx-alignment: center;
+    -fx-spacing: 40;
+    -fx-padding: 10 0 20 0;
+}
+
+.button {
+    -fx-padding: 5;
+    -fx-border-color: transparent;
+    -fx-background-color: white;
+    -fx-text-fill: #af2f25;
+    -fx-font-size: 12;
+    -fx-background-radius: 10;
+    -fx-spacing: 4;
+}
+
+.navbar-circle {
+    -fx-fill: #af2f25;
+}

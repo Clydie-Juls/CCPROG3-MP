@@ -3,13 +3,24 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
-<BorderPane  xmlns:fx="http://javafx.com/fxml/1"
+<?import java.lang.String?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.vnd.mco2restructure.controller.BurgerLoadAnimationController">
+    <stylesheets>
+        <String fx:value="/com/vnd/mco2restructure/pages/css/BurgerLoadAnimationView.css"/>
+    </stylesheets>
     <center>
-        <VBox fx:id="body"/>
+        <VBox spacing="10" fx:id="body"/>
     </center>
     <bottom>
-        <Button fx:id="exitButton" text="Exit" onAction="#exit"/>
+        <HBox alignment="BASELINE_CENTER">
+            <padding>
+                <Insets top="10" bottom="10" left="10" right="10"/>
+            </padding>
+            <Button style="-fx-background-color: #af2f25; -fx-text-fill: white; -fx-font-size: 16" fx:id="exitButton" text="Exit" onAction="#exit"/>
+        </HBox>
     </bottom>
 </BorderPane>
 

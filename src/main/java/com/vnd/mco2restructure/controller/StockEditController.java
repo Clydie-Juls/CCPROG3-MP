@@ -1,15 +1,15 @@
 package com.vnd.mco2restructure.controller;
 
-import com.vnd.mco2restructure.ProgramData;
+import com.vnd.mco2restructure.model.ProgramData;
 import com.vnd.mco2restructure.WindowManager;
-import com.vnd.mco2restructure.component.NumberField;
+import com.vnd.mco2restructure.component.ItemEditInfoInterface;
 import com.vnd.mco2restructure.menu.*;
 import com.vnd.mco2restructure.menu.NonCustomizable;
 import com.vnd.mco2restructure.model.StockEditInfo;
+import com.vnd.mco2restructure.model.items.NonCustomizableItem;
+import com.vnd.mco2restructure.model.vendingmachine.SpecialVendingMachine;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.Map;
@@ -29,36 +29,46 @@ public class StockEditController {
     public void updateView() {
         infoLayout.getChildren().clear();
         itemName.setText(programData.getCurrentSlotItem().name().toLowerCase().replaceAll("_", " "));
+        // puts each item edit input gui in the view
         for (Map.Entry<NonCustomizable, StockEditInfo.ItemEditInfo[]> entry : programData.getCurrentStockEditInfo().getItemAmount().entrySet()) {
-
             if(entry.getKey() instanceof CustomizableItemEnum.ItemType itemType) {
                 Label ingredientTypesName = new Label(itemType.getItemTypeName());
+                ingredientTypesName.getStyleClass().add("type-label");
                 infoLayout.getChildren().add(ingredientTypesName);
                 for (int i = 0; i < itemType.getItems().length; i++) {
                     NonCustomizable ingredientItem = itemType.getItems()[i];
                     if (ingredientItem instanceof IndependentItemEnum independentItemEnum) {
-                        createItemInfo(independentItemEnum.toString(), entry.getValue()[i]);
+                        createItemInfo(independentItemEnum.toString(), entry.getValue()[i],
+                                independentItemEnum.getPrice(), independentItemEnum.getCalories(), ((IndependentItemEnum) ingredientItem).enumToItem());
                     } else if (ingredientItem instanceof DependentItemEnum dependentItemEnum) {
-                        createItemInfo(dependentItemEnum.toString(), entry.getValue()[i]);
+                        createItemInfo(dependentItemEnum.toString(), entry.getValue()[i], dependentItemEnum.getPrice(),
+                                dependentItemEnum.getCalories(), ((DependentItemEnum) ingredientItem).enumToItem());
                     }
                 }
             }
         }
     }
 
-    /**
+      /**
      * Creates an item information display in the Stock Edit view.
      *
      * @param s             The name of the item as a string.
      * @param itemEditInfo  The ItemEditInfo object containing information about the item.
      */
-    private void createItemInfo(String s, StockEditInfo.ItemEditInfo itemEditInfo) {
-        HBox hBox = new HBox();
+    private void createItemInfo(String s, StockEditInfo.ItemEditInfo itemEditInfo, int price, int calories,
+                                NonCustomizableItem ingredientItem) {
+        ItemEditInfoInterface itemEditInfoInterface = new ItemEditInfoInterface();
         String name = s.toLowerCase().replace('_', ' ');
+        itemEditInfoInterface.getNumberField().getTextField().setText(itemEditInfo.getAmount().toString());
+        itemEditInfoInterface.getItemPriceLabel().setText("Price: " + price);
+        itemEditInfoInterface.getItemCaloriesLabel().setText("Calories: " + calories);
+         if(programData.getCurrentVendingMachine() instanceof SpecialVendingMachine specialVendingMachine) {
+             int amount = specialVendingMachine.getItemStorage().containsKey(ingredientItem) ?
+                     specialVendingMachine.getItemStorage().get(ingredientItem).size() : 0;
+            itemEditInfoInterface.getCurrentItemAmount().setText("Amount: " + amount);
+        }
 
-        NumberField numberField = new NumberField();
-        numberField.getTextField().setText(itemEditInfo.getAmount().toString());
-        numberField.getTextField().textProperty().addListener((observable, oldValue, newValue) -> {
+        itemEditInfoInterface.getNumberField().getTextField().textProperty().addListener((observable, oldValue, newValue) -> {
             // Try to parse the text into an integer
             try {
                 int value = Integer.parseInt(newValue);
@@ -67,17 +77,15 @@ public class StockEditController {
 
             }
         });
+        itemEditInfoInterface.getItemCheckbox().setText(name);
+        itemEditInfoInterface.getNumberField().setContentDisable(!itemEditInfo.isChecked());
 
-        CheckBox itemCheckBox = new CheckBox(name);
-        numberField.setContentDisable(!itemEditInfo.isChecked());
-        itemCheckBox.setSelected(itemEditInfo.isChecked());
-        itemCheckBox.setOnAction(event -> {
-            itemEditInfo.setChecked(itemCheckBox.isSelected());
-            numberField.setContentDisable(!itemCheckBox.isSelected());
+        itemEditInfoInterface.getItemCheckbox().setOnAction(event -> {
+            itemEditInfo.setChecked(itemEditInfoInterface.getItemCheckbox().isSelected());
+                    itemEditInfoInterface.getNumberField().setContentDisable(!itemEditInfoInterface.getItemCheckbox().isSelected());
         });
 
-        hBox.getChildren().addAll(itemCheckBox, numberField);
-        infoLayout.getChildren().add(hBox);
+        infoLayout.getChildren().add(itemEditInfoInterface);
     }
 
 

@@ -2,6 +2,7 @@ package com.vnd.mco2restructure;
 
 import com.vnd.mco2restructure.controller.*;
 import com.vnd.mco2restructure.menu.ItemEnum;
+import com.vnd.mco2restructure.model.ProgramData;
 import com.vnd.mco2restructure.model.StockData;
 import com.vnd.mco2restructure.model.StockEditInfo;
 import com.vnd.mco2restructure.model.Stocks;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * The WindowManager class manages the different views and scenes in the vending machine simulator application.
@@ -36,7 +38,6 @@ public class WindowManager {
     private MaintenanceService maintenanceService;
     private VendingMachineController vendingMachineController;
     private StockController stockController;
-    private RestockController restockController;
     private ChangeItemPriceController changeItemPriceController;
     private DisplayTransactionsController displayTransactionsController;
     private StockManagerController stockManagerController;
@@ -57,7 +58,7 @@ public class WindowManager {
     private StackPane mntFeaturesLayout;
     private BorderPane stockLayout;
     private BorderPane changeItemPriceLayout;
-    private BorderPane displayTransactionsLayout;
+    private StackPane displayTransactionsLayout;
     private BorderPane stockManagerLayout;
     private BorderPane stockEditLayout;
     private StackPane itemBuyLayout;
@@ -112,12 +113,6 @@ public class WindowManager {
             stockController = stockView.getController();
             stockController.setWindowManager(this);
             stockController.setStockData(new StockData());
-
-            //Restock View Setup
-            FXMLLoader restockView = new FXMLLoader(getClass().getResource("pages/RestockView.fxml"));
-            BorderPane restockLayout = restockView.load();
-            restockController = restockView.getController();
-            restockController.setWindowManager(this);
 
             //Change Item Price View Setup
             FXMLLoader changeItemPriceView = new FXMLLoader(getClass().getResource("pages/ChangeItemPriceView.fxml"));
@@ -240,6 +235,7 @@ public class WindowManager {
         vendingMachineController.setVendingMachine(PROGRAM_DATA.getCurrentVendingMachine());
         maintenanceService.setVendingMachine(PROGRAM_DATA.getCurrentVendingMachine());
         vendingMachineController.updateView();
+        displayTransactionsController.setTransactions(PROGRAM_DATA.getCurrentVendingMachine().getTransactions());
     }
 
     /**
@@ -249,6 +245,7 @@ public class WindowManager {
      */
     public void gotoAnimationScene(String[] steps) {
         window.setScene(animationScene);
+        burgerLoadAnimationController.getBody().getChildren().clear();
         burgerLoadAnimationController.startAnimation(0, steps);
     }
 
@@ -267,14 +264,14 @@ public class WindowManager {
         itemBuyController.updateView(slotIndex);
     }
 
+
     /**
      * Navigates to the Stock view for the specified slot ID and vending machine type.
      * Sets the main stage's scene to the Stock scene and updates the StockController view.
-     *
      * @param slotId                  The ID of the slot to be displayed.
-     * @param isSpecialVendingMachine Flag indicating whether the vending machine is a special type.
      */
-    public void gotoStockView(int slotId, boolean isSpecialVendingMachine) {
+  public void gotoStockView(int slotId) {
+
         if (window.getScene() != mainMenuScene) {
             window.setScene(mainMenuScene);
         }
@@ -282,7 +279,15 @@ public class WindowManager {
         mainMenuController.getMainContent().setCenter(stockLayout);
         currentMntLayout = stockLayout;
         stockController.setSlotId(slotId);
+    }
+
+    /**
+     * Set the stock view depending on the type of vending machine
+     * @param isSpecialVendingMachine boolean value if the vending machine is special
+     */
+    public void setStockView(boolean isSpecialVendingMachine) {
         stockController.setView(isSpecialVendingMachine);
+        changeItemPriceController.updateView(isSpecialVendingMachine);
     }
 
     /**
@@ -292,7 +297,7 @@ public class WindowManager {
      * @param index    The index of the slot to set the item enum.
      */
     public void setStockManagerStock(ItemEnum<? extends Item> itemEnum, int index) {
-        stockManagerController.setSlotItemEnum(itemEnum, index);
+        stockManagerController.setSlotItemEnum(itemEnum, index, false);
     }
 
     /**
@@ -319,6 +324,7 @@ public class WindowManager {
 
         mainMenuController.getMainContent().setCenter(displayTransactionsLayout);
         currentMntLayout = displayTransactionsLayout;
+        displayTransactionsController.updateView();
     }
 
     /**
@@ -429,6 +435,10 @@ public class WindowManager {
             paymentController.updateView(itemPrice);
             paymentController.setDenomCallback(denom -> {
                 Item item = vendingMachineController.buy(denom, slotIndex);
+                String demonString = denom.entrySet().stream().map(v -> v.getValue().size() > 0 ?
+                                v.getKey() + " " + v.getValue() + "\n" : "")
+                        .collect(Collectors.joining());
+                System.out.println("SUKLI: " + demonString);
                if(item != null) {
                    if(item instanceof CustomizableItem) {
                        String[] burgerSteps = {
@@ -436,17 +446,26 @@ public class WindowManager {
                                "Bringing in the buns",
                                "Adding Sauce/Condiments",
                                "Assembling Burger",
-                               item.getName() + " is Ready!"
+                               item.getName() + " is Ready!",
+                               "Change of the buyer\n" + demonString
                        };
                        gotoAnimationScene(burgerSteps);
                    } else {
                        String[] burgerSteps = {
                                "Preparing " + item.getName(),
-                               item.getName() + " is Ready!"
+                               item.getName() + " is Ready!",
+                               "Change of the buyer\n" + demonString
                        };
                        gotoAnimationScene(burgerSteps);
                    }
+               } else {
+                   String[] burgerSteps = {
+                           "Vending Machine doesn't have enough denomination",
+                           "Change of the buyer\n" + demonString
+                   };
+                   gotoAnimationScene(burgerSteps);
                }
+
                 itemBuyController.getSlidePopup().slideDownAnimation();
                 vendingMachineController.updateView();
             });
@@ -456,11 +475,17 @@ public class WindowManager {
         }
     }
 
+
+    public void resetCurrentFeaturesView() {
+        currentMntLayout = mntFeaturesLayout;
+    }
+
     /**
      * Returns the main application stage.
      *
      * @return The main application stage.
      */
+
     public Stage getWindow() {
         return window;
     }

@@ -1,14 +1,12 @@
 package com.vnd.mco2restructure;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 /**
- * The HelloApplication class is the main entry point of the vending machine simulator application.
+ * The Application class is the main entry point of the vending machine simulator application.
  */
 public class HelloApplication extends Application {
     @Override

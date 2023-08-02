@@ -3,16 +3,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.geometry.Insets?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.StockManagerController">
     <top>
-        <HBox>
-            <Button text="Exit" onAction="#exit"/>
-            <Button text="Add Stock" onAction="#addStocks"/>
+        <HBox spacing="20" alignment="BASELINE_CENTER" style="-fx-background-radius: 0 0 10 10; -fx-background-color: #af2f25;">
+            <padding>
+                <Insets top="10" bottom="10" left="10" right="10"/>
+            </padding>
+            <Button style="-fx-background-color: white; -fx-text-fill: #af2f25; -fx-font-size: 16" text="Exit" onAction="#exit"/>
+            <Button style="-fx-background-color: white; -fx-text-fill: #af2f25; -fx-font-size: 16" text="Add Stock" onAction="#addStocks"/>
         </HBox>
     </top>
     <center>
         <ScrollPane fitToWidth="true">
-            <FlowPane fx:id="menuLayout" hgap="20" vgap="20">
+            <FlowPane alignment="BASELINE_CENTER" fx:id="menuLayout" hgap="20" vgap="20">
 
             </FlowPane>
         </ScrollPane>

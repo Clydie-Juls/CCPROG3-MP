@@ -5,6 +5,7 @@ import com.vnd.mco2restructure.HelloApplication;
 import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.ItemInterface;
 import com.vnd.mco2restructure.component.SlidePopup;
+import com.vnd.mco2restructure.model.Money;
 import com.vnd.mco2restructure.model.items.Item;
 import com.vnd.mco2restructure.model.slots.Slot;
 import com.vnd.mco2restructure.model.vendingmachine.VendingMachine;
@@ -14,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -40,7 +42,7 @@ public class VendingMachineController implements Initializable {
      * @param slotNo  Slot number of the vending machine.
      * @return  array of items the user bought if successful, returns null otherwise.
      */
-    public Item buy(LinkedHashMap<Integer, Integer> payment, int slotNo) {
+    public Item buy(LinkedHashMap<Integer, ArrayList<Money>> payment, int slotNo) {
 
             Slot<? extends Item> selectedSlot = vendingMachine.getSlots()[slotNo];
             // if transactions process has failed
@@ -51,7 +53,7 @@ public class VendingMachineController implements Initializable {
 
                 // If dispense item process is successful
                 if(dispensedItem != null) {
-                    vendingMachine.getTransactions().addTransaction(dispensedItem.clone());
+                    vendingMachine.getTransactions().updateTableAfterBuy(dispensedItem);
                     return dispensedItem;
                 }
             }
@@ -60,38 +62,11 @@ public class VendingMachineController implements Initializable {
     }
 
 
-    /**
-     * Gets the vending machine's instance.
-     *
-     * @return The vending machine's instance.
-     */
-    public VendingMachine getVendingMachine() {
-        return vendingMachine;
-    }
-
-    /**
-     * Retrieves the price of an existing item in the specified slot.
-     *
-     * @param slotNo    Slot number of the vending machine.
-     * @return The price of the existing item, or -1 if slot number is out of bounds or the slot has no item.
-     */
-    public int getItemPrice(int slotNo) {
-        // If slotNo is out of bounds
-        if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
-            return -1;
-            // If Slot object has no existing item
-        } else if(vendingMachine.getSlots()[slotNo - 1].getItem() == null) {
-            return -1;
-        }
-        return vendingMachine.getSlots()[slotNo - 1].getItem().getPrice();
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ItemInterface itemInterface = new ItemInterface();
-        itemInterface.setOnMouseClicked(event -> {
-            slidePopup.slideUpAnimation();
-        });
+        itemInterface.setOnMouseClicked(event -> slidePopup.slideUpAnimation());
         itemLayout.getChildren().add(itemInterface);
     }
 

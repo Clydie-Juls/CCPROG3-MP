@@ -1,19 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.DisplayTransactionsController">
-    <top>
-        <HBox>
-            <Button text="Exit" onAction="#exit"/>
-        </HBox>
-    </top>
-    <center>
-        <ScrollPane fitToWidth="true">
-            <FlowPane fx:id="menuLayout" hgap="20" vgap="20">
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<StackPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.vnd.mco2restructure.controller.DisplayTransactionsController">
+    <BorderPane>
+        <top>
+            <HBox alignment="BASELINE_CENTER" style="-fx-background-radius: 0 0 10 10; -fx-background-color: #af2f25;">
+                <padding>
+                    <Insets top="10" bottom="10" left="10" right="10"/>
+                </padding>
+                <Button style="-fx-background-color: white; -fx-text-fill: #af2f25; -fx-font-size: 16" text="Exit" onAction="#exit"/>
+            </HBox>
+        </top>
+        <center>
+            <ScrollPane fitToHeight="true">
+                <TableView fx:id="tableView" prefHeight="400.0">
+                    <columns>
+                        <TableColumn fx:id="itemNameColumn" text="Item Name" prefWidth="200"/>
+                        <TableColumn fx:id="itemTypeColumn" text="Item Type" prefWidth="200"/>
+                        <TableColumn fx:id="itemPrevStockColumn" text="Item Prev Stock" prefWidth="200"/>
+                        <TableColumn fx:id="itemInStockColumn" text="Item In Stock" prefWidth="200"/>
+                        <TableColumn fx:id="noOfItemSoldColumn" text="No. of Item Sold" prefWidth="200"/>
+                        <TableColumn fx:id="profitCollectedColumn" text="Profit Collected" prefWidth="200"/>
+                    </columns>
+                </TableView>
+            </ScrollPane>
+        </center>
+        <bottom>
+            <Label fx:id="totalMoneyLabel" text="Total Money Collected: "/>
+        </bottom>
+    </BorderPane>
+</StackPane>
 
-            </FlowPane>
-        </ScrollPane>
-    </center>
-</BorderPane>

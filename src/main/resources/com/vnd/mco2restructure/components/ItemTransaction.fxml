@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Label?>
+<fx:root type="VBox" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: grey"
+         fx:id="body">
+    <Label fx:id="itemNameLabel" text="Item Name"/>
+    <Label fx:id="itemPriceLabel" text="Item Price"/>
+    <Label fx:id="itemCaloriesLabel" text="Item Calories"/>
+</fx:root>

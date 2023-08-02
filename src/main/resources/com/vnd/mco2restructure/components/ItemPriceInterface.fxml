@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
+<?import com.vnd.mco2restructure.component.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<?import com.vnd.mco2restructure.component.NumberField?>
-<?import javafx.scene.image.ImageView?>
-<fx:root type="VBox" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: grey"
-         fx:id="body" prefWidth="130">
-    <ImageView preserveRatio="true" fitWidth="${body.prefWidth}" fx:id="itemImageView"/>
-    <Label fx:id="itemNameLabel" text="Item Name"/>
-    <Label fx:id="itemPriceLabel" text="Item Price"/>
-    <NumberField fx:id="itemPriceNumberField"/>
-    <Button fx:id="changePriceButton" text="Change Price"/>
+<fx:root fx:id="body" prefWidth="130" style="-fx-background-color: #af2f25; -fx-background-radius: 10; -fx-padding: 10; -fx-alignment: center; -fx-spacing: 10;" type="VBox" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea">
+    <ImageView fx:id="itemImageView" fitWidth="${body.prefWidth}" preserveRatio="true" />
+    <Label fx:id="itemNameLabel" lineSpacing="2.0" text="Item Name" textFill="WHITE" textOverrun="CLIP" />
+    <Label fx:id="itemPriceLabel" lineSpacing="2.0" text="Item Price" textFill="WHITE" textOverrun="CLIP" />
+    <NumberField fx:id="itemPriceNumberField" />
+    <Button fx:id="changePriceButton" style="-fx-background-color: white; -fx-font-size: 14; -fx-font-weight: bold;" text="Change Price" textAlignment="CENTER" textFill="#af2f25" wrapText="true" />
 </fx:root>

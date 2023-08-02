@@ -3,15 +3,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import java.lang.String?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.StockEditController">
+    <stylesheets>
+        <String fx:value="/com/vnd/mco2restructure/pages/css/StockEditView.css"/>
+    </stylesheets>
     <top>
         <HBox>
             <Button text="Exit" onAction="#exit"/>
         </HBox>
     </top>
     <center>
-        <VBox fx:id="infoLayout">
-            <Label fx:id="itemName" text="Item"/>
-        </VBox>
+        <ScrollPane styleClass="category-container">
+            <VBox alignment="BASELINE_CENTER" fx:id="infoLayout" spacing="10">
+                <Label fx:id="itemName" text="Item"/>
+            </VBox>
+        </ScrollPane>
     </center>
 </BorderPane>

@@ -16,14 +16,17 @@
 <?import com.vnd.mco2restructure.component.NumberField?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.HomeController">
     <!-- Main content at the top -->
-    <BorderPane  style="-fx-background-color: green;">
+    <stylesheets>
+        <String fx:value="/com/vnd/mco2restructure/pages/css/HomeView.css"/>
+    </stylesheets>
+    <BorderPane>
         <top>
-            <StackPane>
-                <Button text="+" onAction="#showPopup"/>
+            <StackPane styleClass="navbar">
+                <Button styleClass="addButton" text="+" onAction="#showPopup"/>
             </StackPane>
         </top>
         <center>
-            <ScrollPane style="-fx-background-color: yellow;" fitToWidth="true" >
+            <ScrollPane styleClass="container" fitToWidth="true" >
                 <VBox fx:id="vndMachineButtonsLayout" spacing="10">
 
                 </VBox>
@@ -36,13 +39,10 @@
         <bottom>
             <SlidePopup fx:id="slidePopup">
                     <center>
-                        <VBox>
-                            <spacing>
-                                10
-                            </spacing>
-                            <Label text="Create a Vending Machine"/>
-                            <TextField fx:id="vndNameTextField" promptText="Vending Machine Name"/>
-                            <ComboBox fx:id="vndTypeChoice" value="Regular">
+                        <VBox spacing="10">
+                            <Label styleClass="create-title" text="Create a Vending Machine"/>
+                            <TextField styleClass="name-text-field" fx:id="vndNameTextField" promptText="Vending Machine Name"/>
+                            <ComboBox styleClass="vndTypeChoices" fx:id="vndTypeChoice" value="Regular">
                                 <items>
                                     <FXCollections fx:factory="observableArrayList">
                                         <String fx:value="Regular" />
@@ -50,15 +50,15 @@
                                     </FXCollections>
                                 </items>
                             </ComboBox>
-                            <HBox>
-                                <Label text="No. of Slots"/>
+                            <HBox spacing="20">
+                                <Label styleClass="configure-title" text="Num of Slots"/>
                                 <NumberField fx:id="noOfSlotsNumberField"/>
                             </HBox>
-                            <HBox>
-                                <Label text="Slot Capacity"/>
+                            <HBox spacing="20">
+                                <Label styleClass="configure-title" text="Slot Capacity"/>
                                 <NumberField fx:id="slotCapacityNumberField"/>
                             </HBox>
-                            <Button text="Add" onAction="#addVendingMachine"/>
+                            <Button styleClass="add-button" text="Add" onAction="#addVendingMachine"/>
                         </VBox>
                     </center>
             </SlidePopup>

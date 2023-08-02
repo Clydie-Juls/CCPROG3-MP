@@ -34,7 +34,7 @@ public class RegularVendingMachine extends VendingMachine {
 
     @Override
     public Item dispenseItem(int slotNo) {
-        StorageSlot selectedSlot = (StorageSlot)slots[slotNo - 1];
+        StorageSlot selectedSlot = (StorageSlot)slots[slotNo];
         return selectedSlot.giveItem();
     }
 

@@ -58,7 +58,7 @@ public class BurgerLoadAnimationController {
     /**
      * Sets the WindowManager instance to handle navigation between views.
      *
-     * @param windowManager The WindowManager instance.
+     * @param windowManager - mediator of controllers and scene handler
      */
     public void setWindowManager(WindowManager windowManager) {
         this.windowManager = windowManager;
@@ -71,5 +71,13 @@ public class BurgerLoadAnimationController {
     @FXML
     private void exit() {
         windowManager.gotoVndFeaturesView();
+    }
+
+    /**
+     * This method returns the body of the view
+     * @return body of the view
+     */
+    public VBox getBody() {
+        return body;
     }
 }
