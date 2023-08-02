@@ -1,7 +1,7 @@
 package com.vnd.mco2restructure.controller;
 
 
-import com.vnd.mco2restructure.HelloApplication;
+import com.vnd.mco2restructure.Application;
 import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.ItemInterface;
 import com.vnd.mco2restructure.component.SlidePopup;
@@ -31,6 +31,9 @@ public class VendingMachineController implements Initializable {
     @FXML private SlidePopup slidePopup;
     @FXML private FlowPane itemLayout;
 
+    /**
+     * Initializes the vending machine controller
+     */
     public VendingMachineController() {
     }
 
@@ -80,7 +83,7 @@ public class VendingMachineController implements Initializable {
                 ItemInterface itemInterface = new ItemInterface();
                 itemInterface.getItemNameLabel().setText(vendingMachine.getSlots()[i].getItem().getName());
                 itemInterface.getItemImageView().setImage(new Image(
-                        Objects.requireNonNull(HelloApplication.class.getResourceAsStream(
+                        Objects.requireNonNull(Application.class.getResourceAsStream(
                                 vendingMachine.getSlots()[i].getItem().getImageFile()))));
                 int finalI = i;
                 itemInterface.setOnMouseClicked(event -> windowManager.gotoItemBuyView(finalI));

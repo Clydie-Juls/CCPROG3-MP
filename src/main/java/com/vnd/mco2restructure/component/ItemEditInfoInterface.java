@@ -1,6 +1,6 @@
 package com.vnd.mco2restructure.component;
 
-import com.vnd.mco2restructure.HelloApplication;
+import com.vnd.mco2restructure.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -29,7 +29,7 @@ public class ItemEditInfoInterface extends VBox {
      * prepares the gui of  this class
      */
     private void setView() {
-        FXMLLoader view = new FXMLLoader(HelloApplication.class.getResource("components/ItemEditInfoInterface.fxml"));
+        FXMLLoader view = new FXMLLoader(Application.class.getResource("components/ItemEditInfoInterface.fxml"));
         view.setRoot(this);
 
         try {

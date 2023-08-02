@@ -158,7 +158,10 @@ public class MaintenanceService {
                 vendingMachine.getDenomination().passDenomination());
     }
 
-
+    /**
+     * transfer requested money and convert them to a single integer and put at the total money collected.
+     * @param denomination - hashmap of money
+     */
     public void replenishDenomination(LinkedHashMap<Integer, ArrayList<Money>> denomination) {
         for (Map.Entry<Integer, ArrayList<Money>> entry : denomination.entrySet()) {
             vendingMachine.getDenomination().getCurrency().get(entry.getKey()).addAll(entry.getValue());

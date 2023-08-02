@@ -76,7 +76,10 @@ public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable
          */
         CHEESE_TYPES("Cheese",
                 IndependentItemEnum.AMERICAN_CHEESE, IndependentItemEnum.FETA_CHEESE, IndependentItemEnum.SWISS_CHEESE),
-        COLESLAW(null, IndependentItemEnum.COLESLAW),
+        /**
+         * Coleslaw item type preset
+         */
+        COLESLAW("Coleslaw", IndependentItemEnum.COLESLAW),
 
         // Dependent items
         /**
@@ -100,11 +103,11 @@ public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable
         /**
          * pineapple patty single type
          */
-        PINEAPPLE_PATTY(null, DependentItemEnum.PINEAPPLE_PATTY),
+        PINEAPPLE_PATTY("Patty", DependentItemEnum.PINEAPPLE_PATTY),
         /**
          * chicken burger preset
          */
-        CHICKEN_BURGER(null, DependentItemEnum.CHICKEN_PATTY);
+        CHICKEN_BURGER("Burger", DependentItemEnum.CHICKEN_PATTY);
 
         private String itemTypeName;
         private NonCustomizable[] items;

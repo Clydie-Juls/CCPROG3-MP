@@ -9,7 +9,13 @@ import javafx.scene.control.Label;
  */
 public class VendingMachineButtonController {
 
+    /**
+     * Name label of the vending machine
+     */
     @FXML public Label vndNameLabel;
+    /**
+     * type label of the vending machine
+     */
     @FXML public Label vndTypeLabel;
     @FXML private Label noOfSlotsLabel;
     @FXML private Label slotCapacityLabel;

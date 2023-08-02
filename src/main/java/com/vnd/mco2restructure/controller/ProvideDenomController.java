@@ -50,6 +50,10 @@ public class ProvideDenomController implements Initializable {
         });
     }
 
+    /**
+     * updates the view of the denominations and the total money
+     * @param minimumNo - minimum amount for the button to be intractable
+     */
     public void updateView(int minimumNo) {
         setUpdateFunction(numberField1000, minimumNo);
         setUpdateFunction(numberField500, minimumNo);
