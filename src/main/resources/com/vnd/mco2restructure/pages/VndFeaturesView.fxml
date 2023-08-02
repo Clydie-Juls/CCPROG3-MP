@@ -4,16 +4,20 @@
 <?import javafx.scene.layout.*?>
 
 <?import com.vnd.mco2restructure.component.SlidePopup?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1"  fx:controller="com.vnd.mco2restructure.controller.VendingMachineController">
+<?import java.lang.String?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.VendingMachineController">
+    <stylesheets>
+        <String fx:value="/com/vnd/mco2restructure/pages/css/VndFeaturesView.css"/>
+    </stylesheets>
     <BorderPane>
         <top>
-            <HBox>
-                <Label text="Buy Items"/>
+            <HBox styleClass="title-container" alignment="BASELINE_CENTER">
+                <Label styleClass="title" text="Buy Items"/>
             </HBox>
         </top>
         <center>
             <ScrollPane fitToWidth="true">
-                <FlowPane fx:id="itemLayout"  hgap="20" vgap="20">
+                <FlowPane alignment="BASELINE_CENTER" fx:id="itemLayout"  hgap="20" vgap="20">
                 </FlowPane>
             </ScrollPane>
         </center>

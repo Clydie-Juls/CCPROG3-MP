@@ -1,7 +1,7 @@
 package com.vnd.mco2restructure.controller;
 
 import com.vnd.mco2restructure.HelloApplication;
-import com.vnd.mco2restructure.ProgramData;
+import com.vnd.mco2restructure.model.ProgramData;
 import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.ItemChoices;
 import com.vnd.mco2restructure.component.SlidePopup;
@@ -135,7 +135,9 @@ public class ItemBuyController {
 
     public void buyItem( IndependentItem itemToBuy, int slotIndex) {
         System.out.println("SLot index:" + slotIndex);
-        VBox vBox = new VBox(new Label("" + itemToBuy.getPrice()), windowManager.
+        Label finalItem = new Label("Total Price:" + itemToBuy.getPrice() +
+                "\nTotal Calories: " + itemToBuy.getCalories());
+        VBox vBox = new VBox(finalItem, windowManager.
                 getPaymentView(slotIndex, itemToBuy.getPrice()));
         slidePopup.setCenter(vBox);
         slidePopup.slideUpAnimation();

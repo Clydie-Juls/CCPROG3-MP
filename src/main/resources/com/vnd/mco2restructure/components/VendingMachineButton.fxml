@@ -6,12 +6,14 @@
 
 
 <fx:root type="HBox" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vnd.mco2restructure.controller.VendingMachineButtonController"
-         styleClass="container">
+         styleClass="container" fx:id="body">
     <stylesheets>
         <String fx:value="/com/vnd/mco2restructure/components/css/VendingMachineButton.css" />
     </stylesheets>
-    <VBox>
-        <Label fx:id="vndNameLabel" text="Vending Machine 1"/>
+    <VBox spacing="5">
+        <HBox styleClass="name-container" prefWidth="${body.width}">
+            <Label styleClass="name" fx:id="vndNameLabel" text="Vending Machine 1"/>
+        </HBox>
         <Label fx:id="vndTypeLabel" text="Regular Vending Machine"/>
         <HBox spacing="5">
             <Label fx:id="noOfSlotsLabel" text="No. of slots: "/>

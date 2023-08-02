@@ -1,0 +1,8 @@
+.label {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.category-container {
+    -fx-alignment: center;
+}

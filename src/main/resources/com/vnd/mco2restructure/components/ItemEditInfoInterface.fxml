@@ -5,13 +5,17 @@
 <?import javafx.scene.layout.*?>
 
 <?import com.vnd.mco2restructure.component.NumberField?>
-<fx:root type="VBox" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: grey"
+<?import java.lang.String?>
+<fx:root type="VBox" xmlns:fx="http://javafx.com/fxml/1" styleClass="body"
          fx:id="body">
-    <HBox>
+    <stylesheets>
+        <String fx:value="/com/vnd/mco2restructure/components/css/ItemEditInfoInterface.css" />
+    </stylesheets>
+    <HBox spacing="10">
         <CheckBox  fx:id="itemCheckbox" text="Item Name"/>
         <NumberField fx:id="numberField"/>
     </HBox>
-    <HBox>
+    <HBox spacing="20">
         <Label fx:id="itemPriceLabel" text="Item Price"/>
         <Label fx:id="itemCaloriesLabel" text="Item Calories"/>
         <Label fx:id="currentItemAmount" text="Current Amount:"/>

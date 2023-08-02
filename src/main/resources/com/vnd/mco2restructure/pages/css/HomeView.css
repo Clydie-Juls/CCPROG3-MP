@@ -1,0 +1,68 @@
+.navbar {
+    -fx-background-radius: 0 0 10 10;
+    -fx-background-color: #af2f25;
+    -fx-padding: 10;
+}
+
+.addButton {
+    -fx-border-color: transparent;
+    -fx-text-fill: #af2f25;
+    -fx-max-width: 20px; /* Set maximum width */
+    -fx-max-height: 20px; /* Set maximum height */
+    -fx-background-color: white;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-shape: "M 20,0 A 20,20 0 1 1 0,20 20,20 0 0 1 20,40 20,20 0 1 1 40,20 20,20 0 0 1 20,0 Z";
+}
+
+.container {
+    -fx-background-color: transparent;
+    -fx-padding: 20;
+}
+
+.create-title {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-spacing: 2;
+    -fx-text-alignment: center;
+}
+
+.name-text-field {
+    -fx-border-color: transparent;
+    -fx-background-color: lightgrey;
+    -fx-text-fill: white;
+}
+
+.vndTypeChoices .list-cell {
+    -fx-text-fill: grey; /* Text color for the dropdown items */
+    -fx-background-color: white;
+    -fx-padding: 5px 10px;
+}
+
+.vndTypeChoices .list-cell:selected {
+    -fx-background-color: white;
+    -fx-border-color: grey;
+    -fx-border-radius: 10 0 0 10;
+}
+
+.vndTypeChoices .arrow-button {
+    /* Customize the dropdown button appearance */
+    -fx-background-color: white; /* Background color for the dropdown button */
+    -fx-border-color: grey;
+    -fx-padding: 5px;
+    -fx-border-radius: 0 10 10 0;
+}
+
+.configure-title {
+    -fx-text-fill: grey;
+    -fx-font-size: 14;
+}
+
+.add-button {
+    -fx-background-radius: 10;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 16;
+    -fx-background-color: #af2f25;
+    -fx-font-weight: bold;
+}

@@ -16,19 +16,21 @@
         </stylesheets>
         <top>
             <StackPane>
-                <VBox>
-                    <Label text="Total money collected"/>
-                    <Label fx:id="moneyLabel" text="\$1234"/>
+                <VBox alignment="BASELINE_CENTER" style="-fx-background-radius: 0 0 10 10; -fx-background-color: #af2f25;">
+                    <padding>
+                        <Insets top="10" bottom="10" left="10" right="10"/>
+                    </padding>
+                    <Label style="-fx-text-fill: white;" text="Total money collected"/>
+                    <Label style=" -fx-text-fill: white;" fx:id="moneyLabel" text="\$1234"/>
                 </VBox>
             </StackPane>
         </top>
         <center>
-            <VBox>
+            <VBox styleClass="content">
+                <!-- Vending Machine selection interface  -->
                 <padding>
                     <Insets top="10" bottom="10" left="10" right="10"/>
                 </padding>
-                <spacing>10</spacing>
-                <!-- Vending Machine selection interface  -->
                 <HBox styleClass="mnt-buttons" onMouseClicked="#gotoStockView">
                     <Label text="Stock Items"/>
                 </HBox>

@@ -1,19 +1,15 @@
 package com.vnd.mco2restructure.controller;
 
-import com.vnd.mco2restructure.ProgramData;
+import com.vnd.mco2restructure.model.ProgramData;
 import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.ItemEditInfoInterface;
-import com.vnd.mco2restructure.component.NumberField;
 import com.vnd.mco2restructure.menu.*;
 import com.vnd.mco2restructure.menu.NonCustomizable;
 import com.vnd.mco2restructure.model.StockEditInfo;
 import com.vnd.mco2restructure.model.items.NonCustomizableItem;
-import com.vnd.mco2restructure.model.vendingmachine.RegularVendingMachine;
 import com.vnd.mco2restructure.model.vendingmachine.SpecialVendingMachine;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.Map;
@@ -37,6 +33,7 @@ public class StockEditController {
 
             if(entry.getKey() instanceof CustomizableItemEnum.ItemType itemType) {
                 Label ingredientTypesName = new Label(itemType.getItemTypeName());
+                ingredientTypesName.getStyleClass().add("type-label");
                 infoLayout.getChildren().add(ingredientTypesName);
                 for (int i = 0; i < itemType.getItems().length; i++) {
                     NonCustomizable ingredientItem = itemType.getItems()[i];

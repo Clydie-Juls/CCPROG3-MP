@@ -4,25 +4,32 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.image.ImageView?>
+<?import java.lang.String?>
+<?import javafx.scene.text.TextFlow?>
 <fx:root type="BorderPane" xmlns:fx="http://javafx.com/fxml" fx:id="slotInterfaceBody"
-         style="-fx-background-color: grey; -fx-pref-width: 130; -fx-max-width: 130">
+         styleClass="content">
+    <stylesheets>
+        <String fx:value="/com/vnd/mco2restructure/components/css/SlotInterface.css"/>
+    </stylesheets>
     <top>
         <BorderPane fx:id="imageParent">
             <center>
                 <ImageView preserveRatio="true" fitWidth="${slotInterfaceBody.prefWidth}" fx:id="itemImageView"/>
             </center>
             <bottom>
-                <VBox>
-                    <Label fx:id="itemNameLabel" text="Item Name"/>
-                    <Label fx:id="itemTypeLabel" text="Item Type"/>
-                    <Label fx:id="amountLabel" text="Amount"/>
+                <VBox alignment="BASELINE_CENTER" styleClass="label-content">
+                    <HBox prefWidth="${slotInterfaceBody.width}" styleClass="item-name-container">
+                        <Label wrapText="true" styleClass="item-name" fx:id="itemNameLabel" text="Item Name"/>
+                    </HBox>
+                        <Label prefWidth="100" wrapText="true" fx:id="itemTypeLabel" text="Item Type"/>
+                        <Label prefWidth="100" wrapText="true" fx:id="amountLabel" text="Amount"/>
                 </VBox>
             </bottom>
         </BorderPane>
     </top>
     <bottom>
-        <VBox fx:id="bottomLayout">
-            <Button fx:id="changeButton" text="Change"/>
+        <VBox alignment="BASELINE_CENTER" fx:id="bottomLayout" spacing="10">
+            <Button styleClass="change-button" fx:id="changeButton" text="Change"/>
         </VBox>
     </bottom>
 </fx:root>

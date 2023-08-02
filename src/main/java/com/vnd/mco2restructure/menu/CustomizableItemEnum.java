@@ -15,9 +15,10 @@ public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable
     BASIC_BURGER("basic_burger.png", ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.SAUCE_AND_CONDIMENT_TYPES),
     VEGGIE_BURGER("veggie_burger.png", ItemType.BUN_TYPES, ItemType.PINEAPPLE_PATTY, ItemType.SAUCE_AND_CONDIMENT_TYPES),
     CHICKEN_BURGER("chicken_burger.png", ItemType.BUN_TYPES, ItemType.CHICKEN_BURGER, ItemType.SAUCE_AND_CONDIMENT_TYPES),
-    CHEESEBURGER("cheese_burger.png", ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.CHEESE_TYPES, ItemType.SAUCE_AND_CONDIMENT_TYPES),
-    DELUXE_BURGER("deluxe_burger.png", ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.CHEESE_TYPES, ItemType.OTHER_TYPES,
-            ItemType.SAUCE_AND_CONDIMENT_TYPES);
+    CHEESEBURGER("cheese_burger.png", ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.CHEESE_TYPES,
+            ItemType.SAUCE_AND_CONDIMENT_TYPES),
+    DELUXE_BURGER("deluxe_burger.png", ItemType.BUN_TYPES, ItemType.PATTY_TYPES, ItemType.CHEESE_TYPES,
+            ItemType.OTHER_TYPES, ItemType.SAUCE_AND_CONDIMENT_TYPES);
 
     /**
      * Converts the CustomizableItemEnum to a CustomizableItem instance based on the ingredients and image file.
@@ -97,7 +98,6 @@ public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable
     private int[] ingredientTypes;
 
     private String imageFile;
-    private ArrayList<NonCustomizable> addons;
 
     /**
      * Constructs a CustomizableItemEnum with the provided image file and ingredients.
@@ -107,19 +107,10 @@ public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable
      */
     CustomizableItemEnum(String imageFile, ItemType... ingredients) {
         this.ingredients = ingredients;
-        this.addons = new ArrayList<>();
         this.imageFile = imageFile;
         ingredientTypes = new int[ingredients.length];
     }
 
-    /**
-     * Adds a non-customizable addon to this customizable item.
-     *
-     * @param addon The addon to be added.
-     */
-    public void addAddon(NonCustomizable addon) {
-        addons.add(addon);
-    }
 
     /**
      * Gets the array of item types that can be combined to create this customizable item.
@@ -128,15 +119,6 @@ public enum CustomizableItemEnum implements ItemEnum<CustomizableItem>, Sellable
      */
     public ItemType[] getIngredients() {
         return ingredients;
-    }
-
-    /**
-     * Gets the list of non-customizable addons for this customizable item.
-     *
-     * @return The list of addons.
-     */
-    public ArrayList<NonCustomizable> getAddons() {
-        return addons;
     }
 
     /**

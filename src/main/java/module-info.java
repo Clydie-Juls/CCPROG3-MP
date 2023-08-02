@@ -15,4 +15,5 @@ module com.vnd.mco2restructure {
     exports com.vnd.mco2restructure.model.slots;
     exports com.vnd.mco2restructure.menu;
     exports com.vnd.mco2restructure.callbacks;
+    opens com.vnd.mco2restructure.model to javafx.fxml;
 }
