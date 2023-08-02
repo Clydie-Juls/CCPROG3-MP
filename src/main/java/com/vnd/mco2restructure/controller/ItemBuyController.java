@@ -1,6 +1,6 @@
 package com.vnd.mco2restructure.controller;
 
-import com.vnd.mco2restructure.HelloApplication;
+import com.vnd.mco2restructure.Application;
 import com.vnd.mco2restructure.model.ProgramData;
 import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.ItemChoices;
@@ -56,7 +56,7 @@ public class ItemBuyController {
         Slot<? extends Item> slot = programData.getCurrentVendingMachine().getSlots()[slotIndex];
         itemName.setText(slot.getItem().getName());
         itemImageView.setImage(new Image(
-                Objects.requireNonNull(HelloApplication.class.
+                Objects.requireNonNull(Application.class.
                         getResourceAsStream(slot.getItem().getImageFile()))));
 
         // add item choices if the item is customized

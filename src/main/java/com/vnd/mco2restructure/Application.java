@@ -1,6 +1,5 @@
 package com.vnd.mco2restructure;
 
-import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -8,7 +7,7 @@ import java.io.IOException;
 /**
  * The Application class is the main entry point of the vending machine simulator application.
  */
-public class HelloApplication extends Application {
+public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         WindowManager windowManager = new WindowManager(stage);

@@ -1,6 +1,6 @@
 package com.vnd.mco2restructure.component;
 
-import com.vnd.mco2restructure.HelloApplication;
+import com.vnd.mco2restructure.Application;
 import com.vnd.mco2restructure.controller.VendingMachineButtonController;
 import javafx.beans.NamedArg;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +18,7 @@ public class VendingMachineButton extends HBox {
     }
 
     private void setView(String vndName, String vndType, int noOfSlots, int slotCapacity) {
-        FXMLLoader view = new FXMLLoader(HelloApplication.class.getResource("components/VendingMachineButton.fxml"));
+        FXMLLoader view = new FXMLLoader(Application.class.getResource("components/VendingMachineButton.fxml"));
         view.setRoot(this);
 
         try {

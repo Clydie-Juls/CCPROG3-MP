@@ -1,6 +1,6 @@
 package com.vnd.mco2restructure.component;
 
-import com.vnd.mco2restructure.HelloApplication;
+import com.vnd.mco2restructure.Application;
 import com.vnd.mco2restructure.controller.NavbarController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
@@ -22,7 +22,7 @@ public class Navbar extends HBox {
     }
 
     private void setView() {
-        FXMLLoader view = new FXMLLoader(HelloApplication.class.getResource("components/Navbar.fxml"));
+        FXMLLoader view = new FXMLLoader(Application.class.getResource("components/Navbar.fxml"));
         view.setRoot(this);
 
         try {

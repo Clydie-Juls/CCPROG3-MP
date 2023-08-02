@@ -1,18 +1,15 @@
 package com.vnd.mco2restructure.controller;
 
-import com.vnd.mco2restructure.HelloApplication;
+import com.vnd.mco2restructure.Application;
 import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.ItemPriceInterface;
 import com.vnd.mco2restructure.menu.DependentItemEnum;
 import com.vnd.mco2restructure.menu.IndependentItemEnum;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
 
-import java.net.URL;
 import java.util.Objects;
-import java.util.ResourceBundle;
 import java.util.function.IntConsumer;
 
 
@@ -74,7 +71,7 @@ public class ChangeItemPriceController {
         itemPriceInterface.getItemPriceLabel().setText("Price: " + price);
         itemPriceInterface.getItemPriceNumberField().getTextField().setText("" + price);
         itemPriceInterface.getItemImageView().setImage(new
-                Image(Objects.requireNonNull(HelloApplication.class.getResourceAsStream(imageFile))));
+                Image(Objects.requireNonNull(Application.class.getResourceAsStream(imageFile))));
         itemPriceInterface.getChangePriceButton().setOnAction(event -> {
             try {
                 int newPrice = Integer.parseInt(itemPriceInterface.getItemPriceNumberField().getTextField().getText());
