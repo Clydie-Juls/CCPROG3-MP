@@ -8,6 +8,9 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
+/**
+ * This class is a custom javafx component representing item infos during stock edit
+ */
 public class ItemEditInfoInterface extends VBox {
     private CheckBox itemCheckbox;
     private NumberField numberField;
@@ -15,10 +18,16 @@ public class ItemEditInfoInterface extends VBox {
     private Label itemCaloriesLabel;
     private Label currentItemAmount;
 
+    /**
+     * Initializes the view
+     */
     public ItemEditInfoInterface() {
         setView();
     }
 
+    /**
+     * prepares the gui of  this class
+     */
     private void setView() {
         FXMLLoader view = new FXMLLoader(HelloApplication.class.getResource("components/ItemEditInfoInterface.fxml"));
         view.setRoot(this);
@@ -37,22 +46,42 @@ public class ItemEditInfoInterface extends VBox {
 
     }
 
+    /**
+     * This method returns the item checkbox
+     * @return item checkbox
+     */
     public CheckBox getItemCheckbox() {
         return itemCheckbox;
     }
 
+    /**
+     * This method returns the item checkbox
+     * @return item checkbox
+     */
     public NumberField getNumberField() {
         return numberField;
     }
 
+    /**
+     * This method returns the item price label
+     * @return item price label
+     */
     public Label getItemPriceLabel() {
         return itemPriceLabel;
     }
 
+    /**
+     * This method returns the item calories label
+     * @return item checkbox
+     */
     public Label getItemCaloriesLabel() {
         return itemCaloriesLabel;
     }
 
+    /**
+     * This method returns the current item amount label
+     * @return current item amount label
+     */
     public Label getCurrentItemAmount() {
         return currentItemAmount;
     }

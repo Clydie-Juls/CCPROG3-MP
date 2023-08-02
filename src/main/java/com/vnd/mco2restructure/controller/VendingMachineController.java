@@ -62,38 +62,11 @@ public class VendingMachineController implements Initializable {
     }
 
 
-    /**
-     * Gets the vending machine's instance.
-     *
-     * @return The vending machine's instance.
-     */
-    public VendingMachine getVendingMachine() {
-        return vendingMachine;
-    }
-
-    /**
-     * Retrieves the price of an existing item in the specified slot.
-     *
-     * @param slotNo    Slot number of the vending machine.
-     * @return The price of the existing item, or -1 if slot number is out of bounds or the slot has no item.
-     */
-    public int getItemPrice(int slotNo) {
-        // If slotNo is out of bounds
-        if (slotNo - 1 < 0 || slotNo - 1 >= vendingMachine.getSlots().length) {
-            return -1;
-            // If Slot object has no existing item
-        } else if(vendingMachine.getSlots()[slotNo - 1].getItem() == null) {
-            return -1;
-        }
-        return vendingMachine.getSlots()[slotNo - 1].getItem().getPrice();
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ItemInterface itemInterface = new ItemInterface();
-        itemInterface.setOnMouseClicked(event -> {
-            slidePopup.slideUpAnimation();
-        });
+        itemInterface.setOnMouseClicked(event -> slidePopup.slideUpAnimation());
         itemLayout.getChildren().add(itemInterface);
     }
 

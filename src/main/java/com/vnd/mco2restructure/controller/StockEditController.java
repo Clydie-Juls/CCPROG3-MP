@@ -29,8 +29,8 @@ public class StockEditController {
     public void updateView() {
         infoLayout.getChildren().clear();
         itemName.setText(programData.getCurrentSlotItem().name().toLowerCase().replaceAll("_", " "));
+        // puts each item edit input gui in the view
         for (Map.Entry<NonCustomizable, StockEditInfo.ItemEditInfo[]> entry : programData.getCurrentStockEditInfo().getItemAmount().entrySet()) {
-
             if(entry.getKey() instanceof CustomizableItemEnum.ItemType itemType) {
                 Label ingredientTypesName = new Label(itemType.getItemTypeName());
                 ingredientTypesName.getStyleClass().add("type-label");

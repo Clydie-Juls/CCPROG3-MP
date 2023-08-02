@@ -113,7 +113,7 @@ public class StockManagerController {
      * @param itemEnum The ItemEnum to set.
      * @param index    The index in the stocks list.
      */
-    public void setSlotItemEnum(ItemEnum<? extends Item> itemEnum, int index) {
+    public void setSlotItemEnum(ItemEnum<? extends Item> itemEnum, int index, boolean hasItemAlready) {
         stocks.getItemEnums().set(index, itemEnum);
         stocks.getStockEditInfos().set(index, new StockEditInfo());
         if(itemEnum instanceof CustomizableItemEnum customizableItemEnum) {
@@ -122,16 +122,23 @@ public class StockManagerController {
                         new StockEditInfo.ItemEditInfo[ingredient.getItems().length]);
 
                 for (int i = 0; i < stocks.getStockEditInfos().get(index).getItemAmount().get(ingredient).length; i++) {
-                    stocks.getStockEditInfos().get(index).getItemAmount().get(ingredient)[i] =
-                            new StockEditInfo.ItemEditInfo();
+                    StockEditInfo.ItemEditInfo itemEditInfo = new StockEditInfo.ItemEditInfo();
+                    if(hasItemAlready) {
+                        itemEditInfo.setAmount(0);
+                    }
+
+                    stocks.getStockEditInfos().get(index).getItemAmount().get(ingredient)[i] = itemEditInfo;
                 }
 
             }
         } else if(itemEnum instanceof IndependentItemEnum independentItemEnum) {
+            StockEditInfo.ItemEditInfo itemEditInfo = new StockEditInfo.ItemEditInfo();
+            if(hasItemAlready) {
+                itemEditInfo.setAmount(0);
+            }
             stocks.getStockEditInfos().get(index).getItemAmount().put(independentItemEnum,
                     new StockEditInfo.ItemEditInfo[1]);
-            stocks.getStockEditInfos().get(index).getItemAmount().get(independentItemEnum)[0] =
-                    new StockEditInfo.ItemEditInfo();
+            stocks.getStockEditInfos().get(index).getItemAmount().get(independentItemEnum)[0] = itemEditInfo;
         }
     }
 
@@ -175,9 +182,9 @@ public class StockManagerController {
                 int id = programData.getCurrentVendingMachine().getSlots()[i].getItem().getId();
                 System.out.println(id);
                 if( programData.getCurrentVendingMachine().getSlots()[i].getItem() instanceof CustomizableItem) {
-                    setSlotItemEnum(CustomizableItemEnum.values()[id], i);
+                    setSlotItemEnum(CustomizableItemEnum.values()[id], i, true);
                 } else {
-                    setSlotItemEnum(IndependentItemEnum.values()[id], i);
+                    setSlotItemEnum(IndependentItemEnum.values()[id], i, true);
                 }
             }
         }

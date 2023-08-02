@@ -9,15 +9,24 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
+/**
+ * This class is a custom javafx component that represents the stock interface
+ */
 public class StockInterface extends VBox {
     private ImageView itemImageView;
     private Label itemNameLabel;
     private Button addButton;
 
+    /**
+     * Initializes the view
+     */
     public StockInterface() {
         setView();
     }
 
+    /**
+     * prepares the gui of  this class
+     */
     private void setView() {
         FXMLLoader view = new FXMLLoader(HelloApplication.class.getResource("components/StockInterface.fxml"));
         view.setRoot(this);
@@ -32,14 +41,26 @@ public class StockInterface extends VBox {
         }
     }
 
+    /**
+     * This method returns the item image view
+     * @return item image view
+     */
     public ImageView getItemImageView() {
         return itemImageView;
     }
 
+    /**
+     * This method returns the item name label
+     * @return item name label
+     */
     public Label getItemNameLabel() {
         return itemNameLabel;
     }
 
+    /**
+     This method returns the add button
+     * @return add button
+     */
     public Button getAddButton() {
         return addButton;
     }

@@ -38,7 +38,6 @@ public class WindowManager {
     private MaintenanceService maintenanceService;
     private VendingMachineController vendingMachineController;
     private StockController stockController;
-    private RestockController restockController;
     private ChangeItemPriceController changeItemPriceController;
     private DisplayTransactionsController displayTransactionsController;
     private StockManagerController stockManagerController;
@@ -114,12 +113,6 @@ public class WindowManager {
             stockController = stockView.getController();
             stockController.setWindowManager(this);
             stockController.setStockData(new StockData());
-
-            //Restock View Setup
-            FXMLLoader restockView = new FXMLLoader(getClass().getResource("pages/RestockView.fxml"));
-            BorderPane restockLayout = restockView.load();
-            restockController = restockView.getController();
-            restockController.setWindowManager(this);
 
             //Change Item Price View Setup
             FXMLLoader changeItemPriceView = new FXMLLoader(getClass().getResource("pages/ChangeItemPriceView.fxml"));
@@ -206,8 +199,6 @@ public class WindowManager {
         currentMntLayout = mntFeaturesLayout;
         maintenanceService.setMaintenanceData(PROGRAM_DATA.getCurrentMaintenanceData());
         maintenanceService.updateView();
-        System.out.println("HEEEELLLOOOOOO");
-        System.out.println("HIIIII");
     }
 
     /**
@@ -244,7 +235,6 @@ public class WindowManager {
         vendingMachineController.setVendingMachine(PROGRAM_DATA.getCurrentVendingMachine());
         maintenanceService.setVendingMachine(PROGRAM_DATA.getCurrentVendingMachine());
         vendingMachineController.updateView();
-        System.out.println("EEGEGGEGE");
         displayTransactionsController.setTransactions(PROGRAM_DATA.getCurrentVendingMachine().getTransactions());
     }
 
@@ -278,9 +268,7 @@ public class WindowManager {
     /**
      * Navigates to the Stock view for the specified slot ID and vending machine type.
      * Sets the main stage's scene to the Stock scene and updates the StockController view.
-     *
      * @param slotId                  The ID of the slot to be displayed.
-     * @param isSpecialVendingMachine Flag indicating whether the vending machine is a special type.
      */
   public void gotoStockView(int slotId) {
 
@@ -293,6 +281,10 @@ public class WindowManager {
         stockController.setSlotId(slotId);
     }
 
+    /**
+     * Set the stock view depending on the type of vending machine
+     * @param isSpecialVendingMachine boolean value if the vending machine is special
+     */
     public void setStockView(boolean isSpecialVendingMachine) {
         stockController.setView(isSpecialVendingMachine);
         changeItemPriceController.updateView(isSpecialVendingMachine);
@@ -305,7 +297,7 @@ public class WindowManager {
      * @param index    The index of the slot to set the item enum.
      */
     public void setStockManagerStock(ItemEnum<? extends Item> itemEnum, int index) {
-        stockManagerController.setSlotItemEnum(itemEnum, index);
+        stockManagerController.setSlotItemEnum(itemEnum, index, false);
     }
 
     /**
