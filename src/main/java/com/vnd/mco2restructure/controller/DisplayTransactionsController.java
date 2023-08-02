@@ -64,6 +64,10 @@ public class DisplayTransactionsController implements Initializable {
         this.windowManager = windowManager;
     }
 
+    /**
+     * This method sets the transaction instance
+     * @param transactions - Vending machine transaction handler
+     */
     public void setTransactions(Transactions transactions) {
         this.transactions = transactions;
         System.out.println(transactions == null);

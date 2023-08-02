@@ -1,6 +1,6 @@
 package com.vnd.mco2restructure.component;
 
-import com.vnd.mco2restructure.HelloApplication;
+import com.vnd.mco2restructure.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,7 +29,7 @@ public class ItemPriceInterface extends VBox {
     }
 
     private void setView() {
-        FXMLLoader view = new FXMLLoader(HelloApplication.class.getResource("components/ItemPriceInterface.fxml"));
+        FXMLLoader view = new FXMLLoader(Application.class.getResource("components/ItemPriceInterface.fxml"));
         view.setRoot(this);
         try {
             view.load();
@@ -79,6 +79,10 @@ public class ItemPriceInterface extends VBox {
         return changePriceButton;
     }
 
+    /**
+     * This method returns the image view placeholder of the item
+     * @return image view placeholder of the item
+     */
     public ImageView getItemImageView() {
         return itemImageView;
     }

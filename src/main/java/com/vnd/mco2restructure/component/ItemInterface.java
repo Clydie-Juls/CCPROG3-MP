@@ -1,6 +1,6 @@
 package com.vnd.mco2restructure.component;
 
-import com.vnd.mco2restructure.HelloApplication;
+import com.vnd.mco2restructure.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -24,7 +24,7 @@ public class ItemInterface extends VBox {
     }
 
     private void setView() {
-        FXMLLoader view = new FXMLLoader(HelloApplication.class.getResource("components/ItemInterface.fxml"));
+        FXMLLoader view = new FXMLLoader(Application.class.getResource("components/ItemInterface.fxml"));
         view.setRoot(this);
 
         try {

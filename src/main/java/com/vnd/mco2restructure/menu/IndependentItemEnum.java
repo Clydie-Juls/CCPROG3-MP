@@ -127,6 +127,10 @@ public enum IndependentItemEnum implements ItemEnum<IndependentItem>, NonCustomi
         return newItemPrices;
     }
 
+    /**
+     * This method returns the calories of the preset item
+     * @return calories of the preset item
+     */
     public int getCalories() {
         return CALORIES;
     }

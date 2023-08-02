@@ -1,6 +1,6 @@
 package com.vnd.mco2restructure.component;
 
-import com.vnd.mco2restructure.HelloApplication;
+import com.vnd.mco2restructure.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -26,7 +26,7 @@ public class NumberField extends HBox {
     }
 
     private void setView() {
-        loader = new FXMLLoader(HelloApplication.class.getResource("components/NumberField.fxml"));
+        loader = new FXMLLoader(Application.class.getResource("components/NumberField.fxml"));
         loader.setRoot(this);
         try {
             loader.load();

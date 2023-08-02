@@ -1,6 +1,6 @@
 package com.vnd.mco2restructure.component;
 
-import com.vnd.mco2restructure.HelloApplication;
+import com.vnd.mco2restructure.Application;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -33,7 +33,7 @@ public class SlidePopup extends BorderPane {
     }
 
     private void setView() {
-        FXMLLoader view = new FXMLLoader(HelloApplication.class.getResource("components/SlidePopup.fxml"));
+        FXMLLoader view = new FXMLLoader(Application.class.getResource("components/SlidePopup.fxml"));
         view.setRoot(this);
 
         try {

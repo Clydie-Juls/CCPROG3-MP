@@ -1,6 +1,6 @@
 package com.vnd.mco2restructure.controller;
 
-import com.vnd.mco2restructure.HelloApplication;
+import com.vnd.mco2restructure.Application;
 import com.vnd.mco2restructure.WindowManager;
 import com.vnd.mco2restructure.component.StockInterface;
 import com.vnd.mco2restructure.menu.CustomizableItemEnum;
@@ -49,7 +49,7 @@ public class StockController {
     private void createStockInterface(ItemEnum<? extends Item> item, String imageFile) {
         StockInterface stockInterface = new StockInterface();
         stockInterface.getItemImageView().setImage(new Image(
-                Objects.requireNonNull(HelloApplication.class.getResourceAsStream(imageFile))));
+                Objects.requireNonNull(Application.class.getResourceAsStream(imageFile))));
         stockInterface.getItemNameLabel().setText(
                 item.toString().toLowerCase().replace('_',' '));
         stockInterface.getAddButton().setOnAction(event -> {
