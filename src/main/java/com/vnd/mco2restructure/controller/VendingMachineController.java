@@ -31,6 +31,9 @@ public class VendingMachineController implements Initializable {
     @FXML private SlidePopup slidePopup;
     @FXML private FlowPane itemLayout;
 
+    /**
+     * Initializes the vending machine controller
+     */
     public VendingMachineController() {
     }
 

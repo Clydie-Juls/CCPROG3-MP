@@ -1,3 +1,6 @@
+/**
+ * Represents the module of the program
+ */
 module com.vnd.mco2restructure {
     requires javafx.controls;
     requires javafx.fxml;

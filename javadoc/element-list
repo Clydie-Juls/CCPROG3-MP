@@ -1,0 +1,10 @@
+module:com.vnd.mco2restructure
+com.vnd.mco2restructure
+com.vnd.mco2restructure.callbacks
+com.vnd.mco2restructure.component
+com.vnd.mco2restructure.controller
+com.vnd.mco2restructure.menu
+com.vnd.mco2restructure.model
+com.vnd.mco2restructure.model.items
+com.vnd.mco2restructure.model.slots
+com.vnd.mco2restructure.model.vendingmachine

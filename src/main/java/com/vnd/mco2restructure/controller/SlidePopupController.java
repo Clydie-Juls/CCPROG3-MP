@@ -9,6 +9,9 @@ import javafx.scene.layout.BorderPane;
  */
 public class SlidePopupController {
 
+    /**
+     * layout of the slide popup
+     */
     @FXML public BorderPane layout;
 
     /**

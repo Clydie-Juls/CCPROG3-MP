@@ -55,7 +55,11 @@ public abstract class VendingMachine {
      */
     public abstract Item dispenseItem(int slotNo);
 
-
+    /**
+     * Checks if a specific slot has at least one item
+     * @param slot specified slot
+     * @return true if it at least has an item. False otherwise
+     */
     public abstract boolean hasStock(Slot<? extends Item> slot);
 
     /**

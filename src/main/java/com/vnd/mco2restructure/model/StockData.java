@@ -4,7 +4,7 @@ package com.vnd.mco2restructure.model;
  * The StockData class represents the stock data of a slot in the vending machine.
  */
 public class StockData {
-    private int slotId;
+    private int  slotId;
 
     /**
      * Retrieves the slot ID.

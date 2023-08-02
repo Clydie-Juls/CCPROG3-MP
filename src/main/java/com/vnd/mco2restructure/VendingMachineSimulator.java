@@ -12,6 +12,10 @@ package com.vnd.mco2restructure;
  * The vending machine simulator is the starting point of simulating the program
  */
 public class VendingMachineSimulator {
+    /**
+     * starting point of the program
+     * @param args represents the CLA
+     */
     public static void main(String[] args) {
         Application.main(args);
     }

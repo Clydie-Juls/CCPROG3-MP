@@ -11,13 +11,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class represents the vending machine that is regular
+ */
 public class SpecialVendingMachine extends VendingMachine{
     private HashMap<NonCustomizableItem, List<NonCustomizableItem>> itemStorage;
 
+    /**
+     * Initializes a Special vending machine with the default size
+     */
     public SpecialVendingMachine() {
         this(8, 10);
     }
 
+    /**
+     * Constructs a VendingMachine object with the specified number of slots or capacity.
+     *
+     * @param noOfSlots                 The number of slots of the vending machine
+     * @param itemCapacity              The capacity of each slots
+     */
     public SpecialVendingMachine(int noOfSlots, int itemCapacity) {
         super(noOfSlots);
         itemStorage = new HashMap<>();
@@ -26,6 +38,12 @@ public class SpecialVendingMachine extends VendingMachine{
         }
     }
 
+    /**
+     * Constructs a VendingMachine object with the specified number of slots or capacity.
+     *
+     * @param no               The number of slots or capacity based on the value of isNoOfCapacity.
+     * @param isNoOfCapacity   Determines whether the value of no represents the number of slots or the item capacity.
+     */
     public SpecialVendingMachine(int no, boolean isNoOfCapacity) {
         super(no, isNoOfCapacity);
         itemStorage = new HashMap<>();
@@ -41,6 +59,11 @@ public class SpecialVendingMachine extends VendingMachine{
         }
     }
 
+    /**
+     * dispense an item from a specific slot
+     * @param slotNo Slot Number of the vending machine.
+     * @return the dispensed item
+     */
     @Override
     public Item dispenseItem(int slotNo) {
         IdSlot slot = (IdSlot) slots[slotNo];
@@ -55,6 +78,11 @@ public class SpecialVendingMachine extends VendingMachine{
         return slot.getItem();
     }
 
+    /**
+     * Checks if a specific slot has at least one item
+     * @param slot specified slot
+     * @return true if it at least has an item. False otherwise
+     */
     @Override
     public boolean hasStock(Slot<? extends Item> slot) {
         boolean isCompleteItems = true;
@@ -90,6 +118,10 @@ public class SpecialVendingMachine extends VendingMachine{
         return isCompleteItems;
     }
 
+    /**
+     * This method returns the item storage of the special vending machine
+     * @return item storage of the special vending machine
+     */
     public HashMap<NonCustomizableItem, List<NonCustomizableItem>> getItemStorage() {
         return itemStorage;
     }

@@ -160,6 +160,10 @@ public enum DependentItemEnum implements ItemEnum<DependentItem>, NonCustomizabl
         return "images/dependent-item/" + imageFile;
     }
 
+    /**
+     * This method returns the calories of the preset item
+     * @return calories of the preset item
+     */
     public int getCalories() {
         return CALORIES;
     }

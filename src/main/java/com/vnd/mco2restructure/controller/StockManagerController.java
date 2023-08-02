@@ -112,6 +112,7 @@ public class StockManagerController {
      *
      * @param itemEnum The ItemEnum to set.
      * @param index    The index in the stocks list.
+     * @param hasItemAlready checks if the slot has an item already
      */
     public void setSlotItemEnum(ItemEnum<? extends Item> itemEnum, int index, boolean hasItemAlready) {
         stocks.getItemEnums().set(index, itemEnum);

@@ -476,6 +476,9 @@ public class WindowManager {
     }
 
 
+    /**
+     * resets current mnt layout to the mnt features layout
+     */
     public void resetCurrentFeaturesView() {
         currentMntLayout = mntFeaturesLayout;
     }

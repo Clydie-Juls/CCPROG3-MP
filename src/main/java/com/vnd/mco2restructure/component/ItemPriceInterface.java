@@ -79,6 +79,10 @@ public class ItemPriceInterface extends VBox {
         return changePriceButton;
     }
 
+    /**
+     * This method returns the image view placeholder of the item
+     * @return image view placeholder of the item
+     */
     public ImageView getItemImageView() {
         return itemImageView;
     }

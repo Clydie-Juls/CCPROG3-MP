@@ -25,6 +25,7 @@ public class Transactions {
      * Adds a transaction for the specified item to the current item log.
      *
      * @param item The item involved in the transaction.
+     * @param itemStockAmountDetail stock of an item in string form
      */
     public void addTransaction(Item item, String itemStockAmountDetail) {
         if(!ITEM_LOGS.containsKey(item.getName())) {
@@ -47,6 +48,7 @@ public class Transactions {
 
     /**
      * Creates a new item log for recording future transactions.
+     * @param items items to update
      */
     public void UpdateStockTransactionInfo(Set<String> items) {
         for (String item : items) {
@@ -55,6 +57,10 @@ public class Transactions {
         }
     }
 
+    /**
+     * Updates the table after the user buys an item
+     * @param item item to update
+     */
     public void updateTableAfterBuy(Item item) {
         if(item instanceof CustomizableItem customizableItem) {
             for (NonCustomizableItem content : customizableItem.getItemContents()) {

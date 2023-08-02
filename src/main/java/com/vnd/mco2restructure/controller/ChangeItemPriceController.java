@@ -40,9 +40,9 @@ public class ChangeItemPriceController {
     }
 
 
-
     /**
      * Updates the view by displaying the item prices and providing buttons to change the prices.
+     * @param isSpecialVendingMachine if the vending machine is special
      */
     public void updateView(boolean isSpecialVendingMachine) {
         menuLayout.getChildren().clear();

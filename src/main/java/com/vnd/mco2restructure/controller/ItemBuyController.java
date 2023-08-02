@@ -136,8 +136,12 @@ public class ItemBuyController {
         slidePopup.slideUpAnimation();
     }
 
+    /**
+     * This method opens the interface to buy the item showing the denomination and item info
+     * @param itemToBuy current item the user wants to buy
+     * @param slotIndex index of the slot
+     */
     public void buyItem( IndependentItem itemToBuy, int slotIndex) {
-        System.out.println("SLot index:" + slotIndex);
         Label finalItem = new Label("Total Price:" + itemToBuy.getPrice() +
                 "\nTotal Calories: " + itemToBuy.getCalories());
         VBox vBox = new VBox(finalItem, windowManager.
@@ -157,13 +161,16 @@ public class ItemBuyController {
 
     /**
      * Sets the ProgramData for this controller.
-     *
      * @param programData The ProgramData instance.
      */
     public void setProgramData(ProgramData programData) {
         this.programData = programData;
     }
 
+    /**
+     * This method returns the slide popup instance
+     * @return popup instance
+     */
     public SlidePopup getSlidePopup() {
         return slidePopup;
     }
