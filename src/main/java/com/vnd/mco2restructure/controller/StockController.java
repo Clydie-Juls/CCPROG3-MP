@@ -8,13 +8,9 @@ import com.vnd.mco2restructure.menu.IndependentItemEnum;
 import com.vnd.mco2restructure.menu.ItemEnum;
 import com.vnd.mco2restructure.model.StockData;
 import com.vnd.mco2restructure.model.items.Item;
-import com.vnd.mco2restructure.component.NumberField;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 import java.util.Objects;
 
 
@@ -45,6 +41,11 @@ public class StockController {
         }
     }
 
+    /**
+     * Creates a stock interface to show the item in stock or want to stock
+     * @param item item to render the data
+     * @param imageFile image of the item
+     */
     private void createStockInterface(ItemEnum<? extends Item> item, String imageFile) {
         StockInterface stockInterface = new StockInterface();
         stockInterface.getItemImageView().setImage(new Image(

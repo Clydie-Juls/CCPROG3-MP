@@ -1,22 +1,15 @@
 package com.vnd.mco2restructure.controller;
 
 import com.vnd.mco2restructure.WindowManager;
-import com.vnd.mco2restructure.component.ItemTransaction;
 import com.vnd.mco2restructure.model.ItemTransactData;
 import com.vnd.mco2restructure.model.Transactions;
-import com.vnd.mco2restructure.model.items.CustomizableItem;
-import com.vnd.mco2restructure.model.items.Item;
-import com.vnd.mco2restructure.model.items.NonCustomizableItem;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 
 
 import java.net.URL;
@@ -36,8 +29,6 @@ public class DisplayTransactionsController implements Initializable {
     @FXML private TableView<ItemTransactData> tableView;
     private Transactions transactions;
 
-
-
     private WindowManager windowManager;
 
     /**
@@ -49,6 +40,9 @@ public class DisplayTransactionsController implements Initializable {
         windowManager.gotoMntFeaturesView();
     }
 
+    /**
+     * Renders and update the table data view and other info regarding transaction history
+     */
     public void updateView() {
         tableView.setItems((FXCollections.observableArrayList(transactions.getItemLogs().values())));
         tableView.sort();
@@ -66,7 +60,6 @@ public class DisplayTransactionsController implements Initializable {
      *
      * @param windowManager The WindowManager instance.
      */
-
     public void setWindowManager(WindowManager windowManager) {
         this.windowManager = windowManager;
     }
@@ -76,6 +69,16 @@ public class DisplayTransactionsController implements Initializable {
         System.out.println(transactions == null);
     }
 
+    /**
+     * Initializes the table columns
+     * @param location
+     * The location used to resolve relative paths for the root object, or
+     * {@code null} if the location is not known.
+     *
+     * @param resources
+     * The resources used to localize the root object, or {@code null} if
+     * the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("itemName"));

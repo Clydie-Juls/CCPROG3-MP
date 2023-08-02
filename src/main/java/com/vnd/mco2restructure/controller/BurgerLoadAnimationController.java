@@ -11,13 +11,20 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+/**
+ * This controller class handles the animation when the user bought an item
+ */
 public class BurgerLoadAnimationController {
 
     @FXML private Button exitButton;
     private WindowManager windowManager;
     @FXML private VBox body;
 
-
+    /**
+     * Starts the animation by showing a series of texts depending on the situation
+     * @param stepIndex - current index of the string sequence
+     * @param steps - string sequence of text to print
+     */
     public void startAnimation(int stepIndex, String[] steps) {
         if (stepIndex < steps.length) {
             exitButton.setDisable(true);
@@ -45,15 +52,26 @@ public class BurgerLoadAnimationController {
         }
     }
 
+    /**
+     * This method sets the window manager to transfer scenes.
+     * @param windowManager - mediator of controllers and scene handler
+     */
     public void setWindowManager(WindowManager windowManager) {
         this.windowManager = windowManager;
     }
 
+    /**
+     * exits the scene and go to the vnd features view
+     */
     @FXML
     private void exit() {
         windowManager.gotoVndFeaturesView();
     }
 
+    /**
+     * This method returns the body of the view
+     * @return body of the view
+     */
     public VBox getBody() {
         return body;
     }

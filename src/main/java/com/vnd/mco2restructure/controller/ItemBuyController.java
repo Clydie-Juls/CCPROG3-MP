@@ -59,6 +59,7 @@ public class ItemBuyController {
                 Objects.requireNonNull(HelloApplication.class.
                         getResourceAsStream(slot.getItem().getImageFile()))));
 
+        // add item choices if the item is customized
         if(programData.getCurrentVendingMachine() instanceof SpecialVendingMachine specialVendingMachine) {
             ArrayList<ToggleGroup> itemsChose = new ArrayList<>();
             if(slot.getItem() instanceof CustomizableItem customizableItem) {
@@ -94,6 +95,7 @@ public class ItemBuyController {
                 }
 
                 buyItemButton.setOnAction(event -> buyItem(itemsChose, customizableItem, slotIndex));
+                // only show the item if it's an individual item
             } else if(slot.getItem() instanceof IndependentItem independentItem) {
                 if(specialVendingMachine.getItemStorage().containsKey(independentItem)) {
                     if (specialVendingMachine.getItemStorage().get(independentItem).size() > 0) {
@@ -101,6 +103,7 @@ public class ItemBuyController {
                     }
                 }
             }
+            // only show the item if it's an individual item
         } else if(programData.getCurrentVendingMachine() instanceof RegularVendingMachine regularVendingMachine){
             if(slot.getItem() instanceof IndependentItem independentItem) {
                 if(regularVendingMachine.getSlots()[slotIndex].getItem() != null) {

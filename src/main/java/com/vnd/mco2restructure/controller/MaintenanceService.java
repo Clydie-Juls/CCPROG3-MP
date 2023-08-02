@@ -44,6 +44,7 @@ public class MaintenanceService {
      */
     public void stock(ArrayList<ItemEnum<? extends Item>> itemEnums, ArrayList<StockEditInfo> stockEditInfos) {
         Set<String> itemNames = new HashSet<>();
+        // if the vending machine is only regular add stock via storage slot
         if (vendingMachine instanceof RegularVendingMachine regularVendingMachine) {
             for (int i = 0; i < itemEnums.size(); i++) {
                 if (stockEditInfos.get(i) != null) {
@@ -62,10 +63,12 @@ public class MaintenanceService {
                 }
             }
             System.out.println("Regular vending machine stock done");
+            // If the vending machine is a special vending machine, add stock via item storage
         } else if (vendingMachine instanceof SpecialVendingMachine specialVendingMachine) {
             for (int i = 0; i < itemEnums.size(); i++) {
 
                 if(stockEditInfos.get(i) != null) {
+                    // goes through each item derived if item is customizable
                     for (Map.Entry<NonCustomizable, StockEditInfo.ItemEditInfo[]> entry : stockEditInfos.get(i).getItemAmount().entrySet()) {
                         if (entry.getKey() instanceof CustomizableItemEnum.ItemType itemType) {
                             for (int i1 = 0; i1 < itemType.getItems().length; i1++) {
@@ -95,6 +98,7 @@ public class MaintenanceService {
                                     itemNames.add(dependentItemEnum.enumToItem().getName());
                                 }
                             }
+                            // Simple stock it if item is independent
                         } else if (entry.getKey() instanceof IndependentItemEnum independentItemEnum) {
                             if (!specialVendingMachine.getItemStorage().containsKey(independentItemEnum.enumToItem())) {
                                 specialVendingMachine.getItemStorage().put(independentItemEnum.enumToItem(), new ArrayList<>());
@@ -107,6 +111,7 @@ public class MaintenanceService {
                             }
                         }
                     }
+                    // put item in the id slot to get position
                     if (specialVendingMachine.getSlots()[i] instanceof IdSlot idSlot) {
                         idSlot.putItem(itemEnums.get(i).enumToItem());
                         itemNames.add(idSlot.getItem().getName());
@@ -127,6 +132,11 @@ public class MaintenanceService {
         vendingMachine.getTransactions().UpdateStockTransactionInfo(itemNames);
     }
 
+    /**
+     * update customizable item to transaction table
+     * @param item item to update
+     * @param specialVendingMachine - current special vending machine
+     */
     private void customizableItemToTransaction(CustomizableItem item, SpecialVendingMachine specialVendingMachine) {
         for (NonCustomizableItem[] value : item.getItemsDerived().values()) {
             for (NonCustomizableItem nonCustomizableItem : value) {

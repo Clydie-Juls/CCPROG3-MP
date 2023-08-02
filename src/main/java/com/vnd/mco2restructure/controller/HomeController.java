@@ -43,15 +43,20 @@ public class HomeController {
      */
     @FXML
     private void addVendingMachine() {
-        int noOfSlots = Math.max(8, ((NumberFieldController) noOfSlotsNumberField.getLoader().getController()).getValue());
-        int slotCapacity = Math.max(10, ((NumberFieldController) slotCapacityNumberField.getLoader().getController()).getValue());
+        // gets the no of slots and slot capacity. It has a minimum number of 8 and 10 respectively.
+        int noOfSlots = Math.max(8, ((NumberFieldController) noOfSlotsNumberField.
+                getLoader().getController()).getValue());
+        int slotCapacity = Math.max(10, ((NumberFieldController) slotCapacityNumberField.
+                getLoader().getController()).getValue());
 
+        // creates a button for that specific vending machine
         VendingMachineButton vendingMachineButton = new VendingMachineButton(
                 vndNameTextField.getText().isEmpty() ? "Vending Machine " +
                         (programData.getVendingMachines().size() + 1) : vndNameTextField.getText(),
                 vndTypeChoice.getValue(), noOfSlots, slotCapacity
         );
 
+        // handles button logic
         vendingMachineButton.setOnMouseClicked(event -> {
             programData.setCurrentVendingMachine(programData.getVendingMachines().get(vendingMachineButton));
             programData.setCurrentMaintenanceData(programData.getMaintenanceDatas().get(vendingMachineButton));
@@ -63,6 +68,8 @@ public class HomeController {
         });
 
         vndMachineButtonsLayout.getChildren().add(vendingMachineButton);
+
+        // Sets the type of vending machine to create
         if (vndTypeChoice.getValue().equalsIgnoreCase("Regular")) {
             System.out.println("Add regular vending machine");
             programData.getVendingMachines().put(vendingMachineButton, new RegularVendingMachine(noOfSlots, slotCapacity));
@@ -70,10 +77,12 @@ public class HomeController {
             System.out.println("Add special vending machine");
             programData.getVendingMachines().put(vendingMachineButton, new SpecialVendingMachine(noOfSlots, slotCapacity));
         }
+        // handles other data to be used in the program
         programData.getMaintenanceDatas().put(vendingMachineButton, new MaintenanceData());
         programData.getIndependentItemPrices().put(vendingMachineButton, IndependentItemEnum.createNewItemPrices());
         programData.getDependentItemPrices().put(vendingMachineButton, DependentItemEnum.createNewItemPrices());
 
+        // reset the inputs
         vndTypeChoice.setValue("Regular");
         vndNameTextField.setText("");
         noOfSlotsNumberField.getTextField().setText("0");
